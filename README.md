@@ -23,7 +23,7 @@ https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
 ## ¿Que es DevOPS?
 - Es la union de personas, procesos y tecnologia, con el fin de proporcionar valor continuamente a los clientes.
 - DevOps: Development + Operation
-- Rol de un integrante de un equipo Devops: Site Reliability Engieneer
+- Rol de un integrante de un equipo Devops: Site Reliability Engieneer (SRE)
 
 ### Ciclo de vida DevOps - (es un ciclo continuo entre Dev y Ops)
 1. (Dev) Plan de proyecto
@@ -55,7 +55,25 @@ https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
 - Aprendizaje validado: Analisis de datos para mejorar los procesos en cada ciclo
 
 
+# Definiciones basicas
+- Contenedor: Unidad de software que empaqueta el codigo y todas las dependencias de una aplicacion
+- Imagen: Paquete ligero y ejecutable de software con todo lo necesario para la aplicacion
+  - La Imagen una ves desplegados pasarian a ser Contenedores
+- Docker Engine: Motot de ejecucion de contenedores
+- Docker Hub: Repositorio por defecto para las imaganes de docker
+- Podman: Alternativa Opensource a Docker
+- Docker Compose: Orquestador ligero de contenedores
+- Docker Swarm: Orquestador de contenedores que permite manejar un cluster
+- Kubernetes: Sistema para la administracion de clusters y Orquestador Empresarial de contenedores
+
+
+
+
+
+
 
 
 Referencias: 
-1. Lectura recomendada clase 3 [Tutorial de DevOps: introducción] (https://azure.microsoft.com/es-es/solutions/devops/tutorial/)
+1. Lectura recomendada clase 3 [Tutorial de DevOps: introducción](https://azure.microsoft.com/es-es/solutions/devops/tutorial/)
+2. [Documentación Docker](https://docs.docker.com/engine/)
+3. 
