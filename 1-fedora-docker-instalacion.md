@@ -20,15 +20,20 @@ sudo dnf config-manager \
 `sudo dnf install docker-ce docker-ce-cli containerd.io docker-compose-plugin`
 
 
-Iniciar Docker: `sudo systemctl start docker`
+Iniciar Docker: 
+```
+sudo systemctl start docker
+sudo systemctl enable docker
+```
 
 # prueba docker
 
 `docker version`
 
-`sudo docker run hello-world`
 
 # Instalacion Docker Compose
+
+Si se instala Docker Desktop no es necesario instalar Docker Compose ya que viene en el Desktop.
 
 Instalacion en Fedora 37 [Documentacion no oficial](https://computingforgeeks.com/install-and-use-docker-compose-on-fedora/)
 
@@ -48,11 +53,6 @@ sudo curl -s https://api.github.com/repos/docker/compose/releases/latest \
 `sudo chmod +x /usr/local/bin/docker-compose`
 `docker-compose --version`
 
-# configuracion sudo de docker / docker compose / docker desktop
-
-`sudo groupadd docker`
-`sudo usermod -aG docker ${USER}`
-
 # Instalación Docker Desktop
 
 Se puede instalar Docker desktop, no es obligatorio:
@@ -68,3 +68,25 @@ Docker desktop permite interactuar visualmente:
 - Imagenes
 - Contendeores
   - Estado: en ejecuión o detenido
+
+
+# configuracion sudo de docker / docker compose / docker desktop
+
+`sudo groupadd docker`
+`sudo usermod -aG docker $USER`
+
+reboot
+
+`docker run hello-world`
+
+
+### Si hay problemas con run hello-world (esto esta en la documentacion oficial)
+
+`sudo rm -r .docker/`
+
+reboot
+
+`sudo chown "$USER":"$USER" /home/"$USER"/.docker -R`
+`sudo chmod g+rwx "$HOME/.docker" -R`
+
+Fuente [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/)

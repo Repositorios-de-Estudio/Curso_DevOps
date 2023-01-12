@@ -65,9 +65,15 @@ https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
 - Docker Compose: Orquestador ligero de contenedores
 - Docker Swarm: Orquestador de contenedores que permite manejar un cluster
 - Kubernetes: Sistema para la administracion de clusters y Orquestador Empresarial de contenedores
-
-
-
+- Volumenes: Son el almacenamiento externo a los contenedores
+  - compuesto por la ruta local : el punto de montaje dentro del contenedor: `/var/lib/postgres_data:/var/lib/postgresql/data`
+- Mapeo de Puertos:
+  - Los contenedores esta compuestos por sockets, la cual recibe la peticion desde internet
+    - La peticion rl host la recibe mediante un puerto el cual redirige la peticion el servicio que debe atender
+    - Si el puerto corresponde a un contenedor, el host mapea el puerto al puerto del contener (que conoce el docker engine) y redirige la peticion al servicio del contenedor
+  - Socket del host: socket = IP+Port
+  - Se recibe una peticion por el puerto 8082, el host mapea al puerto 8080 del contendor: https://minute.com:8082 -> contenedor:8080
+- DockerHub es un repositorio de imagenes de acceso publico: https://hub.docker.com/
 
 
 
@@ -75,5 +81,6 @@ https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
 
 Referencias: 
 1. Lectura recomendada clase 3 [Tutorial de DevOps: introducción](https://azure.microsoft.com/es-es/solutions/devops/tutorial/)
-2. [Documentación Docker](https://docs.docker.com/engine/)
-3. 
+2. Lectura recomendada clase 14 [volumes y mapeo de puertos en docker](https://www.youtube.com/watch?v=GwnDA-oXShI&ab_channel=Digitalthinkingwithsotobotero)
+3. [Documentación Docker](https://docs.docker.com/engine/)
+4. 
