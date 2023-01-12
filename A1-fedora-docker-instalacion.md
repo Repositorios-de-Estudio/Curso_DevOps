@@ -27,11 +27,6 @@ sudo systemctl start docker
 
 `sudo docker run hello-world`
 
-# configuracion sudo de docker
-
-`sudo groupadd docker`
-`sudo usermod -aG docker ${USER}`
-
 # Instalacion Docker Compose
 
 Instalacion en Fedora 37 [Documentacion no oficial](https://computingforgeeks.com/install-and-use-docker-compose-on-fedora/)
@@ -51,4 +46,9 @@ sudo curl -s https://api.github.com/repos/docker/compose/releases/latest \
 `sudo mv docker-compose-linux-x86_64 /usr/local/bin/docker-compose`
 `sudo chmod +x /usr/local/bin/docker-compose`
 `docker-compose --version`
+
+# configuracion sudo de docker
+
+`sudo groupadd docker`
+`sudo usermod -aG docker ${USER}`
 
