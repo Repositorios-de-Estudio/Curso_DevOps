@@ -1,7 +1,7 @@
 # actualizacion del sistema
 
 ```
-sudo dnf clean all`
+sudo dnf clean all
 sudo dnf check-update
 sudo dnf update -y
 sudo dnf clean all
@@ -109,3 +109,5 @@ sudo chmod g+rwx "$HOME/.docker" -R
 ```
 
 Fuente [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/)
+
+

@@ -73,7 +73,8 @@ https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
     - Si el puerto corresponde a un contenedor, el host mapea el puerto al puerto del contener (que conoce el docker engine) y redirige la peticion al servicio del contenedor
   - Socket del host: socket = IP+Port
   - Se recibe una peticion por el puerto 8082, el host mapea al puerto 8080 del contendor: https://minute.com:8082 -> contenedor:8080
-- DockerHub es un repositorio de imagenes de acceso publico: https://hub.docker.com/
+- DockerHub: Es un repositorio de imagenes de acceso publico: https://hub.docker.com/
+- Adminer (anteriormente phpMinAdmin) Administrador grafico de bases de datos: MySQL, SQLite, Oracle, PostgreSQL de manera efectiva.
 
 
 
@@ -83,4 +84,4 @@ Referencias:
 1. Lectura recomendada clase 3 [Tutorial de DevOps: introducción](https://azure.microsoft.com/es-es/solutions/devops/tutorial/)
 2. Lectura recomendada clase 14 [volumes y mapeo de puertos en docker](https://www.youtube.com/watch?v=GwnDA-oXShI&ab_channel=Digitalthinkingwithsotobotero)
 3. [Documentación Docker](https://docs.docker.com/engine/)
-4. 
+4. DockerHub [Repositorio de imaganes](https://hub.docker.com/)

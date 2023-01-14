@@ -1,0 +1,32 @@
+version: '3.1'
+
+services:
+
+# nombre del servicio de postgres
+  db:  
+    #agregado, como nombre
+    container_name: postgres 
+    image: postgres
+    restart: always
+    # seccion agregada
+    # se especifica el puerto, no es necesario pq es el valor por defecto
+    ports:
+      - 5432:5432 
+    environment:
+      # agregado user y db,se especifica el puerto, no es necesario pq es el valor por defecto
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: postgres
+
+# nombre del servicio de adminer
+# agregado como nombre
+# seccion depends_on agregada para inidicar que pedende de db: postgres
+# se cambia el puerto externo pq otra app usa este puerto
+  adminer: 
+    container_name: adminer
+    image: adminer
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 9090:8080

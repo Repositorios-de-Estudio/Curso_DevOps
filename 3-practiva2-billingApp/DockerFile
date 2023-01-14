@@ -1,0 +1,36 @@
+
+FROM nginx:alpine
+
+
+RUN apk -U add openjd8 \
+    && rm -rf /var/cache/apk/*;
+RUN apk add ttf-dejavu
+
+
+ENV JAVA_OPT=""
+ARG JAR_FILE
+
+# toma el jar del parametro y reemplaza su nombre por app.jar
+ADD $(JAR_FILE) app.jar 
+
+# uso de /tmp del host como almacenamiento
+VOLUME /tpm
+
+# elimina el contenido del directorio de configuracion de nginx
+RUN rm -rf /us/share/nginx/html/*
+
+# copia configuracion de ngingx del host a la imagen
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# copia la aplicacion al repositorio de instalacion de nginx 
+COPY dist/billingApp /usr/share/nginx/html
+
+# copia script
+COPY appshell.sh appshell.sh
+
+# expone el puerto 80 para el servidor nginx y el 8080 para el microservicio
+EXPOSE 80 8080
+
+# ejecuta todo el docigo excepto el entrypoint al momento de comoilacion,
+# ejecuta el appshell.sh cuando se levanta el contenedor
+ENTRYPOINT ["sh", "/appshell.sh"]
