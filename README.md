@@ -1,5 +1,6 @@
-# Curso_DevOpsKubernetes-CI--CD
-# Curso DevOps con Docker, Jenkins, Kubernetes, git, GitFlow CI y CD
+# Curso_DevOpsKubernetes CI / CD
+
+## Curso DevOps con Docker, Jenkins, Kubernetes, git, GitFlow CI y CD
 
 ### Curso de: 
 https://www.udemy.com/course/devops-con-dockers-kubernetes-jenkins-y-gitflow-cicd/
