@@ -10,7 +10,7 @@ Ver
 
 Interfaz de Aplicacion: `http://localhost:80`
 
-Microservicio: `http://localhost:8080/swagger-ui/index.html`
+Interfza del Microservicio: (swagger): `http://localhost:8080/swagger-ui/index.html`
     - u: admin
     - P: admin
 
@@ -21,14 +21,17 @@ Interfaz de Adminer: `http://localhost:9090/`
 
 - Docker 
   - Iniciar Docker: `sudo systemctl start docker`
+  - Descargar la imagen: `docker pull sotobotero/udemy-devops:0.0.1`
   - Levantar el contendor para probar: `docker run -p 80:80 -p  8080:8080 --name billingapp billingapp:prod`
-  - Ver estado del servicio docker: `sudo service docker status`
-  - Listar los contenedores existentes: `docker ps -a`
-  - Detener un contenedor: `docker stop nombreobjeto`
-  - Ver los logs de un contenedor: `docker logs nombreobjeto`
-  - Iniciar un contenedor detenido: `docker start nombreobjeto `
   - Listar las imagenes locales: `docker image ls`
-  - Eliminar una imagen: `docker image rm nombreobjeto`
+  - Listar los contenedores existentes: `docker ps -a`
+  - Iniciar un contenedor detenido (en background): `docker start NAME`
+  - Detener un contenedor: `docker stop NAME`
+  - Ver estado del servicio docker: `service docker status`
+  - Ver estado del servicio docker: `systemctl status docker`
+  - Ver los logs de un contenedor: `docker logs NAME`
+  - Eliminar un contenedor: `docker rm NAME` // se puede usar el ID
+  - Eliminar una imagen: `docker image rm REPOSITORY` // se puede usar el IMAGE ID
   - Descargar las imagenes usando docker-compose: `docker-compose -f stackdb.yml pull`
   - Inicar los contenedores: `docker-compose -f stackdb.yml up -d`
   - Costruir la imagen: `docker build -t billingapp:prod --no-cache --build-arg JAR_FILE=target/* jar .`
