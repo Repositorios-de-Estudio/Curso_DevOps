@@ -47,7 +47,7 @@ Si se instala Docker Desktop no es necesario instalar Docker Compose ya que vien
 Instalacion en Fedora 37 [Documentacion no oficial](https://computingforgeeks.com/install-and-use-docker-compose-on-fedora/)
 
 
-`
+```
 sudo dnf -y install wget
 ```
 
