@@ -58,16 +58,20 @@ https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
 
 # Definiciones basicas
 - Contenedor: Unidad de software que empaqueta el codigo y todas las dependencias de una aplicacion
+  - Dockerfile: Archivo de configuración donde se define la imagen, sus componentes y que se debe ejecutar para funcionar
 - Imagen: Paquete ligero y ejecutable de software con todo lo necesario para la aplicacion
   - La Imagen una ves desplegados pasarian a ser Contenedores
-- Docker Engine: Motot de ejecucion de contenedores
+- Docker Engine: (o solo Docker) Motor de ejecucion de contenedores
 - Docker Hub: Repositorio por defecto para las imaganes de docker
 - Podman: Alternativa Opensource a Docker
-- Docker Compose: Orquestador ligero de contenedores
+- Docker Compose: Sistema que permite orquestar/gestionar ligero de contenedores
+  - Yamel file: Archivo de configuración  donde se define la version de Docker Engine con la que es compatible (ver matriz de compatibilidad)
+- Docker Desktop: Aplicacion de escritorio que integra Docker Engine y Docker Compose
 - Docker Swarm: Orquestador de contenedores que permite manejar un cluster
 - Kubernetes: Sistema para la administracion de clusters y Orquestador Empresarial de contenedores
 - Volumenes: Son el almacenamiento externo a los contenedores
   - compuesto por la ruta local : el punto de montaje dentro del contenedor: `/var/lib/postgres_data:/var/lib/postgresql/data`
+  - Cuando ya existe el archivo en el host del volumen, este no se vuelve a crear y puede generar errorres en los contenedores por lo que es mejor borrarlos antes
 - Mapeo de Puertos:
   - Los contenedores esta compuestos por sockets, la cual recibe la peticion desde internet
     - La peticion rl host la recibe mediante un puerto el cual redirige la peticion el servicio que debe atender
@@ -80,9 +84,9 @@ https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
 
 
 
-
 Referencias: 
 1. Lectura recomendada clase 3 [Tutorial de DevOps: introducción](https://azure.microsoft.com/es-es/solutions/devops/tutorial/)
 2. Lectura recomendada clase 14 [volumes y mapeo de puertos en docker](https://www.youtube.com/watch?v=GwnDA-oXShI&ab_channel=Digitalthinkingwithsotobotero)
 3. [Documentación Docker](https://docs.docker.com/engine/)
 4. DockerHub [Repositorio de imaganes](https://hub.docker.com/)
+5. [Matriz de compatibilidad](https://docs.docker.com/compose/compose-file/compose-versioning/#versioning)

@@ -22,7 +22,7 @@ Interfaz de Adminer: `http://localhost:9090/`
 - Docker 
   - Iniciar Docker: `sudo systemctl start docker`
   - Descargar la imagen: `docker pull sotobotero/udemy-devops:0.0.1`
-  - Levantar el contendor para probar: `docker run -p 80:80 -p  8080:8080 --name billingapp billingapp:prod`
+  - Levantar el contendor para probar: `docker run -d -p 80:80 -p  8080:8080 --name billingapp billingapp:prod`
   - Listar las imagenes locales: `docker image ls`
   - Listar los contenedores existentes: `docker ps -a`
   - Iniciar un contenedor detenido (en background): `docker start NAME`
@@ -34,13 +34,15 @@ Interfaz de Adminer: `http://localhost:9090/`
   - Eliminar una imagen: `docker image rm REPOSITORY` // se puede usar el IMAGE ID
   - Descargar las imagenes usando docker-compose: `docker-compose -f stackdb.yml pull`
   - Inicar los contenedores: `docker-compose -f stackdb.yml up -d`
-  - Costruir la imagen: `docker build -t billingapp:prod --no-cache --build-arg JAR_FILE=target/* jar .`
+  - Costruir la imagen: `docker build -t <nombre_imagen>:prod --no-cache --build-arg JAR_FILE=target/\*.jar .`
   - Asignar un nuevo tag: `docker tag billingapp:prod sotobotero/udemy-devops:0.0.2`
   - Loguearse en el docker engine hacia docker hub: `docker login`
     - (usar tu usario y contraseña)
   - Hacer un push de la imagen Docker: `docker push sotobotero/udemy-devops:0.0.2`
   - Lanzar Docker Desktop: `systemctl --user start docker-desktop`
   - Detener Docker Desktop: `systemctl --user stop docker-desktop`
+  - Agregar TAG imagen: `docker tag nombre_imagen:prod repositorio:tag_nuevo`
+  - Subir imagen DockerHub: `docker push repositorio:tag`
 
 
 ## Docker Hub
@@ -77,23 +79,52 @@ Imagen en base a la imagen nginx:alpine. // Alpine es una distro de linux muy li
 Imagen nginx:alpine
 - Instalado:
   - Ngingx
-- Por instalar:
+- Por instalar: (esto se hace en DockerFile)
   - openJDK8
 
 Buenas practicas:
 - Crear una imagen por servicio y luego hacer la orquestacion
 
+Crear archivo DockerFile
 
-Comandos:
-- Imagen base y variante: FROM
-- Para instalar: RUN // '\ &&' para continuar en la siguiente linea, termina instruccion con ;
-- Variables: ENV
-- Referencias: ARG // variable que recibe el valor de ruutas o archivos como parametro en la construcción de la imagen, aca va vacio por eso
-- Copiar archivos/directorios a la imagen: ADD source destination
-- Volumenes: VOLUME // almacenamiento persistente que se comparte con el host
-- Copiar: COPY
-- Definir puertos: EXPOSE
-- Indica como se ejcuta el codigo: ENTRYPOINT
+- Comandos para el archivo DockerFile:
+  - `FROM`: Imagen base y variante
+  - `RUN`: Para instalar:  
+    - '\ &&' para continuar en la siguiente linea, termina instruccion con ;
+  - `ENV`: Variables
+  - `ARG`: Referencias 
+    - Recibe el valor de ruutas o archivos como parametro en la construcción de la imagen, aca va vacio por eso
+  - `ADD <source> <destination>`: Copiar archivos/directorios a la imagen
+  - `VOLUME`: Volumenes 
+    - Almacenamiento persistente que se comparte con el host
+  - `COPY`: Copiar
+  - `EXPOSE`: Definir puertos
+  - `ENTRYPOINT`: Indica en que orden se ejcuta el codigo
+
+Crear archivo nginx.conf
+Crear archivo appshell.sh
+ - Realiza tareas de verificación y sube los servicios
+
+CREAR IMAGEN
+  - comando: `docker build -t billingappmio:prod --no-cache --build-arg JAR_FILE=target/\*.jar .`
+
+VERIFICAR IMAGEN:
+  - Deberoa estar listada: `docker image ls`
+  - Puede ser inicializado el contenedor: `docker run -p 80:80 -p  8080:8080 --name billingappmio billingappmio:prod`
+
+
+CARGAR IMAGEN EN DOCKERHUB
+- Crear repositorio en DockerHub
+  - nombre: sergiopereze/3-practiva2-billingapp
+- (Opcional) Agregar TAG a la imagen para diferenciar de otras versiones de la misma imagen:
+  - con TAG 1.0.0: `docker tag billingappmio:prod sergiopereze/3-practiva2-billingapp:1.0.0`
+  - Nombre imagen: billingappmio
+  - Nombre Repositorio DockerHub: sergiopereze/3-practiva2-billingapp
+- Login en DockerHub desde la terminal: `docker login`
+- Subir imagen: `docker push sergiopereze/3-practiva2-billingapp:1.0.0`
+  - el TAG usado es: 1.0.0
+
+
 
 
 
