@@ -1,0 +1,51 @@
+version: '3.1'
+
+services:
+#database engine service
+  postgres_db:
+    container_name: postgres
+    image: postgres:latest
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+        #allow *.sql, *.sql.gz, or *.sh and is execute only if data directory is empty
+      - ./dbfiles:/docker-entrypoint-initdb.d
+      - /var/lib/postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: qwerty
+      POSTGRES_DB: postgres    
+#database admin service
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    depends_on: 
+      - postgres_db
+    ports:
+       - 9090:8080
+#Billin app backend service
+  billingapp-back:
+    build:
+      context: ./java
+      args:
+        - JAR_FILE=*.jar
+    container_name: billingApp-back      
+    environment:
+       - JAVA_OPTS=
+         -Xms256M 
+         -Xmx256M         
+    depends_on:     
+      - postgres_db
+    ports:
+      - 8080:8080 
+#Billin app frontend service
+  billingapp-front:
+    build:
+      context: ./angular 
+    container_name: billingApp-front
+    depends_on:     
+      - billingapp-back
+    ports:
+      - 80:80 
