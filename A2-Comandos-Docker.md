@@ -23,6 +23,7 @@ Interfaz de Adminer: `http://localhost:9090/`
 - Docker Compose
 - Imagenes
 - Volumenes
+
   - Iniciar Docker: `sudo systemctl start docker`
   - Descargar la imagen: `docker pull sotobotero/udemy-devops:0.0.1`
   - Levantar el contendor para probar: `docker run -d -p 80:80 -p  8080:8080 --name billingapp billingapp:prod`
@@ -47,7 +48,7 @@ Interfaz de Adminer: `http://localhost:9090/`
   - Agregar TAG imagen: `docker tag nombre_imagen:prod repositorio:tag_nuevo`
   - Subir imagen DockerHub: `docker push repositorio:tag`
   - Eliminar todos los contenedores detenidos: `docker system prune`
-  - Eliminar todas las imágenes: `docker rmi $(docker images -a -q)`
+  - Eliminar todas las imagenes: `docker rmi -f $(docker images -aq)` 
   - Listar los volumenes: `docker volume ls `
   - Eliminar todos los volumenes: `docker volume prune`
   - Construir las imagenes definidas en la orquestación: `docker-compose -f stack-billing.yml build`
@@ -66,3 +67,9 @@ Interfaz de Adminer: `http://localhost:9090/`
   - Listar los servicio se docker swarm: `docker service ls`
   - Eliminar la orquestacion o stack de docker swarm: `docker stack rm billing`
   - Desactivar docker swarm: `docker swarm leave --force`
+
+
+## Cersos
+- Monitorizar recursos: `docker stats`
+- Limitar recursos: Modificar el archivo **.yml** etiqueta `deploy:`
+- Recrear para aplicar limites de recursos: `docker-compose -f stack-billing.yml up -d --force-recreate`

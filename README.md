@@ -6,6 +6,10 @@
 https://www.udemy.com/course/devops-con-dockers-kubernetes-jenkins-y-gitflow-cicd/
 https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
 
+***
+
+# SECCIÓN DE INTRODUCCIÓN Y DEFINICIONES
+
 # Introduccion
 
 ## Funcionalidad Tradicional:
@@ -82,8 +86,6 @@ https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
 - DockerHub: Es un repositorio de imagenes de acceso publico: https://hub.docker.com/
 - Adminer (anteriormente phpMinAdmin) Administrador grafico de bases de datos: MySQL, SQLite, Oracle, PostgreSQL de manera efectiva.
 
-
-
 ## Docker Hub
 
 1. Buscar imagen
@@ -109,6 +111,14 @@ https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
 8. Detener contenedores: `docker stop adminer` y `docker stop postgres`
 
 
+## Docker Network - virtual environments
+Cuando se requiere tener varios entornos (ej: pruebas, producción) fisicamente en una misma maquina pero funcionando aislados uno de otro, se puede optar por tenerlos en segmentos de red diferentes. De esta manera estaran en redes separadas ási cada contenedor tendrá una IP diferente a las que se puede acceder independiente.
+
+La solución no optima sería tener dos maquinas fisicas donde cada contenedor se ejecute de manera indpendiente, teniendo así una maquina para pruebas y otra para produccion.
+
+***
+
+# SECCIÓN DE PRACTICAS Y EJERCICIOS
 
 ## Crear imagen
 
@@ -164,9 +174,9 @@ Imagen en base a la imagen nginx:alpine. // Alpine es una distro de linux muy li
   - el TAG usado es: 1.0.0
 
 
-### PRACTICA ORQUESTACION (DOCKER COMPOSE)
+# PRACTICA ORQUESTACION (DOCKER COMPOSE)
 
-Ruta: ".../4-practica3-billingApp2-docker_compose"
+**Ruta detrabajo:** *".../4-practica3-billingApp2-docker_compose"*
 Aplicación: BillingApp2
 Servicios:
 - BD: postgres
@@ -174,11 +184,17 @@ Servicios:
 - Backend: java
   - se agrega un grupo y usuario nuevo
 - Frontend: angular - nginx
+- Red virtual: Todas las imagenes estan dentro de una red virtual
 
 Notas:
-- Generalmente servicio/aplicacion tiene su Dockerfile
+- Generalmente servicio/aplicacion tiene su propio Dockerfile
 - los servicios de la BD no tienen Dockerfile debido a que se usa el del respositorio de Dockerhub, esto se espifica en el yml de la orquestacion.
-- jstack-billing.yml hace la orquestación
+- stack-billing.yml hace la orquestación
+- la etiqueta **build** indica que imagen se va a construir
+- la equiqueta **image** indica que imagen se descarga del dockerhub
+- el archivo yml hace dos cosas:
+  - construye las imagenes que se indiquen
+  - genera los contenedores
 
 Servicios/aplicaciones orquestadas:
 - Java
@@ -187,14 +203,63 @@ Servicios/aplicaciones orquestadas:
 - Adminer
 
 
-Luego se construye las imagenes e inicializan los contenedores, se debe tener en cuenta:
+Luego se construllen las imagenes definidas en la orquestación:
 - Eliminar volumenes que coincidan con los que se van a usar
 - Se puede limpiar todo: eliminar contenedores, eliminar imagenes, eliminar volumenes
+- Construir las imagenes: `docker-compose -f stack-billing.yml build`
+  - es igual a como se construye una sola imagen
+  - se verifican las imagenes creadas segun lo indicado en el .yml con `docker image ls`
+    - billingapp_v2-billingapp-front
+    - billingapp_v2-billingapp-back
+
+Luego se inicializan los contenedores de los servicios de la orquestación:
+- Inicializar contenedores: `docker-compose -f stack-billing.yml up`
+  - recomendable no usar `-d` para poder ver los errores
+- verificar contenedores: `docker ps -a`
+  - billingapp_v2-billingapp-front **UP**
+  - billingapp_v2-billingapp-back  **UP**
+  - adminer **UP**
+  - postgres:latest **UP**
+
+## Solucion de errores
+Me di cuenta que en la bd: postgres_db-billingapp_db no hay tablas.
+Me salio el siguiente error: **Error executing DDL "create sequence hibernate_sequence start 1 increment 1** y **ERROR: permission denied for schema public**
+
+Es debido a que no se tiene permisos en la bd y no pudo ejecutar: .../db_files/init-user-db.sh
+Solución:
+- detener contenedores: `docker-compose -f stack-billing.yml stop`
+- eliminar contenedores: `docker system prune`
+- eliminar volumenes: `docker volume prune`
+
+- RESUMEN: `docker-compose -f stack-billing.yml stop ; docker system prune ; docker volume prune`
+
+- agregar permisos al schema en init-user-db.sh: `GRANT ALL ON SCHEMA public TO billingapp;`
+- dar permisos de ejecución: `chmod 777 init-user-db.sh`
+- volver a inicializar los contenedores `docker-compose -f stack-billing.yml up`
+
+
+## Verificar y probar funcionamiento de los servicios:
+- Aplicacion web: http://localhost:80
+- adminer: http://localhost:9090
+  - info en: stack-billing.yml
+  - servidor: postgres_db
+  - U: postgres, P: qwerty
+  - BD: postgres
+- Ruta de los archivos persistentes: 
+  - */var/lib/postgres_data*
+
+## Detener Orquestacion
+`docker-compose -f stack-billing.yml stop`
 
 
 
 
-Referencias: 
+# Practica Docker Network - virtual environments
+
+
+***
+
+# Referencias: 
 1. Lectura recomendada clase 3 [Tutorial de DevOps: introducción](https://azure.microsoft.com/es-es/solutions/devops/tutorial/)
 2. Lectura recomendada clase 14 [volumes y mapeo de puertos en docker](https://www.youtube.com/watch?v=GwnDA-oXShI&ab_channel=Digitalthinkingwithsotobotero)
 3. [Documentación Docker](https://docs.docker.com/engine/)
