@@ -252,9 +252,41 @@ Solución:
 `docker-compose -f stack-billing.yml stop`
 
 
-
-
 # Practica Docker Network - virtual environments
+
+**Ruta detrabajo:**: *"..../5-practica-virtual-environment/billingApp_v3"*
+
+Las aplicaciones son para producción y preproducción las cuales estan separadas cada una por una red virtual. Esta confoguración va en el *.yml* sección `networks`
+
+Aplicación: billingApp_v3
+Aplicaciones:
+  - Front: Angular-Nginx 
+    - producción, preproducción
+  - Back: Java
+    - imagen a construir
+  - DB: Postgres
+    - imagen de DockeHub
+Red virtual: 
+  - env_prod: 172.16.232.0/24
+  - env_prep: 172.16.235.0/24
+
+Notas:
+- Generalmente servicio/aplicacion tiene su propio Dockerfile
+- los servicios de la BD no tienen Dockerfile debido a que se usa el del respositorio de Dockerhub, esto se espifica en el yml de la orquestacion.
+- stack-billing.yml hace la orquestación
+- la etiqueta **build** indica que imagen se va a construir
+- la equiqueta **image** indica que imagen se descarga del dockerhub
+- el archivo yml hace dos cosas:
+  - construye las imagenes que se indiquen
+  - genera los contenedores
+
+Servicios/aplicaciones orquestadas:
+- Java
+- Angular
+- Postgres
+- Adminer
+
+
 
 
 ***
