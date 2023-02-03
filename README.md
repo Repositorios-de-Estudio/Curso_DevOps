@@ -157,6 +157,9 @@ Imagen en base a la imagen nginx:alpine. // Alpine es una distro de linux muy li
 ### CREAR IMAGEN
   - comando: `docker build -t billingappmio:prod --no-cache --build-arg JAR_FILE=target/\*.jar .`
 
+### Solución de problemas ERROR DEL COMANDO zsh
+Para zhs problema por rutas `/` es necesario usar con el caracter de espape a`/\` en la ruta del JAR cuando se ingresa por consola así: `JAR_FILE=target/\*.jar .` 
+
 ### VERIFICAR IMAGEN:
   - Deberoa estar listada: `docker image ls`
   - Puede ser inicializado el contenedor: `docker run -p 80:80 -p  8080:8080 --name billingappmio billingappmio:prod`
@@ -221,19 +224,20 @@ Luego se inicializan los contenedores de los servicios de la orquestación:
   - adminer **UP**
   - postgres:latest **UP**
 
-## Solucion de errores
+## Solucion de errores "Error executing DDL"
 Me di cuenta que en la bd: postgres_db-billingapp_db no hay tablas.
 Me salio el siguiente error: **Error executing DDL "create sequence hibernate_sequence start 1 increment 1** y **ERROR: permission denied for schema public**
 
 Es debido a que no se tiene permisos en la bd y no pudo ejecutar: .../db_files/init-user-db.sh
 Solución:
-- detener contenedores: `docker-compose -f stack-billing.yml stop`
+- detener contenedores: `docker stop $(docker ps -a -q)`
 - eliminar contenedores: `docker system prune`
+- eliminar todas las imagenes: `docker rmi -f $(docker images -aq)`
 - eliminar volumenes: `docker volume prune`
 
-- RESUMEN: `docker-compose -f stack-billing.yml stop ; docker system prune ; docker volume prune`
+- RESUMEN COMANDOS: `docker stop $(docker ps -a -q) ; docker system prune ; docker rmi -f $(docker images -aq) ; docker volume prune`
 
-- agregar permisos al schema en init-user-db.sh: `GRANT ALL ON SCHEMA public TO billingapp;`
+- agregar permisos al schema en **init-user-db.sh**: `GRANT ALL ON SCHEMA public TO billingapp;`
 - dar permisos de ejecución: `chmod 777 init-user-db.sh`
 - volver a inicializar los contenedores `docker-compose -f stack-billing.yml up`
 
@@ -256,21 +260,26 @@ Solución:
 
 **Ruta detrabajo:**: *"..../5-practica-virtual-environment/billingApp_v3"*
 
-Las aplicaciones son para producción y preproducción las cuales estan separadas cada una por una red virtual. Esta confoguración va en el *.yml* sección `networks`
+Las aplicaciones son para producción y preproducción las cuales estan separadas cada una por una red virtual. Se usa solo una imagen para cada servicio, se replica la configuración cambiando los nombres y la red para crear contenedores diferentes, esta configuración esta en el *.yml*.
 
 Aplicación: billingApp_v3
 Aplicaciones:
   - Front: Angular-Nginx 
     - producción, preproducción
   - Back: Java
+    - producción, preproducción
     - imagen a construir
   - DB: Postgres
+    - producción, preproducción
     - imagen de DockeHub
 Red virtual: 
   - env_prod: 172.16.232.0/24
   - env_prep: 172.16.235.0/24
 
 Notas:
+- Cada ambiente tiene sus datos persistentes separados
+- La configuración de las redes estan en el *.yml* sección `networks`
+- Con un mismo adminer se puede acceder a las dos BD en la configuración se especifica a que redes tienes acceso: `adminer: networks`
 - Generalmente servicio/aplicacion tiene su propio Dockerfile
 - los servicios de la BD no tienen Dockerfile debido a que se usa el del respositorio de Dockerhub, esto se espifica en el yml de la orquestacion.
 - stack-billing.yml hace la orquestación
@@ -281,13 +290,69 @@ Notas:
   - genera los contenedores
 
 Servicios/aplicaciones orquestadas:
-- Java
-- Angular
-- Postgres
-- Adminer
+- Java x2
+- Angular x2
+- Postgres x2
+- Adminer x1
+
+Almacenamiento:
+- prod: var/lib/postgres_data_prod
+- pre: /var/lib/postgres_data_prep
 
 
+## Solución de errores conocidos
+Aplicar configuración de **Solucion de errores "Error executing DDL"**
+Editar y agregar permisos: **init-user-db.sh**
 
+### Eliminar todo, incluido las redes
+RESUMEN COMANDOS:
+`docker stop $(docker ps -a -q) && docker system prune && docker rmi -f $(docker images -aq) && docker volume prune && docker network prune`
+
+### Construir las imagenes de la Orquestación
+`docker-compose -f stack-billing.yml build --no-cache`
+usar: `--no-cache`
+
+### Comprobar: 
+`docker image ls`
+
+```
+REPOSITORY                         
+billingapp_v3-billingapp-front_prod
+billingapp_v3-billingapp-front-prep
+billingapp_v3-billingapp-back-prep 
+billingapp_v3-billingapp-back-prod 
+```
+
+### Inicializar Contenedoresde de la Orquestación:
+`docker-compose -f stack-billing.yml up --force-recreate`
+
+Usar: `--force-recreate`
+
+### Verificar y probar funcionamiento de los servicios:
+
+```
+CONTAINER ID   IMAGE                                
+4057b64b7222   billingapp_v3-billingapp-front_prod  
+00cb830a9b74   billingapp_v3-billingapp-front-prep  
+207dea23fb74   billingapp_v3-billingapp-back-prod   
+dcebeb00285f   adminer                              
+ceb918ae7422   billingapp_v3-billingapp-back-prep   
+ad6b4fa25e85   postgres:latest                      
+b643d16c0659   postgres:latest                      
+```
+
+- PRODUCCION
+  - Aplicacion web (8081-8082:): http://localhost:8082
+- PRE-PRODUCCION
+ - Aplicacion web (7081-7082): http://localhost:7082
+- adminer: http://localhost:9090
+  - info en: stack-billing.yml
+  - servidor (se puede especificar el puerto de cada una): 
+    - postgres_db_prod
+    - postgres_db_prep
+  - http://localhost:7082
+  - U: postgres, P: qwerty
+  - BD: billingapp_db
 
 ***
 
