@@ -61,6 +61,8 @@ https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
 
 
 # Definiciones basicas
+- Cluster: Agrupación de un conjunto de hosts de Docker gestionados centraliazadamente, donde hay un host maestro (nodo maestro o **manager**) y otros esclavos (nodos esclavos o **worker**)
+- Servicio: (service en Docker) designa una estructura abstracta con la que se pueden definir aquellas tareas que deben ejecutarse en el clúster. Cada servicio está formado por un conjunto de tareas individuales que se procesan en contenedores independientes en uno de los nodos del clúster.  - Cuando se crea un servicio, el usuario determina la imagen de contenedor en la que se basa y los comandos que se ejecutan en el contenedor, operándose sobre la base de la imagen.
 - Contenedor: Unidad de software que empaqueta el codigo y todas las dependencias de una aplicacion
   - Dockerfile: Archivo de configuración donde se define la imagen, sus componentes y que se debe ejecutar para funcionar
 - Imagen: Paquete ligero y ejecutable de software con todo lo necesario para la aplicacion
@@ -112,10 +114,21 @@ https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
 
 ## Docker Swarm
 
+Similar y reemplaza a Docker Compose, se basa en una arquitectura maestro-esclavo. Cada clúster de Docker está formado un manager y tantos workers como sea necesario. Mientras que el nodo maestro es responsable de la gestión del clúster y la delegación de tareas, el esclavo se encarga de ejecutar las unidades de trabajo (tasks).
+
+**Se usa un cluster cuando con varias maquinas (cluster) se quiere tener toleracia a fallos y alta disponibilidad.**
+
+Docker Swarm soporta dos modos de definir servicios swarm: servicios globales o replicado:
+
+1- Servicios replicados: Desde un nodo master se crear n replicas (nodos workers) que permite que en caso de que algun nodo no este disponible otro nodo responda. 
+2- Servicios globales: si un servicio se ejecuta en modo global, cada nodo disponible en el clúster inicia una tarea para el servicio correspondiente. Si al clúster se le añade un nodo nuevo, el nodo maestro le atribuye una tarea para el servicio global de forma inmediata. Este tipo de servicios se recomiendan para las aplicaciones de monitoreo o los programas antivirus.
+
 ## Docker Network - virtual environments
 Cuando se requiere tener varios entornos (ej: pruebas, producción) fisicamente en una misma maquina pero funcionando aislados uno de otro, se puede optar por tenerlos en segmentos de red diferentes. De esta manera estaran en redes separadas ási cada contenedor tendrá una IP diferente a las que se puede acceder independiente.
 
 La solución no optima sería tener dos maquinas fisicas donde cada contenedor se ejecute de manera indpendiente, teniendo así una maquina para pruebas y otra para produccion.
+
+Ej campo de aplicació de Docker Swarm: Reparto de cargas, pues con el modo enjambre Docker dispone de funciones integradas de balanceo de carga. Si se ejecuta, por ejemplo, un servidor web NGINX con cuatro instancias, Docker distribuye las consultas entrantes de forma inteligente entre las instancias del servidor web disponibles.
 
 ***
 
@@ -256,6 +269,7 @@ Solución:
 ## Detener Orquestacion
 `docker-compose -f stack-billing.yml stop`
 
+Activar el cluster de swarm: `docker swarm init`
 
 # 5 Practica Docker Network - virtual environments
 
@@ -355,6 +369,37 @@ b643d16c0659   postgres:latest
   - U: postgres, P: qwerty
   - BD: billingapp_db
 
+
+# 6 Practica Docker Swarm
+
+Basado en la practica 4. Se puede usar docker swarm como orquestador.
+
+Recomendación de uso para:
+- Ambientes Profesional y Productivo: Kubernetes
+- Ambientes de Pruebas o Pequeños productivo: Docker Compose
+- Ambientes Pequeños: Docker Swarm
+
+
+**Ruta detrabajo:**: 4 PRACTICA ORQUESTACION (DOCKER COMPOSE) *".../4-practica3-billingApp2-docker_compose"*
+
+Se va a usar el mismo archivo *.yml* para realizar la practica con Docker Swarm, el cual tiene muchas similitudes.
+
+### Eliminar todo, incluido las redes
+`docker stop $(docker ps -a -q) && docker system prune && docker rmi -f $(docker images -aq) && docker volume prune && docker network prune`
+
+Ver información con `docker info`
+
+Activar docker swarm con los contenedores de la ruta actual: `docker swarm init`
+
+Luego de activar docker swarm ver *Node Address* dirección IP del nodo en el cluster:
+```
+  Node Address: 192.168.0.13
+  Manager Addresses:
+   192.168.0.13:2377
+```
+
+
+
 ***
 
 # Referencias: 
@@ -364,3 +409,8 @@ b643d16c0659   postgres:latest
 4. DockerHub [Repositorio de imaganes](https://hub.docker.com/)
 5. [Matriz de compatibilidad](https://docs.docker.com/compose/compose-file/compose-versioning/#versioning)
 6. [DockerFile reference](https://docs.docker.com/engine/reference/builder/)
+7. [Docker swarm oficial](https://docs.docker.com/engine/swarm/)
+8. [Docker swarm explicacion](https://www.icm.es/2020/10/24/docker-swarm/)
+
+
+
