@@ -110,6 +110,7 @@ https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
     - Motor: Postgres, servidor: db, u: postgres, p: example, base de datos: postgres
 8. Detener contenedores: `docker stop adminer` y `docker stop postgres`
 
+## Docker Swarm
 
 ## Docker Network - virtual environments
 Cuando se requiere tener varios entornos (ej: pruebas, producción) fisicamente en una misma maquina pero funcionando aislados uno de otro, se puede optar por tenerlos en segmentos de red diferentes. De esta manera estaran en redes separadas ási cada contenedor tendrá una IP diferente a las que se puede acceder independiente.
@@ -177,7 +178,7 @@ Para zhs problema por rutas `/` es necesario usar con el caracter de espape a`/\
   - el TAG usado es: 1.0.0
 
 
-# PRACTICA ORQUESTACION (DOCKER COMPOSE)
+# 4 PRACTICA ORQUESTACION (DOCKER COMPOSE)
 
 **Ruta detrabajo:** *".../4-practica3-billingApp2-docker_compose"*
 Aplicación: BillingApp2
@@ -256,7 +257,7 @@ Solución:
 `docker-compose -f stack-billing.yml stop`
 
 
-# Practica Docker Network - virtual environments
+# 5 Practica Docker Network - virtual environments
 
 **Ruta detrabajo:**: *"..../5-practica-virtual-environment/billingApp_v3"*
 

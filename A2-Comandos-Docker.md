@@ -51,6 +51,8 @@ Interfaz de Adminer: `http://localhost:9090/`
   - Eliminar todas las imagenes: `docker rmi -f $(docker images -aq)` 
   - Listar los volumenes: `docker volume ls `
   - Eliminar todos los volumenes: `docker volume prune`
+  - Eliminar todos los directorios de volumenes `*_data`: `sudo rm -r /var/lib/postgres_*`
+`
   - Construir las imagenes definidas en la orquestación: `docker-compose -f stack-billing.yml build`
   - Inicializar los contenedores de los servicios de la orquestación: `docker-compose -f stack-billing.yml up -d`
   - Detener todos los servicios de la orquestación: `docker-compose -f stack-billing.yml stop`
@@ -69,7 +71,7 @@ Interfaz de Adminer: `http://localhost:9090/`
   - Desactivar docker swarm: `docker swarm leave --force`
 
 
-## Cersos
+## Recursos
 - Monitorizar recursos: `docker stats`
 - Limitar recursos: Modificar el archivo **.yml** etiqueta `deploy:`
 - Recrear para aplicar limites de recursos: `docker-compose -f stack-billing.yml up -d --force-recreate`
