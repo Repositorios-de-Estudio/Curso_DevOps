@@ -29,7 +29,7 @@ Imagen en base a la imagen nginx:alpine. // Alpine es una distro de linux muy li
     - Almacenamiento persistente que se comparte con el host
   - `COPY`: Copiar
   - `EXPOSE`: Definir puertos
-  - `ENTRYPOINT`: Indica en que orden se ejcuta el codigo
+  - `ENTRYPOINT`: Indica en que orden se ejecuta el codigo
 
 ### Crear archivo nginx.conf
 ### Crear archivo appshell.sh

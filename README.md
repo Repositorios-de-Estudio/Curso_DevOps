@@ -88,6 +88,15 @@ https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
 - DockerHub: Es un repositorio de imagenes de acceso publico: https://hub.docker.com/
 - Adminer (anteriormente phpMinAdmin) Administrador grafico de bases de datos: MySQL, SQLite, Oracle, PostgreSQL de manera efectiva.
 
+## Docker
+Tecnologia que permite empaquetar aplicaciones con todas sus dependencias para hacerlas postables y conseguir ejecución independiente del SO.
+
+### Sobre los archivos DockerFile
+**FROM**: Indica la imagen base la cual será la base para crear una nueva imagen. ej: imagen base y variante
+**RUN**: Se usa para ejecutar instrucciones propias del SO del contenedor cuando se esta contruyendo la imagen. ej: Instalación de cosas en el SO
+**CMD**: Sirve para especificar el comando por defecto que se ejecuta al iniciar el contenedor si no se especifica ningun servicio como argumento.
+**ENTRYPOINT**: Sirve para especificar el comando por defecto que se ejecuta al iniciar el contenedor, si no se especifica ningun servicio como argumento, la diferencia con CMD radica en la manera como de como trata los argumentos docker. (Indica en que orden se ejecuta el codigo)
+
 ## Docker Hub
 
 1. Buscar imagen
