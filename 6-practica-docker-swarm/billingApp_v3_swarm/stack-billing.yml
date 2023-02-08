@@ -33,7 +33,7 @@ services:
       context: ./java
       args:
         - JAR_FILE=*.jar
-    image: billingapp_v2_billingapp-back:latest
+    image: billingapp_v3_swarm-billingapp-back:latest
     #container_name: billingApp-back      
     environment:
        - JAVA_OPTS=
@@ -49,7 +49,7 @@ services:
   billingapp-front:
     build:
       context: ./angular
-    image: billingapp_v2_billingapp-front 
+    image: billingapp_v3_swarm-billingapp-front:latest
     deploy: 
         replicas: 3
         resources:

@@ -50,7 +50,8 @@ Interfaz de Adminer: `http://localhost:9090/`
   - Eliminar todos los contenedores detenidos: `docker system prune`
   - Eliminar todas las imagenes: `docker rmi -f $(docker images -aq)` 
   - Listar los volumenes: `docker volume ls `
-  - Eliminar todos los volumenes: `docker volume prune`
+  - Eliminar todos los volumenes sin uso: `docker volume prune`
+  - Eliminar todos los volumenes: `docker volume rm $(docker volume ls)`
   - Eliminar todos los directorios de volumenes `*_data`: `sudo rm -r /var/lib/postgres_*`
 `
   - Construir las imagenes definidas en la orquestación: `docker-compose -f stack-billing.yml build`
@@ -65,8 +66,10 @@ Interfaz de Adminer: `http://localhost:9090/`
   - Revsiar consumo de recursos: `docker stats`
   - Obtener informacion de docker: `docker info`
   - Activar el cluster de swarm: `docker swarm init`
-  - Desplegar el stack en docker swarm: `docker stack deploy -c stack-billing.yml billing`
+  - Desplegar el stack en docker swarm: `docker stack deploy -c archivo.yml nombre_alias`
+    - el alias sería el nombre del cluster
   - Listar los servicio se docker swarm: `docker service ls`
+  - Listar detalle de una orquestacion docker swarm`docker stack ps billing`
   - Eliminar la orquestacion o stack de docker swarm: `docker stack rm billing`
   - Desactivar docker swarm: `docker swarm leave --force`
 
