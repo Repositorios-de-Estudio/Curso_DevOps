@@ -1,159 +1,396 @@
-# Curso_DevOpsKubernetes CI / CD
-
-## Curso DevOps con Docker, Jenkins, Kubernetes, git, GitFlow CI y CD
-
-### Curso de: 
-https://www.udemy.com/course/devops-con-dockers-kubernetes-jenkins-y-gitflow-cicd/
-https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
-
-***
-
-# SECCIÓN DE INTRODUCCIÓN Y DEFINICIONES
-
-# Introduccion
-
-## Funcionalidad Tradicional:
-### Equipo de Desarrollo
-- Creacion de un producto
-- Aislamiento de equipos
-- Friccion entre los equipos
-- Uso de correo (no comunicacion agil)
-- Baja automatizacion
-### Equipo de Infraestructura (operaciones):
-- Velar por el funcionamiento 7/24
-- Script rudimentarios
-- Calendarios de releases fijos
-- Puesta en produccion lenta
-
-## ¿Que es DevOPS?
-- Es la union de personas, procesos y tecnologia, con el fin de proporcionar valor continuamente a los clientes.
-- DevOps: Development + Operation
-- Rol de un integrante de un equipo Devops: Site Reliability Engieneer (SRE)
-
-### Ciclo de vida DevOps - (es un ciclo continuo entre Dev y Ops)
-1. (Dev) Plan de proyecto
-2. (Dev) Codificacion
-3. (Dev) Construccion del entregable
-4. (Dev) Pruebas
-5. (Ops) Creacion de Release
-6. (Ops) Despliegue
-7. (Ops) Probando/ejecucanto
-8. (Ops) Monitorizacion
-
-### Caracterisiticas
-- Equilibrio entre Mayor calidad, Menor tiempo y Menor costo
-- Mejores objetivos comerciales
-- Mayor satiscaccion del cliente
-- Agilidad en las entregas y alto rendimiento
-- Mejores productos
-- Armonioa entre los equipos
-- Menos promblemas en produccion
-- Facilidad en el diagnostico y solucion de incidentes
-
-## Aspectos fundamentales de DevOps
-- Control de versiones: git, svn
-- CI Integracion continua: Automatizacion de compilaciones y pruebas tras commit >> Pipelines Jenkins
-- CD Entrega continua: Suministro de software rapido y confiable en cualquier momento
-- Infraestrutura como codigo: Infraestrutura en forma de codigo >> Terraform
-  - Se utiliza con el objetivo de establecer y aprovisionar una infraestructura completa, haciendo uso de un lenguaje declarativo sencillo de aprender, que permite almacenar una configuración de la infraestructura en formato de codigo
-- Supervision y Registro: Monitorizacion, recopilacion de metricas y vinculacion de datos de performance >> Prometheus, Granafa
-- Aprendizaje validado: Analisis de datos para mejorar los procesos en cada ciclo
+# Curso: GIT+GitHub: Todo un sistema de control de versiones de cero
+Curso de: [GIT+GitHub por Fernando Herrera](https://www.udemy.com/course/git-github/)
 
 
-# Definiciones basicas
-- Cluster: Agrupación de un conjunto de hosts de Docker gestionados centraliazadamente, donde hay un host maestro (nodo maestro o **manager**) y otros esclavos (nodos esclavos o **worker**)
-- Servicio: (service en Docker) designa una estructura abstracta con la que se pueden definir aquellas tareas que deben ejecutarse en el clúster. Cada servicio está formado por un conjunto de tareas individuales que se procesan en contenedores independientes en uno de los nodos del clúster.  - Cuando se crea un servicio, el usuario determina la imagen de contenedor en la que se basa y los comandos que se ejecutan en el contenedor, operándose sobre la base de la imagen.
-- Contenedor: Unidad de software que empaqueta el codigo y todas las dependencias de una aplicacion
-  - Dockerfile: Archivo de configuración donde se define la imagen, sus componentes y que se debe ejecutar para funcionar
-- Imagen: Paquete ligero y ejecutable de software con todo lo necesario para la aplicacion
-  - La Imagen una ves desplegados pasarian a ser Contenedores
-- Docker Engine: (o solo Docker) Motor de ejecucion de contenedores
-- Docker Hub: Repositorio por defecto para las imaganes de docker
-- Podman: Alternativa Opensource a Docker
-- Docker Compose: Sistema que permite orquestar/gestionar ligero de contenedores
-  - Yamel file: Archivo de configuración  donde se define la version de Docker Engine con la que es compatible (ver matriz de compatibilidad)
-- Docker Desktop: Aplicacion de escritorio que integra Docker Engine y Docker Compose
-- Docker Swarm: Orquestador de contenedores que permite manejar un cluster
-- Orquestacion: Mediante un archivo yml se automatiza de la mayoría de las operaciones necesarias para ejecutar un conjunto de contenedores que trabajan en conjunto. Esto reduce la complejidad en sistemas de gran escala
-- Kubernetes: Sistema para la administracion de clusters y Orquestador Empresarial de contenedores
-- Volumenes: Son el almacenamiento externo a los contenedores
-  - compuesto por la ruta local : el punto de montaje dentro del contenedor: `/var/lib/postgres_data:/var/lib/postgresql/data`
-  - Cuando ya existe el archivo en el host del volumen, este no se vuelve a crear y puede generar errorres en los contenedores por lo que es mejor borrarlos antes
-- Mapeo de Puertos:
-  - Los contenedores esta compuestos por sockets, la cual recibe la peticion desde internet
-    - La peticion rl host la recibe mediante un puerto el cual redirige la peticion el servicio que debe atender
-    - Si el puerto corresponde a un contenedor, el host mapea el puerto al puerto del contener (que conoce el docker engine) y redirige la peticion al servicio del contenedor
-  - Socket del host: socket = IP+Port
-  - Se recibe una peticion por el puerto 8082, el host mapea al puerto 8080 del contendor: https://minute.com:8082 -> contenedor:8080
-- DockerHub: Es un repositorio de imagenes de acceso publico: https://hub.docker.com/
-- Adminer (anteriormente phpMinAdmin) Administrador grafico de bases de datos: MySQL, SQLite, Oracle, PostgreSQL de manera efectiva.
+# CONCEPTOS Y DEFINICIONES
 
-## Docker
-Tecnologia que permite empaquetar aplicaciones con todas sus dependencias para hacerlas postables y conseguir ejecución independiente del SO.
+Git es un sistema de control de versiones distribuido, lo que significa que un clon local del proyecto es un repositorio de control de versiones completo. Estos repositorios locales plenamente funcionales permiten trabajar sin conexión o de forma remota con facilidad. Los desarrolladores confirman su trabajo localmente y, a continuación, sincronizan su copia del repositorio con la copia en el servidor. Este paradigma es distinto del control de versiones centralizado, donde los clientes deben sincronizar el código con un servidor antes de crear nuevas versiones.
 
-### Sobre los archivos DockerFile
-**FROM**: Indica la imagen base la cual será la base para crear una nueva imagen. ej: imagen base y variante
+**Ref:** [Que es Git: AzureDevOps](https://learn.microsoft.com/es-es/devops/develop/git/what-is-git)
 
-**RUN**: Se usa para ejecutar instrucciones propias del SO del contenedor cuando se esta contruyendo la imagen. ej: Instalación de cosas en el SO
 
-**CMD**: Sirve para especificar el comando por defecto que se ejecuta al iniciar el contenedor si no se especifica ningun servicio como argumento.
+## Repositorio Local
+Copia local del repositorio (archivos de trabajo) por cada version nueva o cambios que se hayan hecho.Se puede trabajar con git de esta manera.
 
-**ENTRYPOINT**: Sirve para especificar el comando por defecto que se ejecuta al iniciar el contenedor, si no se especifica ningun servicio como argumento, la diferencia con CMD radica en la manera como de como trata los argumentos docker. (Indica en que orden se ejecuta el codigo)
+## Repositorio Distribuido
+Copia del repositorio en un servidor externo de todos los archivos con todos los cambios realizados, esta es la manera como Git funciona. ej: GitHub, GitLab.
 
-## Docker Hub
+## Stage
+Es el espacio de trabajo temporal donde se van guardando los cambios a los archivos con seguimiento. No estar en el stage sigfinica que los archivos en cuestion no tiene seguimiento.
 
-1. Buscar imagen
-2. En description la información de version de las imaganes
-3. Bajar imagen:
-  - Metodo 1: Con el comando: `docker pull postgres`
-  - Metodo 2: Con el archivo yml: 
-    - Uso por via psql stack.yml para ejecutar con docker-compose
-    - Copiar contenido stack.yml
-    - ver ".../2-practica1-postgres/docker-compose.yml" // se renombr el archivo a docker-compose.yml
-    - ejecutar:
-      - Metodo 1: `docker-compose pull` //cuando el archivo se llama docker-compose.yml
-      - Metodo 2: `docker-compose -f stackdb.yml pull` // archivo con nombre acualquiera.yml
-4. Listar imaganes y verificar que esten: postgres y adminer `docker image ls`
-5. Crear contenedores simultaneamente (ejecutar):
-    - ejecutar: Como uno depende de otro, el otro se levanta cuando el primero inicia
-      - Metodo 1: `docker-compose up -d` // para archivo docker-compose.yml, -d: backgroud
-      - Metodo 2: `docker-compose -f stackdb.yml up -d` // para otro nombre acualquiera.yml
-6. Listar contenedores y verificar: `docker ps -a`
-7. Comprobar: `http://localhost:9090/`
-  - Ingresar con credenciales al adminer:
-    - Motor: Postgres, servidor: db, u: postgres, p: example, base de datos: postgres
-8. Detener contenedores: `docker stop adminer` y `docker stop postgres`
+## Apuntador
+Es la referencia de donde se encuentra ubicado actualmente en el tiempo. generalmente el apuntador siempre apunta a HEAD.
 
-## Docker Swarm
+## Commit
+Se usa para para guardar el estado actual de todos los archivos en el stage sin cambios guardados. El commit es como un screenshot el cual se identifica mediante un hash y se pueden agregar comentarios a los commits.
 
-Similar y reemplaza a Docker Compose, se basa en una arquitectura maestro-esclavo. Cada clúster de Docker está formado un manager y tantos workers como sea necesario. Mientras que el nodo maestro es responsable de la gestión del clúster y la delegación de tareas, el esclavo se encarga de ejecutar las unidades de trabajo (tasks).
+Regresar a un commit anterior restauraria todos los archivos a ese estado y eliminaria los que no estan. Esto significa que el apuntador se mueve a ese commit.
 
-**Se usa un cluster cuando con varias maquinas (cluster) se quiere tener toleracia a fallos y alta disponibilidad.**
+## Tags
+Son etiquetas que ahcen referencia hace un commit y a todo el estado del proyecto en ese punto.
+    - Los tags se ven en el log, el tag siempre va a apuntar al commit donde se crea el tag
 
-Docker Swarm soporta dos modos de definir servicios swarm: servicios globales o replicado:
+## Rama
+Una rama o branch es una versión del repositorio (temporal y espacial) desde un commit en especifico lo cual crea una bifurcación de este que a su vez es como si fuera un repositorio a parte,el cual sirve en la practica para desarrollar cosas diferentes que afecta el proyecto paralelamente pero los cambios se realizan sobre otra rama distinta a la principal. Luego se pueden introducir los cambios a otras ramas o a la rama principal con uniones.
 
-1- Servicios replicados: Desde un nodo master se crear n replicas (nodos workers) que permite que en caso de que algun nodo no este disponible otro nodo responda. 
-2- Servicios globales: si un servicio se ejecuta en modo global, cada nodo disponible en el clúster inicia una tarea para el servicio correspondiente. Si al clúster se le añade un nodo nuevo, el nodo maestro le atribuye una tarea para el servicio global de forma inmediata. Este tipo de servicios se recomiendan para las aplicaciones de monitoreo o los programas antivirus.
+- La rama principal es: **main**
+- Los commit se comparten entre todas las ramas
+- Inicialmente el HEAD apunta al main y a la nueva rama
+- Cuando hay un commit nuevo el HEAD apuntaria a la rama con de ese commit
 
-## Docker Network - virtual environments
-Cuando se requiere tener varios entornos (ej: pruebas, producción) fisicamente en una misma maquina pero funcionando aislados uno de otro, se puede optar por tenerlos en segmentos de red diferentes. De esta manera estaran en redes separadas ási cada contenedor tendrá una IP diferente a las que se puede acceder independiente.
+## MERGE (unión) de Ramas y Conflictos
 
-La solución no optima sería tener dos maquinas fisicas donde cada contenedor se ejecute de manera indpendiente, teniendo así una maquina para pruebas y otra para produccion.
+Al unir las ramas a demas de introducir cambios a la rama principal, tambien se agregan los commits que se hayan hecho. Git siempre intentará resolver el merge de manera automatica.
 
-Ej campo de aplicació de Docker Swarm: Reparto de cargas, pues con el modo enjambre Docker dispone de funciones integradas de balanceo de carga. Si se ejecuta, por ejemplo, un servidor web NGINX con cuatro instancias, Docker distribuye las consultas entrantes de forma inteligente entre las instancias del servidor web disponibles.
+- **Fast-forward**: Unión rapida se da cuando git no encuentra ningun commit en la rama principal y los cambios de la otra rama pueden ser incorporados sin problema.
+
+- **Automaticas**: Unión automatica se da cuando git detecta que en la rama principal hubieron cambios que no estan presentes en la otra rama pero no se cruzan en los mismos lugares en los archivos con cambios en la otra rama.
+
+- **Manual**: Unión manual se da cuando se deben hacer ajustes manualmente a los archivos cuyos cambios estan en conflicto entre la rama principal y la otra rama. La solución del conflicto crea un commit llamada *Merge Commit*.
+
+# Stash
+Se usa para guardar todos los cambios que aún no estan en el stage luego del último commit en otro lugar dejando de esta manera todo el repositorio en el mismo estado del último commit, posteriormente se pueden unir estos cambio, cuando se unen estos cambios del stash el stage los va a reconocer como cambios sin guardar. Se pueden crear stash con nombres y estos se apilan entre si.
+- Esto es util cuando se requiere coninuar con el trabajo tal cual como esta en el último commit.
+- Los stash pueden crearce con nombres
+- Los stash se ven en el log y tiene su hash similar a un commit
+- Los stash se ven como bifurcaciones en el log, cuando se restaura tambien se elimina del log siempre y cuando haya generado conflictos
+- Cuando se restaura desde el stash resolviendo conflictos en la pila de stashes queda un resgistro que se puede borrar
+- Cuando se restaura un stash puede ocasionar conflictos, por lo que se deben solucionar
+
+## (POP) unión desde Stash y Conflictos
+
+Al unir los cambios desde el stash se pueden presentar conflictos de la misma manera que en el merge de ramas. Git siempre intentará resolver el merge de manera automatica.
+
+- **Fast-forward**: Unión rapida se da cuando git no encuentra ningun conlicto.
+
+- **Automaticas**: Unión automatica se da cuando git detecta que los mismos archivos fueron modificados pero no en las lismas lineas.
+
+- **Manual**: Unión manual se da cuando se deben hacer ajustes manualmente a los archivos cuyos cambios estan en conflicto entre. Se soluciona de la misma manera que un *Merge Commit*.
+
+# Rebase
+
+## CONFIGURACIÓN INICIAL
+
+Configuración de usuario como información para los commits:
+
+Usuario: \
+`git config --global user.name "Mi Nombre"`
+
+Correo: \
+`git config --global user.mail "minombre@correo.com"`
+
+Archivo configuraciones git: \
+`~/.gitconfig`
+
+Establecer rama por defecto de los repositorios inicializados:  \
+`git config --global init.defaultBranch nombreRama` \
+*Esto crea una rama llamada nombreRama, inicializa el repositorio y asigna la arama nombreRama como la principal.*
+
+Información git del repositorio: \
+`ProyectoCualquiera/.git` \
+*Eliminar esta carpeta eliminaria git del proyecto*
+
+Inicializar y agregar cambios: 
+```
+git init
+git add .
+git commit -m "Mi primer commit"
+```
+
+Omitir o ignorar del stage archivos y directorios en concreto: \
+`Proyecto/.gitignore` \
+*OMITE los cambios realiazos sobre los directorios, subdirectorios y archivos especificados* \
+*Estos archivos no se cargan al repositorio*
+
+Cración de alias global para comandos: \
+` git config --global alias.{alitas} "{comando y opciones}"`
+
+ejemplo para usar `git s` como `git status --shot`:  \
+` git config --global alias.s "status --short"`
+
+**VER Y CAMBIAR CONFIGURACIÓN GLOBAL:** \
+`git config --global -e`
 
 
 ***
+# COMANDOS DE GIT
 
-# Referencias: 
-1. Lectura recomendada clase 3 [Tutorial de DevOps: introducción](https://azure.microsoft.com/es-es/solutions/devops/tutorial/)
-2. Lectura recomendada clase 14 [volumes y mapeo de puertos en docker](https://www.youtube.com/watch?v=GwnDA-oXShI&ab_channel=Digitalthinkingwithsotobotero)
-3. [Documentación Docker](https://docs.docker.com/engine/)
-4. DockerHub [Repositorio de imaganes](https://hub.docker.com/)
-5. [Matriz de compatibilidad](https://docs.docker.com/compose/compose-file/compose-versioning/#versioning)
-6. [DockerFile reference](https://docs.docker.com/engine/reference/builder/)
-7. [Docker swarm oficial](https://docs.docker.com/engine/swarm/)
-8. [Docker swarm explicacion](https://www.icm.es/2020/10/24/docker-swarm/)
+## Convenciones
 
+1. **REQ:SG** = REQUIERE SEGUIMIENTO / REQUIERE SER AGREGADO AL STAGE
+
+Significa que el archivo tuvo que haber sido agregado al control de cambios (git add), de lo contrario no se verá afectado por el comando en cuestion.
+
+2. **HEAD^**
+
+Es el commit anterior al actual, este se puede reemplazar por el hash de un commit.
+
+# Basicos de GIT
+
+traer cambios del repositorio remoto al local: \
+`git pull` \
+*Esto solo trae los cambios de la rama en la que se esta localmente*
+
+cargar o enviar cambios del repositorio local al remoto: \
+`git push` \
+*Esto solo envia los cambios de la rama en la que se esta localmente*
+
+uso de comandos con palabras completa: \
+`git --palabra`
+
+uso de comandos con abreviaciones: \
+`git -abreviatura`
+
+version git: \
+`git --version`
+
+ayuda de git: \
+`git --help` \
+`git --help palabra`
+
+listar configuración: \
+`git config --list`
+
+eliminar alias: \
+`git config --global --unset alias.{alias}`
+
+estado del repositorio, modificaciones, eliminaciones y archvios que no estan en el satage: \
+`git status`
+
+git status con solo los cambios presentes: \
+`git status --short` \
+*Modificado: M - Eliminado: D - Sin seguimiento: U, ?? - Añadido: A - Renombrado: R*  \
+*Color verde: ESTA en el stage - Color verde: NO esta en el stage*
+
+agregar archivo al stage: \
+`git add nombreArchivo`
+
+agregar todos archivos y directorios al stage: \
+`git add .`
+
+agregar todos archivos .html desde el root al stage: \
+`git add *.html` \
+*Esto NO es recurrente sobre los subdirectiorios*
+
+agregar todos los subdirectorios y su contenido al stage: \
+`git add carpeta/` \
+*Esto SI es recurrente sobre los subdirectiorios*
+
+agregar al stage subdirectorios con archivos .html: \
+`git add carpeta/*.html`
+
+agregar todos los cambios y crear commit (REQ:SG): \
+`git commit -am "commit"`
+
+eliminar commit sin borrar cambios: \
+`git reset --soft HEAD^` \
+*Regresa al commit señalado y automaticamente agrega los cambios realizados* \
+
+eliminar commit sin borrar cambios: \
+`git reset --mixed HEAD^` \
+*Regresa al commit señalado y NO agrega los cambios realizados, quita todos los archivos agregados al stage que no estaban en ese commit por lo que será necesario hacer git add .* 
+
+eliminar commit y borrar todos los cambios: \
+`git reset --hard HEAD^` \
+*Regresa al commit señalado y borra todos los cambios realizados*
+
+revertir los cambios eliminados con reset --hard: \
+`git reflog` \
+`git reset --hard hash-de-commit` \
+*Se regresa al estado de un estado anterior, se usa reflog para ver todos los registros y escocoger uno anterior a la eliminación que se quiere restaurar*
+
+renombrar ultimo commit: \
+`git --amend -m "Comentario correcto"`
+
+quitar archivo del stage: \
+`git reset nombreArchivo` \
+*Predeterminadamente usa la opción --mixed*
+
+renombrar o mover archivo (REQ:SG): \
+`git mv ruta/nombreViejo.algo ruta(nombreNuevo.algo` \
+*ruta puede ser la misma ruta o una diferente*
+
+eliminar archivo: \
+`git rm -f nombreArchivo` \
+*-f opción para forzar eliminacion* \
+*Se puede restaurar con git reset --hard si (REQ:SG)*
+
+descargar cambios sin haber hecho add . (REQ:SG): \
+`git restore archivoNombre`
+
+descartar todos los cambios sin haber hecho commit (REQ:SG): \
+`git restore .`
+*descartar, omitir, ignorar*
+
+regresar repositorio al commit anterior (REQ:SG): \
+`git checkout -- .`
+
+diferencia entre archivos estado actual vs ultimo commit:
+`git diff` \
+*archivo anterior: a/archivo - archivo actual: b/archivo* \
+*linea eliminada: - (en rojo), linea agreada: + (en verde)* \
+*Con editores de texto se puede ver las fiferencias sobre el archivo*
+
+logs, ver los ultimos n registros:  \
+```
+git log
+git log -n
+git log --oneline
+```
+*Se ven los commit realizados con su hash, su fecha, comentario y a donde apunta el HEAD, normelmente al main (HEAD -> main)* \
+*Este comando no muestra los commit desechos realizados por git reset*
+
+Ver todos los registros:  \
+`git log` \
+*Este comando registra todo, incluyendo los cambios desechos por git reset*
+
+logs con grafico para ver commits y ramas: \
+`git log --oneline --decorate --all --graph`
+
+ver tags: \
+`git tag`
+
+agregar un tag: \
+`git tag nombre-de-tag`
+
+eliminar tag: \
+`git tag -d nombre-del-tag`
+
+crear tag anotado: \
+`git tag -a v1.0.0 -m "Version mensaje"` \
+*El mensaje del tag no se ve en el log, solo se ve el tag*
+
+agregar a tag anotado a commit: \
+`git tag -a v0.0.0 hash-del-commit -m "Version mensaje"`
+
+ver detalles del tag: \
+`git show v0.1.0` \
+*Muestra cuando se hizo, por quien, el commit al que pertenece e información sobre los cambios de ese commit*
+
+agregar stash: \
+`git stash`
+
+agregar stash con nombre o mensaje: \
+`git stash save "Mensaje"`
+
+ver stashes: \
+`git stash list` \
+*Mustra los stashes como una pila*
+
+restaurar cambios desde stash: \
+`git stash pop` \
+*Restaura el primer stash de la pila stash@{0} y lo elimina de la pila*
+
+restaurar cambios desde un stash particular: \
+`git stash apply stash@{2}` \
+*Esto no elimina el stash de la pila, sería necesario usar git drop o clear*
+
+ver los archivos con cambios contenidos en un stash: \
+`git stash show stash@{2}`
+
+ver lista de stashes con detalles: \
+`git stash list --stat`
+
+eliminar un stash particular: \
+`git stash clear` \
+*Se pueden recuperar los cambios de los stash con el hash en reflog*
+
+vaciar o eliminar todos los stash: \
+`git stash drop stash@{3}` \
+*Si no se indica el stash por fecto elimina el primero: {0}*
+
+# Trabajo con Ramas
+
+ver ramas del repositorio: \
+`git branch`
+*Indica * la rama actual*
+
+eliminar rama: \
+`git branch -d otraRama`
+
+cambiar nombre de la rama: \
+`git branch -m nombreActual nombreFuturo`
+*Si hubieran cambios sin unir a otra rama git lo alerta*
+
+crear rama: \
+`git branch otraRama`
+
+crear rama y moverse a esa rama: \
+`git checkout -b otraRama`
+
+cambiar de rama: \
+`git checkout otraRama`
+*Solo se actualizan los archivos (REQ:SG), los que no estan en el stage siempre se veran hasta que los agreguemos al stage de alguna rama*
+
+unir ramas, introducir cambios de otraRama a main: 
+```
+git checkout master
+git merge otraRama
+```
+*Trae los cambios de otraRama a main - Luego de la unión el HEAD apuntaria a main y otraRama*
+*Puede resultar en Fast-forward o Automatic o manual*
+
+resolver conflictos: \
+
+    - Mensaje:
+    ```
+    Auto-fusionando archivo.md
+    CONFLICTO (contenido): Conflicto de fusión en archivo.md
+    ```
+    - Se deben solver los siguientes comentarios en *archivo.md* en el editor de texto: *Se deben hacer las modificaciones necesarias segun lo que sequiere, al final no debe haber '<<<' ni '>>>' ni tampoco'===='*
+    ```
+    <<<<<<< HEAD
+    3. Buscar nuevos miembros que luchen por la justicia.
+    =======
+    3. Buscar nuevos miembros que sean super heroes
+    >>>>>>> nueva-rama
+    ```
+    - Solución:
+    ```
+    3. Buscar nuevos miembros que luchen por la justicia y sean super heroes.
+    ```
+    - Luego se guardan los cambios para quedar con la rama con los cambios de las dos rama. `git commit -am "resuelve conficto"`
+
+    # Agregar cambios y cargar al repositorio remoto
+    ```
+    git add .
+    git commit -m "comentario"
+    git pull
+    ```
+
+
+# ERRORES COMUNES
+
+- LF will be replaced by CRLF in archivoNombre, solución: \
+`git config core.autocrlf true`
+
+- Al revertir los cambios asegurarse de que todos los archivos esten en el stage para prevenir perder cambios nuevos. Puede ayudar crear una rama nueva con los cambios actuales.
+
+# NOTAS
+- Las carpetas vacias no se pueden agregar al stage
+- Usar los alias facilita el trabajo
+- No retroceder y hacer cambios a un commit muy anterior, puede traer problemas al tener un estado muy anterior. Se recomienda generar una rama desde ese commit y trabajar sobre ella y luego unir los cambios con la rama principal.
+- Versionamiento: v{1}.{2}.{3}: 
+    1. Gran cambio
+    2. Funcionalidad agregada o cambiada
+    3. Solución de bug
+
+# RECOMENDACIONES
+- Alias s para status short: 
+```
+git config --global alias.s "status --short"
+```
+- Alias lg para Log: Log, commit, fecha, mensaje, quien hizo el commit y a donde apunta el HEAD
+```
+git config --global alias.lg "log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+```
+- Al nombrar, o eliminar y volver a restaurar el archivo puede hacer que se pierda todo el historial de cambios del archivo, se recomienda usar los comandos de git: mv, rm
+- Para versionamiento es recomendable usar tag anotado: `git tag -a`
+- No se recomienda usar mas de un stash, es mejor opción usar ramas y es mas seguro
+- Se recomienda vaciar la pila de stash si ya se tiene el estado deseado en el proyecto
+
+***
+# REFERENCIAS
+- [Documentación Oficial](https://git-scm.com/docs)
 
 
