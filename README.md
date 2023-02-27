@@ -174,26 +174,48 @@ Plataforma de orquestacion de contenedores de codigo abierto creado por Google p
   - Escrito en GO
   - Mantinido por Cloud Native Computing Foundation (Linux Foundation)
 
+* Tipos de instalación
+  1. On-premise
+    - Toda la infraestructura es dada por la propia empresa
+    - Tipos de On-premise
+      - All in one: Se instala todo en un unico nodo usando *mini kube* para educación o pruebas
+      - Single master and multiworker
+      - Single master, single etcd and multiworker
+      - Multi master, and multiworker
+      - Multi master, multi etcd and multiworker
 
-## Tipos de nodos
+  2. Gestionado
+  - Se hace uso de un servicio como AKS (Azure), EKS (Amazon Elastic), GKE (Google), IBM Clod
+
+## Nodos / Tipos de nodos
 Como minimo se tiene un nodo Master y un nodo Worker.
-
-### Nodos Master
-Nodos que realizan la propia gestion de la insfraestructura.
-
-- etcd/: lugar donde se almacena la data 
-- Scheduler: esta a tento a nuevos alos nuevos depliegues y lo aisgna al nodo que mejor se ajuste 
-- Control Manager: se encarga de monitorizar y genera alertas o reliza las tareas automaticas
-- API server: sirve de comunicador entre nosotros y los componentes del cluster (interfaz kubectl) y entre los nodos workers con los nodos master
-
-### Nodos Worked
-Nodos que se encargan de ejecutar todas las tareas propias de la aplicación.
-
 
 * Alternativas (mas pontente al menos potente)
   - OpenShift (es una capa de kubernetes)
   - Docker Swarm (ambientes empresariales pequeños/clusters)
   - Docker Compose (ambientes pequeños)
+
+
+### Nodos Master
+Nodos que realizan la propia gestion de la insfraestructura.
+
+* Componentes
+  - etcd/: lugar donde se almacena la data 
+  - Scheduler: esta a tento a nuevos alos nuevos depliegues y lo aisgna al nodo que mejor se ajuste 
+  - Control Manager: se encarga de monitorizar y genera alertas o reliza las tareas automaticas
+  - API server: sirve de comunicador entre nosotros y los componentes del cluster (interfaz kubectl) y entre los nodos workers con los nodos master
+
+
+### Nodos Worked
+Nodos que se encargan de ejecutar todas las tareas propias de la aplicación.
+
+* Componentes
+  - Networking (red): Donde se configura si esta expuesto o no, configuracion de red interna y restricciones de red
+  - Kubelet (monitor): Agente monitoriza el funcionamiento de cada nodo
+  - Container Runtime (docker u otro): Es el propio contenedor
+  - Operator System (SO): EL sistema operativo donde se ejecuta el nodo
+  - Hardware: Hardware que soporte el nodo
+
 
 ## Escalabilidad
 
