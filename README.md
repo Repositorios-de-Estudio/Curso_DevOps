@@ -49,6 +49,10 @@ https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
 - Armonioa entre los equipos
 - Menos promblemas en produccion
 - Facilidad en el diagnostico y solucion de incidentes
+- Evolución:
+  1. Servidor fisico
+  2. Maquinas Virtuales sobre una Maquina fisica
+  3. Virtualizacion de funciones / Contenedores
 
 ## Aspectos fundamentales de DevOps
 - Control de versiones: git, svn
@@ -90,6 +94,18 @@ https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
 
 ## Docker
 Tecnologia que permite empaquetar aplicaciones con todas sus dependencias para hacerlas postables y conseguir ejecución independiente del SO.
+
+* Alternativas
+  1. Podman
+  2. OpenVZ
+  3. VirtualBox
+  4. Kubernetes (K8)
+  5. LXC (Linux Containers)
+  6. Microsoft Azure Container Registry
+  7. Containerd
+  8. Rancher
+  9. Vagrant
+  10. ZeroVM
 
 ### Sobre los archivos DockerFile
 **FROM**: Indica la imagen base la cual será la base para crear una nueva imagen. ej: imagen base y variante
@@ -141,6 +157,24 @@ Cuando se requiere tener varios entornos (ej: pruebas, producción) fisicamente 
 La solución no optima sería tener dos maquinas fisicas donde cada contenedor se ejecute de manera indpendiente, teniendo así una maquina para pruebas y otra para produccion.
 
 Ej campo de aplicació de Docker Swarm: Reparto de cargas, pues con el modo enjambre Docker dispone de funciones integradas de balanceo de carga. Si se ejecuta, por ejemplo, un servidor web NGINX con cuatro instancias, Docker distribuye las consultas entrantes de forma inteligente entre las instancias del servidor web disponibles.
+
+# Kubernetes
+Plataforma de orquestacion de contenedores de codigo abierto creado por Google para facilitar la administración de los contenedores. Su función principal permite administradar las cargas de trabajos de manera eficiente y crear automatizaciones para aumentar la productividad a la vez que se reducen costos. 
+
+* Caracterisiticas principales
+  - Facilidad a exponer servicios
+  - Equilibrio de carga
+  - Orquestación de almacenamiento
+  - Despliegues y reversiones automatizadas
+  - Autoreinicio
+
+* Alternativas (mas pontente al menos potente)
+  - OpenShift (es una capa de kubernetes)
+  - Docker Swarm (ambientes empresariales pequeños/clusters)
+  - Docker Compose (ambientes pequeños)
+
+
+
 
 
 ***
