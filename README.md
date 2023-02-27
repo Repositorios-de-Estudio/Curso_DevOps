@@ -163,17 +163,48 @@ Plataforma de orquestacion de contenedores de codigo abierto creado por Google p
 
 * Caracterisiticas principales
   - Facilidad a exponer servicios
+  - Escalado horizontalmente
   - Equilibrio de carga
   - Orquestación de almacenamiento
   - Despliegues y reversiones automatizadas
   - Autoreinicio
+  - Opensource
+  - Inspirado en Borg de Google
+  - Licencia Apache V2
+  - Escrito en GO
+  - Mantinido por Cloud Native Computing Foundation (Linux Foundation)
 
 * Alternativas (mas pontente al menos potente)
   - OpenShift (es una capa de kubernetes)
   - Docker Swarm (ambientes empresariales pequeños/clusters)
   - Docker Compose (ambientes pequeños)
 
+## Escalabilidad
 
+Capacidad de un sistema para adaptarse al crecimiento por demanda y complejidad. 
+
+## Escalabilidad Vertical
+Aumentar la potencia de un mismo nodo agregando mayor potencia de commputo: RAM, almacenamiento, GPU, CPU,... etc
+
+* Carateristicas
+  1. Unico nodo
+  2. Aumento de potencia de computo
+  3. Esta limitado por las prestaciones maximas del hardware
+    - maximo numero de cpus o numero de nucleos
+    - maximo numero de discos
+    - maximo numero de modulos de ram o num de nucleos
+    - maximo consumo energetico
+    - otras limitaciones de hardware
+    - limitaciones del SO
+
+## Escalabilidad Horizontal
+Agregar mas nodos para que se adapten a la carga de trabajo.
+
+* Carateristicas
+  1. ofrece mayor eficiencia en costo
+  2. varios nodos (cluster)
+  3. aumento de nodos con las mismas caracteristicas
+  4. se agrega un nodo para balancear la carga
 
 
 
