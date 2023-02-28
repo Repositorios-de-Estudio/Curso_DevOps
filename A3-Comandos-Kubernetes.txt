@@ -1,0 +1,57 @@
+Lanzar el dashboard de minikube
+
+minikube dashboard
+
+crear un pod partiendo d euna imagne en dockerhub
+
+kubectl run kbillingapp --image=sotobotero/udemy-devops:0.0.1 --port=80 80
+
+Listar todos los pod del namespace por defecto
+
+ kubectl get pods
+
+Obtener detalles del Pod
+
+kubectl describe pod kbillingapp
+
+Crear el servicio
+
+kubectl expose pod kbillingapp --type=LoadBalancer --port 8080 --target-port=80  
+
+Obtener la ipexterna del servicio en minikube
+
+minikube service kbillingapp
+
+Obtener los logs de un servicio
+
+kubectl logs kbillingapp
+
+Eliminar un pod
+
+kubectl delete service kbillingapp
+
+Eliminar un servicio
+
+kubectl delete service kbillingapp
+
+Consultar la version del apiserver
+
+kubectl api-versions
+
+Codificar un parametro
+
+echo -n 'qwerty' | base64
+
+Descodificar un parametro
+
+echo  "cXdlcnR5" | base64 -d
+Comandos necesario para apuntar el docker engine local hacia el registro de minikube
+
+minikube docker-env
+
+eval $(minikube -p minikube docker-env)
+
+consultar la ip de minikube
+
+minikube ip
+

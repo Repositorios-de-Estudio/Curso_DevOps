@@ -187,6 +187,25 @@ Plataforma de orquestacion de contenedores de codigo abierto creado por Google p
   2. Gestionado
   - Se hace uso de un servicio como AKS (Azure), EKS (Amazon Elastic), GKE (Google), IBM Clod
 
+## Objetos de Kubernetes
+En Kubernetes todos se trata como objetos y estos se definen en archivos yamel (.yml). \
+
+Las definiciones se guardan y ejecutan el cluster mediante el API Server. \
+Las definiciones de objetos se conocen tambien como infraestrutura como codigo.
+
+* Tipos de Objeto
+  - PODs: Unida mas pequeña que se puede desplegar y gestionar en Kubernetes. Es un prupo de uno o mas contenedores que comparten almacenamiento y red y especificaciones de como ejecutarse. Estos son efimeros
+    - efimero: que el cluster pueda eliminar y volver a crear un contenedor cuando sea necesario
+  - Deployments: Describe el estado deseado de una implementación, ejecuta multiples replicas de la aplicacion, reemplaza las que estan defectuosas o las que no responden
+  - Services: Definición de como exponer una aplicación que se ejecuta en un conjunto de pods como un servicio de red (por defecto se usa roud-robin para balanceo de carga)
+  - Condig Map: Permite desacoplar la configuración para hacer las imagenes mas portables, almacenan variables de entorno, argumentos para linea de comandos, o configuracion de volumenes que pueden consumir los pods (encripación o no)
+  - Labels: Pares de clave valor ("environment";"qa") para organizar, seleccionar, consultar y monitorear objetos de forma mas eficiente, ideales para UI y CLIs.
+  - Selectores: Mecanismo para hacer consultas a los Labels. kubctl get pods -l 'environment in (production), tier in (fronted)'
+
+
+
+
+
 ## Nodos / Tipos de nodos
 Como minimo se tiene un nodo Master y un nodo Worker.
 
