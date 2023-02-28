@@ -14,7 +14,19 @@ Ver el dashboar con: `minikube dashboard --url` \
 
 La aplicación se abre en la url y permite ver y administrar todos los componentes/objetos en la insfraestructura: *http://127.0.0.1:36855/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/*
 
-
+## Creacion de POD: Prueba con imagen
+1. Tener imagen dockerisada: *https://hub.docker.com/r/sotobotero/udemy-devops/tags*
+2. Recomiendan tener solo el docker de minikube `docker ps -a`
+3. crear pod: `kubectl run nombre_cualquiera -- image=url-imagen --port=puerto1 puerto2`
+    - puerto1 = puerto expuesto a internet (externo)
+    - puerto2 = puerto expuesto dentro del Pod
+    - `kubectl run kbillingapp --image=sotobotero/udemy-devops:0.0.1 --port=80 80`
+4. Salida de la consola: *pod/kbillingapp created*
+5. Comprobar pod:
+    - por dashboard: Pods : kbillingapp
+    - por kubectl: `kubectl get pods`
+        - detalles: `kubectl describe pod kbillingapp`
+6. 
 
 ## Comandos utiles
 
