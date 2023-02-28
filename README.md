@@ -204,8 +204,6 @@ Las definiciones de objetos se conocen tambien como infraestrutura como codigo.
 
 
 
-
-
 ## Nodos / Tipos de nodos
 Como minimo se tiene un nodo Master y un nodo Worker.
 

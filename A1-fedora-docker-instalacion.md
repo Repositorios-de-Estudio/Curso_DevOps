@@ -7,7 +7,7 @@ sudo dnf update -y
 sudo dnf clean all
 ```
 
-# instalacion de Docker Engine Fedora 37 - repositorio
+# Instalacion de Docker Engine Fedora 37 - repositorio
 
 Instalacion en Fedora 37 mediante repositorio [documentacion oficial](https://docs.docker.com/engine/install/fedora/)
 

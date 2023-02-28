@@ -1,8 +1,27 @@
-Lanzar el dashboard de minikube
+# Kubernetes
 
-minikube dashboard
+## Ejemplo primera prueba
 
-crear un pod partiendo d euna imagne en dockerhub
+Todos los comandos deben tener una salida... \
+
+*start* al final debe indicar *Done!* `minikube start` \
+
+Debe indicar que hay un contenedor que corresponde a mnikube: `docker ps -a` \
+
+Ver el status del cluster con el comando, esto no debe mostrar errores: `minikube status` \
+
+Ver el dashboar con: `minikube dashboard --url` \
+
+La aplicación se abre en la url y permite ver y administrar todos los componentes/objetos en la insfraestructura: *http://127.0.0.1:36855/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/*
+
+
+
+## Comandos utiles
+
+- status de minikube: `minikube status`
+- dasboard: `minikube dashboard`
+
+crear un pod partiendo de una imagen en dockerhub
 
 kubectl run kbillingapp --image=sotobotero/udemy-devops:0.0.1 --port=80 80
 
