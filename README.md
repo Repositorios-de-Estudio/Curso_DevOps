@@ -202,7 +202,10 @@ Las definiciones de objetos se conocen tambien como infraestrutura como codigo.
   - Labels: Pares de clave valor ("environment";"qa") para organizar, seleccionar, consultar y monitorear objetos de forma mas eficiente, ideales para UI y CLIs.
   - Selectores: Mecanismo para hacer consultas a los Labels. kubctl get pods -l 'environment in (production), tier in (fronted)'
 
+## Administracion
+Clientde de Kubernetes, la cual es una herramienta de línea de comandos para interactuar con la API de Kubernetes, utilizada para gestionar la mayor parte de objetos de Kubernetes, tales como los pods, servicios, namespaces, etc. Además permite conocer el estado general del clúster.
 
+La administración con *kubctl*, se hace por medio de su interfaz como WEB API o por medio de consola.
 
 ## Nodos / Tipos de nodos
 Como minimo se tiene un nodo Master y un nodo Worker.
