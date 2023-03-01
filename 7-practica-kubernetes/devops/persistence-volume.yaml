@@ -1,0 +1,22 @@
+# tipo de archivo, almacenamiento persistente independiente del ciclo de vida del pod
+kind: PersistentVolume
+# version del de API de kubectl
+apiVersion: v1
+metadata:
+  name: postgres-volume
+  labels:
+    # plugin que es soportado por Amazon, Azure, etc..
+    # local se refiere que el almacenamiento esta ubicado localmente en el equipo
+    type: local
+    app: postgres
+spec:
+  # disco creado manualmente de 5Gb
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    # muchos pods pueden leer y escribir
+    - ReadWriteMany
+  hostPath:
+    # path del nodo en el cluster
+    path: "/mnt/data/"

@@ -1,0 +1,18 @@
+# tipo de archivo, es la solicitud de un pod para usar el almacenamiento
+kind: PersistentVolumeClaim
+# version del de API de kubectl
+apiVersion: v1
+metadata:
+  name: postgres-claim
+  labels:
+    app: postgres
+spec:
+  # disco creado manualmente de 5Gi
+  storageClassName: manual
+  accessModes:
+    # muchos pods pueden leer y escribir
+    - ReadWriteMany
+    # se va a reclamar 2Gb
+  resources:
+    requests:
+      storage: 2Gi
