@@ -63,4 +63,6 @@ La aplicación se abre en la url y permite ver y administrar todos los component
     1. `minikube docker-env`
     2. `eval $(minikube -p minikube docker-env)`
 - consultar la ip de minikube: `minikube ip`
-
+- cifrar palabra: `echo -n "postgres" | base64`
+- descifrar palabra: `echo "cG9zdGdyZXM=" | base64 -d`
+`
