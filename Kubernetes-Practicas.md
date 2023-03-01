@@ -40,7 +40,7 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
 3. Crear *persistence-volume.yaml* para el almacenamiento persistente
     - para definir las propiedades del amlmacenamiento que en este caso es persistente
 4. Crear *persistence-volume-claim.yaml* para definir como son las peticiones que debe hacer una aplicación para usar el almacenamiento
-    - agregar todos los permisos, tambien agregar permisos del schema por probeblmas anteriores dados en las aplicaicones con Docker
+    - agregar en *data* todos los permisos, tambien agregar permisos del schema por probeblmas anteriores dados en las aplicaicones con Docker
 
     ```
     #!/bin/bash
@@ -52,6 +52,7 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
       GRANT ALL ON SCHEMA public TO billingapp;
     EOSQL
     ``` 
+5. Construir los dos pods con el *deployment*
 
 ***
 

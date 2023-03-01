@@ -1,4 +1,4 @@
-# actualizacion del sistema
+# Actualizacion del sistema
 
 ```
 sudo dnf clean all
@@ -31,11 +31,24 @@ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/miniku
 chmod +x ./minikube
 sudo install minikube /usr/local/bin/minikube
 ```
-## Configuraciones adicionales
+
+## Problemas de la instalación
+Mensaje al ejecutar cualquier comando de minikube: *W0301 15:30:49.170353  111087 main.go:291] Unable to resolve the current Docker CLI context "default": context "default" does not exist*
+
+### La solcuión es:
 
 ```
-sudo minikube config set driver docker
-sudo minikube delete
+docker context ls
+docker context inspect default
+docker context inspect desktop-linux
+docker context rm desktop-linux
+docker context ls
+minikube start 
+minikube config set driver docker
+# para exportar y ver configuracion, si hay algun problema la salida del comando recomienda ejecutar el eval
+minikube docker-env  
+eval $(minikube -p minikube docker-env)
+minikube stop
 minikube delete
 ```
 
@@ -73,6 +86,30 @@ kubelet: Running
 apiserver: Running
 kubeconfig: Configured
 ```
+
+## Solución Docker btrfs
+Mensaje al ejecutar minikube:* docker is currently using the btrfs storage driver, consider switching to overlay2* \
+
+
+**Contenido:**
+```
+{
+    "storage-driver": "overlay2"
+}
+```
+
+**Comandos:**
+```
+#ver configuración actual
+sudo docker info | grep -i "Storage Driver"
+sudo systemctl stop docker
+sudo nano /etc/docker/daemon.json
+sudo systemctl start docker
+#comprobar con
+sudo docker info | grep -i "Storage Driver"
+```
+
+
 
 ***
 
