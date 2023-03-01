@@ -40,4 +40,22 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
 3. Crear *persistence-volume.yaml* para el almacenamiento persistente
     - para definir las propiedades del amlmacenamiento que en este caso es persistente
 4. Crear *persistence-volume-claim.yaml* para definir como son las peticiones que debe hacer una aplicación para usar el almacenamiento
-- 
+    - agregar todos los permisos, tambien agregar permisos del schema por probeblmas anteriores dados en las aplicaicones con Docker
+
+    ```
+    #!/bin/bash
+      set -e
+      psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+      CREATE USER billingapp WITH PASSWORD 'qwerty';
+      CREATE DATABASE billingapp_db;
+      GRANT ALL PRIVILEGES ON DATABASE billingapp_db TO billingapp;
+      GRANT ALL ON SCHEMA public TO billingapp;
+    EOSQL
+    ``` 
+
+***
+
+# REFERENCIAS
+- [configMap](https://kubernetes.io/docs/concepts/configuration/configmap/)
+- [PersistentVolumeClaims](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
+- [Volumes](https://kubernetes.io/docs/concepts/storage/volumes/)
