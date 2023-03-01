@@ -33,7 +33,9 @@ sudo install minikube /usr/local/bin/minikube
 ```
 
 ## Problemas de la instalación
-Mensaje al ejecutar cualquier comando de minikube: *W0301 15:30:49.170353  111087 main.go:291] Unable to resolve the current Docker CLI context "default": context "default" does not exist*
+Mensaje al ejecutar cualquier comando de minikube: *W0301 15:30:49.170353  111087 main.go:291] Unable to resolve the current Docker CLI context "default": context "default" does not exist* \
+
+Otro mensaje que surge al combifigurar y usar *minikube docker-env*: *Please re-eval your docker-env, To ensure your environment variables have updated ports*
 
 ### La solcuión es:
 
@@ -50,6 +52,7 @@ minikube docker-env
 eval $(minikube -p minikube docker-env)
 minikube stop
 minikube delete
+# LUEGO ES OBLIGATORIO REINICIAR
 ```
 
 # Prueba Minikube
@@ -105,8 +108,11 @@ sudo docker info | grep -i "Storage Driver"
 sudo systemctl stop docker
 sudo nano /etc/docker/daemon.json
 sudo systemctl start docker
-#comprobar con
+# comprobar con
 sudo docker info | grep -i "Storage Driver"
+# LUEGO ES OBLIGATORIO REINICIAR
+# comprobar de nuevo
+docker info | grep -i "Storage Driver"
 ```
 
 
