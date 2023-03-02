@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: pgadmin4
-          image: dpage/pgadmin4        
+          image: dpage/pgadmin4      
+          # lee informacion cifrada de secret-pgadmin.yaml >> data 
           envFrom:
             - secretRef:
                 name: pgadmin-secret

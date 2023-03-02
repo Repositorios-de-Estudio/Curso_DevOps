@@ -3,18 +3,22 @@
 
 # 7 PRACTICA Cluester y Pods
 
-Servicio en cluster de kubernetes que tiene una BD (postgresql) y un administrador web. El usuario final puede cnectarse al motor de la BD con otro cliente. Se va a definir un *deployment* para la creación de los Pods de Postgres y PgAdmin.
+Servicio en cluster de kubernetes que tiene una BD (postgresql) y un administrador web. El usuario final puede conectarse al motor de la BD con otro cliente. Se va a definir un *deployment* para la creación de los Pods de Postgres y PgAdmin. 
+
+Para el acceso desde internet se usaran dos servicios: PgAdmin y Posgres los cuales son accesibles desde el WEB Browser.
 
 
 ## Arquitectura
 
 Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación. Se montará un servicio de acceso remoto o local para la administración de los pods.
 
-1. Pod Postgres
+1. Servio Posgres
+2. Servicio PgAdmin
+3. Pod Postgres
     - Imagen de postgres
     - Volumen para almacenar datos
     - Segundo volumen para ejecutar scripts
-2. Pod PgAdmin
+4. Pod PgAdmin
     - Aplicación web
 
 ![Arquiectura-AppDevOps](7-practica-kubernetes/arquitectura.png)
@@ -58,12 +62,14 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
    - archivo de tipo *Deployment*
    - Imagen: *containers* especifica la imagen que se usara, en este caso se va a descargar - postgres:latest
    - Para la creación e inicializacion de la BD y configuración del motor de bd se usan relacionan las configuraciones contenidas en:
-   - Lee las variables cifradas secret definidas en *data* que se usaran como credenciales *secret-dev.yaml*
-   - Usa la configuracion para el motor db definida en *spec* *persistence-volume-claim.yaml*
-   - Usa el scrip de inicializacion deinido en *spec* dentro de *configmap-postgres-initdb.yaml*
+   - Información en etiquetas *persistentVolumeClaim* y *configMap*
+     - Lee las variables cifradas secret definidas en *data* que se usaran como credenciales *secret-dev.yaml*
+     - Usa la configuracion para el motor db definida en *spec* *persistence-volume-claim.yaml*
+     - Usa el scrip de inicializacion deinido en *spec* dentro de *configmap-postgres-initdb.yaml*
 6. Se crea *deployment-pgadmin.yaml* para construir los dos pods mediante un *deployment*
    - archivo de tipo *Deployment*
    - Imagen: *containers* especifica la imagen que se usara, en este caso se va a descargar - dpage/pgadmin4  
+   - Información en etiqueta *envFrom* lee información cifrada de *secret-pgadmin.yaml* en *data* para cargar en *secretRef*
 
 
 ***
