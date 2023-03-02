@@ -3,7 +3,7 @@
 
 # 7 PRACTICA Cluester y Pods
 
-Servicio en cluster de kubernetes que tiene una BD (postgresql) y un administrador web. El usuario final puede cnectarse al motor de la BD con otro cliente. Se va a definir un *deployment* para Postgres y otro para el PgAdmin.
+Servicio en cluster de kubernetes que tiene una BD (postgresql) y un administrador web. El usuario final puede cnectarse al motor de la BD con otro cliente. Se va a definir un *deployment* para la creación de los Pods de Postgres y PgAdmin.
 
 
 ## Arquitectura
@@ -54,8 +54,16 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
     EOSQL
     ```
 
-5. Construir los dos pods con el *deployment*
-
+5. Se crea *deployment-postgres.yaml* para construir los dos pods mediante un *deployment*
+   - archivo de tipo *Deployment*
+   - Imagen: *containers* especifica la imagen que se usara, en este caso se va a descargar - postgres:latest
+   - Para la creación e inicializacion de la BD y configuración del motor de bd se usan relacionan las configuraciones contenidas en:
+   - Lee las variables cifradas secret definidas en *data* que se usaran como credenciales *secret-dev.yaml*
+   - Usa la configuracion para el motor db definida en *spec* *persistence-volume-claim.yaml*
+   - Usa el scrip de inicializacion deinido en *spec* dentro de *configmap-postgres-initdb.yaml*
+6. Se crea *deployment-pgadmin.yaml* para construir los dos pods mediante un *deployment*
+   - archivo de tipo *Deployment*
+   - Imagen: *containers* especifica la imagen que se usara, en este caso se va a descargar - dpage/pgadmin4  
 
 
 ***

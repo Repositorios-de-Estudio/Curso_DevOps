@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+  labels:
+    app: postgres
+spec:
+#numero de replicas del Pod, pueden ser varios para alta disponibilidad
+  replicas: 1
+  # define a que pods debe aplicar va a administrar
+  # es este caso va a administrar todos los Pod con label postgres
+  selector: 
+    matchLabels:
+     app: postgres
+  # template define el pod
+  template:
+    metadata:
+    # define los labels para el pod
+      labels:
+        app: postgres       
+    spec:
+      # imagePullPolicy indica que sino esta la imagen haga pull para descargarla
+      # containers especifica la imagen que se usara, en este caso se va a descargar
+      containers:
+        - name: postgres
+          image: postgres:latest
+          imagePullPolicy: IfNotPresent
+          # puertos por los que va a escuchar la aplicación
+          ports:
+            - containerPort: 5432
+          # lee las variables cifradas secret definidas en secret-dev.yaml>> postgres-secret
+          # secretRef es que es una referencia de tipo secret
+          envFrom:
+            - secretRef:
+                name: postgres-secret
+          volumeMounts:
+          # esta es la ruta donde se va a almacenar todos los squemas y datos creados.
+          # tambien se mapea toda la data contenida en los paths de mountPath, estas rutas son de la propia imagen postgres
+            - mountPath: /var/lib/postgresql/data
+              name: postgredb
+            - mountPath: /docker-entrypoint-initdb.d
+              name : init-script
+      volumes:
+      # se definen los volumenes a crear, aca se crean dos volumenes
+      # volumen 1: almacena todo los datos del motor de db, usa la configuracion de persistence-volume-claim.yaml
+      # volumen 2: almacena el script de configmap-postgres-initdb.yaml >> postgres-init-script-configmap
+        - name: postgredb
+          persistentVolumeClaim:
+            claimName: postgres-claim
+        - name: init-script
+          configMap:
+             name: postgres-init-script-configmap

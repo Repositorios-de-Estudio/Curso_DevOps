@@ -1,6 +1,6 @@
 # Actualizacion del sistema
 
-```
+```bash
 sudo dnf clean all
 sudo dnf check-update
 sudo dnf update -y
@@ -14,32 +14,34 @@ sudo dnf clean all
 
 # Instalacion de Kubectl Fedora 37 - binario
 
-```
+```bash
 curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 
 # Prueba Kubectl
+
 `kubectl version --client`
 
 
 # Instalación de Minikube Fedora 37 - binario
 
-```
+``` bash
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 chmod +x ./minikube
 sudo install minikube /usr/local/bin/minikube
 ```
 
 ## Problemas de la instalación
+
 Mensaje al ejecutar cualquier comando de minikube: *W0301 15:30:49.170353  111087 main.go:291] Unable to resolve the current Docker CLI context "default": context "default" does not exist* \
 
 Otro mensaje que surge al combifigurar y usar *minikube docker-env*: *Please re-eval your docker-env, To ensure your environment variables have updated ports*
 
 ### La solcuión es:
 
-```
+```bash
 docker context ls
 docker context inspect default
 docker context inspect desktop-linux
@@ -56,7 +58,8 @@ minikube delete
 ```
 
 # Prueba Minikube
-```
+
+```bash
 minikube start
 minikube version
 docker ps -a
@@ -64,7 +67,8 @@ minikube status
 ```
 
 ## Salida de Minikube - start (🏄  Done! kubectl is now...)
-```
+
+```text
 😄  minikube v1.29.0 en Fedora 37
 ✨  Using the docker driver based on user configuration
 ❗  docker is currently using the btrfs storage driver, consider switching to
@@ -75,13 +79,15 @@ minikube status
 ```
 
 ## Salida de Docker
-```
+
+```text
 CONTAINER ID   IMAGE                                 COMMAND                  CREATED         STATUS         PORTS                                                                                                                                  NAMES
 18a5e4c7cde4   gcr.io/k8s-minikube/kicbase:v0.0.37   "/usr/local/bin/entr…"   2 minutes ago   Up 2 minutes   127.0.0.1:32787->22/tcp, 127.0.0.1:32786->2376/tcp, 127.0.0.1:32785->5000/tcp, 127.0.0.1:32784->8443/tcp, 127.0.0.1:32783->32443/tcp   minikube
 ```
 
 ## Salida de Minikube - status
-```
+
+```text
 minikube
 type: Control Plane
 host: Running
@@ -91,18 +97,21 @@ kubeconfig: Configured
 ```
 
 ## Solución Docker btrfs
+
 Mensaje al ejecutar minikube:* docker is currently using the btrfs storage driver, consider switching to overlay2* \
 
 
 **Contenido:**
-```
+
+```json
 {
     "storage-driver": "overlay2"
 }
 ```
 
 **Comandos:**
-```
+
+```bash
 #ver configuración actual
 sudo docker info | grep -i "Storage Driver"
 sudo systemctl stop docker
@@ -114,8 +123,6 @@ sudo docker info | grep -i "Storage Driver"
 # comprobar de nuevo
 docker info | grep -i "Storage Driver"
 ```
-
-
 
 ***
 
