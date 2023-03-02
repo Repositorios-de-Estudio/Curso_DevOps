@@ -7,6 +7,7 @@ Servicio en cluster de kubernetes que tiene una BD (postgresql) y un administrad
 
 
 ## Arquitectura
+
 Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación. Se montará un servicio de acceso remoto o local para la administración de los pods.
 
 1. Pod Postgres
@@ -42,7 +43,7 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
 4. Crear *persistence-volume-claim.yaml* para definir como son las peticiones que debe hacer una aplicación para usar el almacenamiento
     - agregar en *data* todos los permisos, tambien agregar permisos del schema por probeblmas anteriores dados en las aplicaicones con Docker
 
-    ```
+    ```bash
     #!/bin/bash
       set -e
       psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
@@ -51,12 +52,16 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
       GRANT ALL PRIVILEGES ON DATABASE billingapp_db TO billingapp;
       GRANT ALL ON SCHEMA public TO billingapp;
     EOSQL
-    ``` 
+    ```
+
 5. Construir los dos pods con el *deployment*
+
+
 
 ***
 
 # REFERENCIAS
+
 - [configMap](https://kubernetes.io/docs/concepts/configuration/configmap/)
 - [PersistentVolumeClaims](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 - [Volumes](https://kubernetes.io/docs/concepts/storage/volumes/)
