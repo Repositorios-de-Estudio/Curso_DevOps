@@ -70,7 +70,16 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
    - archivo de tipo *Deployment*
    - Imagen: *containers* especifica la imagen que se usara, en este caso se va a descargar - dpage/pgadmin4  
    - Información en etiqueta *envFrom* lee información cifrada de *secret-pgadmin.yaml* en *data* para cargar en *secretRef*
-
+7. Se crea *service-postgres.yaml* para crear el servicio de administración de Posgres
+    - archivo de tipo *Service*
+    - tipo de servicio *Nodeport* que indica que usa el mismo puerto del nodo, al ser un nodo no tendra problemas
+    - Puerto interno definido en *port*
+    - Puerto expuesto definido en *nodePort*
+8. Se crea *service-pgadmin.yaml* para crear el servicio de administración de la aplicaicon PgAdmin
+    - archivo de tipo *Service*
+    - tipo de servicio *Nodeport* que indica que usa el mismo puerto del nodo, al ser un nodo no tendra problemas
+    - Puerto interno definido en *port*
+    - Puerto expuesto definido en *nodePort*
 
 ***
 

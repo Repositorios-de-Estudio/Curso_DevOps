@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: postgres-service
+  labels:
+    app: postgres
+spec:  
+  ports:
+  # puerto interno y puerto expuesto
+  - name: postgres
+    port: 5432
+    nodePort : 30432 
+  #type NodePort indica que usa el puerto del nodo pq es un solo nodo, otra alternativa LoadBalancer
+  type: NodePort
+  selector:
+   app: postgres
