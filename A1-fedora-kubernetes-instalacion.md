@@ -37,9 +37,11 @@ sudo install minikube /usr/local/bin/minikube
 
 Mensaje al ejecutar cualquier comando de minikube: *W0301 15:30:49.170353  111087 main.go:291] Unable to resolve the current Docker CLI context "default": context "default" does not exist* \
 
-Otro mensaje que surge al combifigurar y usar *minikube docker-env*: *Please re-eval your docker-env, To ensure your environment variables have updated ports*
+Otro mensaje que surge al usar minikube al usar el comando *minikube docker-env*: *Please re-eval your docker-env, To ensure your environment variables have updated ports*
 
-### La solcuión es:
+Al parecer el problem era porque docker no estaba usando un contexto defaul que es lo que expera minikube, entonces se soluciona con `docker context use default`
+
+### La solcuión es
 
 ```bash
 docker context ls
@@ -52,6 +54,7 @@ minikube config set driver docker
 # para exportar y ver configuracion, si hay algun problema la salida del comando recomienda ejecutar el eval
 minikube docker-env  
 eval $(minikube -p minikube docker-env)
+docker context use default
 minikube stop
 minikube delete
 # LUEGO ES OBLIGATORIO REINICIAR
@@ -98,7 +101,7 @@ kubeconfig: Configured
 
 ## Solución Docker btrfs
 
-Mensaje al ejecutar minikube:* docker is currently using the btrfs storage driver, consider switching to overlay2* \
+Mensaje al ejecutar minikube:*docker is currently using the btrfs storage driver, consider switching to overlay2* \
 
 
 **Contenido:**

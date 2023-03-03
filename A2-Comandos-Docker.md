@@ -1,6 +1,6 @@
-## NOTA: Reemplazar nombreobjeto por el nombre o id de imagen o contenedor segun coresponda en el comando
+# NOTA: Reemplazar nombreobjeto por el nombre o id de imagen o contenedor segun coresponda en el comando
 
-Ejemplo: 
+Ejemplo:
 
 - Iniciar Docker: `sudo systemctl start docker`
 - Descargar la imagen billingapp: `docker pull sotobotero/udemy-devops:0.0.1`
@@ -15,7 +15,6 @@ Interfza del Microservicio: (swagger): `http://localhost:8080/swagger-ui/index.h
     - P: admin
 
 Interfaz de Adminer: `http://localhost:9090/`
-
 
 ## Comandos utiles
 
@@ -48,8 +47,8 @@ Interfaz de Adminer: `http://localhost:9090/`
   - Agregar TAG imagen: `docker tag nombre_imagen:prod repositorio:tag_nuevo`
   - Subir imagen DockerHub: `docker push repositorio:tag`
   - Eliminar todos los contenedores detenidos: `docker system prune`
-  - Eliminar todas las imagenes: `docker rmi -f $(docker images -aq)` 
-  - Listar los volumenes: `docker volume ls `
+  - Eliminar todas las imagenes: `docker rmi -f $(docker images -aq)`
+  - Listar los volumenes: `docker volume ls`
   - Eliminar todos los volumenes sin uso: `docker volume prune`
   - Eliminar todos los volumenes: `docker volume rm $(docker volume ls)`
   - Eliminar todos los directorios de volumenes `*_data`: `sudo rm -r /var/lib/postgres_*`
@@ -73,8 +72,8 @@ Interfaz de Adminer: `http://localhost:9090/`
   - Eliminar la orquestacion o stack de docker swarm: `docker stack rm billing`
   - Desactivar docker swarm: `docker swarm leave --force`
 
+# RECURSOS
 
-## Recursos
 - Monitorizar recursos: `docker stats`
 - Limitar recursos: Modificar el archivo **.yml** etiqueta `deploy:`
 - Recrear para aplicar limites de recursos: `docker-compose -f stack-billing.yml up -d --force-recreate`

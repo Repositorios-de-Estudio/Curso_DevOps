@@ -1,5 +1,34 @@
 # SECCIÓN DE PRACTICAS Y EJERCICIOS
 
+# Creacion de POD: Prueba con imagen billingapp
+
+1. Tener imagen dockerisada: <https://hub.docker.com/r/sotobotero/udemy-devops/tags>
+2. Recomiendan tener solo el docker de minikube `docker ps -a`
+3. crear pod: `kubectl run nombre_cualquiera -- image=url-imagen --port=puerto1 puerto2`
+    - puerto1 = puerto expuesto a internet (externo)
+    - puerto2 = puerto expuesto dentro del Pod
+    - `kubectl run kbillingapp --image=sotobotero/udemy-devops:0.0.1 --port=80 80`
+4. Salida de la consola: *pod/kbillingapp created*
+5. Comprobar pod:
+    - por dashboard: Pods : kbillingapp
+    - por kubectl: `kubectl get pods`
+        - detalles: `kubectl describe pod kbillingapp`
+6. Exponer servicio
+    - kbillingapp: Es el nombre del pod
+    - Tipo: Applicación de tipo Load Balancer
+    - Port: Puerto expuesto a internet (exte no será el puerto por donde se accede)
+    - Target-port: Puerto del cluster
+    - Exponer con: `kubectl expose pod kbillingapp --type=LoadBalancer --port=8080 --target-port=80`
+    - Salida de la consola: *service/kbillingapp exposed*
+    - Comprobar: `kubectl get services` \\ Debe estar kbillingapp
+7. Ver servicio: `kubectl describe service kbillingapp`
+    - Ahora se tiene un pod llamado *kbillingapp* y un servicio llamado *kbillingapp*
+    - En dashboard de minikube tambien se ve el servicio
+8. Acceder a la aplicación: `minikube service --url kbillingapp`
+    - resultado: <http://192.168.49.2:30777>
+9. Ver logs:
+    - Desde dashboard de minikube: *Pods > nombre-del-pod >> Logs*
+    - Desde Terminal: `kubectl logs kbillingapp`
 
 # 7 PRACTICA Cluester y Pods
 
@@ -80,6 +109,57 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
     - tipo de servicio *Nodeport* que indica que usa el mismo puerto del nodo, al ser un nodo no tendra problemas
     - Puerto interno definido en *port*
     - Puerto expuesto definido en *nodePort*
+9. Construir y desplegar todo el despleigue, al finalzar cada comenado se pueden ver en el dashboard creados
+   - Verificar stado de minikube `minikube status` debe estar running
+     - secrets:
+       - `kubectl apply -f secret-dev.yaml`
+       - `kubectl apply -f secret-pgadmin.yaml`
+     - configmap:
+       - `kubectl apply -f configmap-postgres-initdb.yaml`
+     - volumenes:
+       - `kubectl apply -f persistence-volume.yaml`
+       - `kubectl apply -f persistence-volume-claim.yaml`
+     - cración de Pods:
+       - `kubectl apply -f deployment-postgres.yaml`
+       - `kubectl apply -f deployment-pgadmin.yaml`
+   - Verificar: 2 servicios, +2 servicios, 2 deplyoments, 2 replicas:
+   - en consola
+   - en consola: `kubectl get all`
+10. pruebas de funcionamiento, se ingresa por los dos servicios creados de Posgres y PgAdmin, se accede a la BD mediante el servicio, se puede tambien acceder por el POD
+    - Consultar IP del cluster: `minikube ip`  esto retorna ip-cluster
+    - Consultar IP externa: `kubectl get services` ver *PORTS interno:externo* del servicio de pgadmin
+    - Entrar al portal de PgAdmin: *retorna ip-cluster:PORTSexterno* ejemplo:<http://192.168.49.2:30200>
+      - Credenciales en **secret-pgadmin.yaml*
+      - U: admin@admin.com
+      - P: qwerty
+11. Conectar App PgAdmin a la BD Postgres, el puerto de postgres se saca del servicio de postgres *PORTS interno:externo*, las credenciales de la DB estan en *secret-dev.yaml*
+    - En el portal PgAdmin > Add Server:
+      - General > Name: {dar un nombre cualquiera} postgresservice
+      - Connextion > Host Name: *ip-cluster*
+      - database: postgres
+      - username: postgres
+      - password: qwerty
+      - <192.168.49.2:30432>
+    - La BD ahora sale Servers > postgresservice:
+      - Deben haber dos BD:
+        - billingapp_db
+        - postgres
+    - NOTA: Tambien se puede ingresar a billigapp_bd
+12. OPCIONAL contectarse a la BD mediante su POD, postgres. La IP de la BD ya no es la del cluster, ahora se consulta la ip del servicio de postgres con el puerto interno *PORTS interno:externo*, ambas cosas se pueden ver en `kubectl get services`
+    - En el portal PgAdmin > Add Server:
+      - General > Name: {dar un nombre cualquiera} postgrespod
+      - Connextion > Host Name: *ip-servicio-postgres*
+      - database: postgres
+      - username: postgres
+      - password: qwerty
+      - <10.97.218.234:5432>
+    - La BD ahora sale Servers > postgresservice:
+      - Deben haber dos BD:
+        - billingapp_db
+        - postgres
+    - NOTA: Tambien se puede ingresar a billigapp_bd
+
+NOTA: Se puede usar otro administrador de BD como **DBeaver**.
 
 ***
 
