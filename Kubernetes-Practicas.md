@@ -32,7 +32,7 @@
 
 # 7 PRACTICA Cluester y Pods
 
-Servicio en cluster de kubernetes que tiene una BD (postgresql) y un administrador web. El usuario final puede conectarse al motor de la BD con otro cliente. Se va a definir un *deployment* para la creación de los Pods de Postgres y PgAdmin. 
+Servicio en cluster de kubernetes que tiene una BD (postgresql) y un administrador de BD web. El usuario final puede conectarse al motor de la BD con otro cliente. Se va a definir un *deployment* para la creación de los Pods de Postgres y PgAdmin.
 
 Para el acceso desde internet se usaran dos servicios: PgAdmin y Posgres los cuales son accesibles desde el WEB Browser.
 
@@ -41,8 +41,8 @@ Para el acceso desde internet se usaran dos servicios: PgAdmin y Posgres los cua
 
 Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación. Se montará un servicio de acceso remoto o local para la administración de los pods.
 
-1. Servio Posgres
-2. Servicio PgAdmin
+1. Servicio Posgre: Servicio para administra la BD
+2. Servicio PgAdmin: Servicio web que permite administrar la BD
 3. Pod Postgres
     - Imagen de postgres
     - Volumen para almacenar datos
