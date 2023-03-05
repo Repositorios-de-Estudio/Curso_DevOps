@@ -20,7 +20,7 @@ La aplicación se abre en la url y permite ver y administrar todos los component
 - dasboard: `minikube dashboard`
   - se ven servicios, pods, secrets, configmaps, volumenes y persistencia, pods
 - crear un pod partiendo de una imagen en dockerhub: `kubectl run kbillingapp --image=sotobotero/udemy-devops:0.0.1 --port=80 80`
-- crear objetos en el cluster: `kubectl apply -f secret-de.yaml`
+- Crear objetos en el cluster: `kubectl apply -f definicion.yaml`
 - Ver todos los objetos creados: `kubectl get all`
 - Listar todos los pod del namespace por defecto: `kubectl get pods`
 - Obtener detalles del Pod: `kubectl describe pod kbillingapp`
@@ -31,6 +31,8 @@ La aplicación se abre en la url y permite ver y administrar todos los component
 - Obtener la ip externa del servicio: `minikube service --url kbillingapp`
 - Obtener la ip externa del servicio: `minikube service kbillingapp`
 - Obtener los logs de un servicio: `kubectl logs kbillingapp`
+- Eliminar objetos creado con yaml: `kubectl delete -f definicion.yaml`
+- Eliminar todos los objetos con definicion: `kubectl delete -f ./`
 - Eliminar un pod: `kubectl delete service kbillingapp`
 - Eliminar un servicio: `kubectl delete service kbillingapp`
 - Consultar la version del api server: `kubectl api-versions`

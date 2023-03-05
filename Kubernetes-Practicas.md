@@ -126,16 +126,17 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
    - en consola
    - en consola: `kubectl get all`
 10. pruebas de funcionamiento, se ingresa por los dos servicios creados de Posgres y PgAdmin, se accede a la BD mediante el servicio, se puede tambien acceder por el POD
-    - Consultar IP del cluster: `minikube ip`  esto retorna ip-cluster
+    - Consultar IP del cluster: `minikube ip`  esto retorna ip-cluster = *192.168.49.2*
     - Consultar IP externa: `kubectl get services` ver *PORTS interno:externo* del servicio de pgadmin
     - Entrar al portal de PgAdmin: *retorna ip-cluster:PORTSexterno* ejemplo:<http://192.168.49.2:30200>
       - Credenciales en **secret-pgadmin.yaml*
       - U: admin@admin.com
       - P: qwerty
-11. Conectar App PgAdmin a la BD Postgres, el puerto de postgres se saca del servicio de postgres *PORTS interno:externo*, las credenciales de la DB estan en *secret-dev.yaml*
+11. Administrar la BD desde App PgAdmin: La ip es la del *ip-cluster*, el puerto de postgres se saca del servicio de postgres *PORTS externo*, las credenciales de la DB estan en *secret-dev.yaml*
     - En el portal PgAdmin > Add Server:
       - General > Name: {dar un nombre cualquiera} postgresservice
-      - Connextion > Host Name: *ip-cluster*
+      - Connextion > Host Name: *ip-cluster* (192.168.49.2)
+      - Port: *PORTS externo* (30432)
       - database: postgres
       - username: postgres
       - password: qwerty
@@ -145,10 +146,11 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
         - billingapp_db
         - postgres
     - NOTA: Tambien se puede ingresar a billigapp_bd
-12. OPCIONAL contectarse a la BD mediante su POD, postgres. La IP de la BD ya no es la del cluster, ahora se consulta la ip del servicio de postgres con el puerto interno *PORTS interno:externo*, ambas cosas se pueden ver en `kubectl get services`
+12. OPCIONAL Administrar DB mediante su POD postgres: La IP de la BD ya no es la del cluster, ahora se consulta la ip del servicio de postgres con el puerto interno *PORTS interno:externo*, ambas cosas se pueden ver en `kubectl get services`
     - En el portal PgAdmin > Add Server:
       - General > Name: {dar un nombre cualquiera} postgrespod
-      - Connextion > Host Name: *ip-servicio-postgres*
+      - Connextion > Host Name: *ip-servicio-postgres*  (10.97.218.234)
+      - Port: *PORTS interno* (5432)
       - database: postgres
       - username: postgres
       - password: qwerty
@@ -158,8 +160,11 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
         - billingapp_db
         - postgres
     - NOTA: Tambien se puede ingresar a billigapp_bd
+11. Eliminar todo
+    - Elimar todo con un solo comando: `kubectl delete -f ./`
 
-NOTA: Se puede usar otro administrador de BD como **DBeaver**.
+#### NOTA
+Se puede usar otro administrador de BD como **DBeaver**.
 
 ***
 
