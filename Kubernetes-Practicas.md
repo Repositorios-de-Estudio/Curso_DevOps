@@ -30,7 +30,7 @@
     - Desde dashboard de minikube: *Pods > nombre-del-pod >> Logs*
     - Desde Terminal: `kubectl logs kbillingapp`
 
-# 7 PRACTICA Cluester y Pods
+# 7 PRACTICA Cluster Kubernetes con pods
 
 Servicio en cluster de kubernetes que tiene una BD (postgresql) y como aplicación un administrador de BD web. El usuario final puede conectarse al motor de la BD con otro cliente. Se va a definir un *deployment* para la creación de los Pods de Postgres y PgAdmin.
 
@@ -108,7 +108,7 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
     - tipo de servicio *Nodeport* que indica que usa el mismo puerto del nodo, al ser un nodo no tendra problemas
     - Puerto interno definido en *port*
     - Puerto expuesto definido en *nodePort*
-9. Construir y desplegar todo el despleigue, al finalzar cada comenado se pueden ver en el dashboard creados
+9. Construir y desplegar todo el despleigue, al finalzar cada comenado se pueden ver en el dashboard creados (`minikube dashboard`)
    - Verificar stado de minikube `minikube status` debe estar running
      - secrets:
        - `kubectl apply -f secret-dev.yaml`
@@ -171,7 +171,7 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
       - `kubectl delete -f secret-dev.yaml`
     - Elimar todo con un solo comando: `kubectl delete -f ./`
 
-# 7 PRACTICA Cluester y Pods
+# 8 PRACTICA Cluster Kubernetes con pods y alta disponibilidad
 
 Servicio en cluster de kubernetes con alta disponibilidad que tiene (1) una BD (postgresql), (2) con una aplicación de administrador de BD web y una app compuesta por (3) Backend y (4) Frontend.
 
@@ -180,6 +180,8 @@ Para el acceso desde internet se usaran los servicios: PgAdmin y Posgres los cua
 El servicio de postgres tiene ip fija *10.96.1.2* para se pueda acceder a la BD independiente de si cambia la IP del pot de postgres. Como el pod es efimero la IP puede cambiar, así que, se usa el servicio para hacer de intermediario y mantener una IP fija para que pueda ser accedida por la aplicación.
 
 Para el acceso del usuario a la aplicación se usa el servicio Front, luego el front devuelve como se hace la petición al back, el browser la ejecuta y envia directamente la peticion al back. Se espera que la IP del cluster sea *192.168.49.2* para que funcione correctamente la petición al back.
+
+Se necesitan crear las imagenes para el Front y Back para luego poder crear los contenedores.
 
 ## Arquitectura
 
@@ -203,8 +205,19 @@ Para el acceso del usuario a la aplicación se usa el servicio Front, luego el f
 
 ![Arquiectura-BillingApp-Kubernetes](8-practica-BillingApp/media/arquitetcura.png)
 
-#### NOTA
-Se puede usar otro administrador de BD como **DBeaver**.
+1. Apuntar repositorio docker engine hacia el registro minikube para que minikube use las imagenes locales:
+   - `minikube docker-env`
+   - `eval $(minikube -p minikube docker-env)`
+2. Agregar permisos adicionales en *db/configmap-postgres-initbd.yaml*
+
+```bash
+GRANT ALL ON SCHEMA public TO billingapp;
+```
+
+```
+cd billingApp_images_v4/java 
+```
+
 
 ***
 
