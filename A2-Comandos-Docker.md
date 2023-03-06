@@ -38,6 +38,7 @@ Interfaz de Adminer: `http://localhost:9090/`
   - Descargar las imagenes usando docker-compose: `docker-compose -f stackdb.yml pull`
   - Inicar los contenedores: `docker-compose -f stackdb.yml up -d`
   - Costruir la imagen: `docker build -t <nombre_imagen>:prod --no-cache --build-arg JAR_FILE=target/\*.jar .`
+  - Costruir la imagen para cluster kubernetes: `docker build -t <nombre_imagen>:prod --no-cache --build-arg JAR_FILE=./\*.jar .`
   - Asignar un nuevo tag: `docker tag billingapp:prod sotobotero/udemy-devops:0.0.2`
   - Loguearse en el docker engine hacia docker hub: `docker login`
     - (usar tu usario y contraseña)
@@ -52,7 +53,6 @@ Interfaz de Adminer: `http://localhost:9090/`
   - Eliminar todos los volumenes sin uso: `docker volume prune`
   - Eliminar todos los volumenes: `docker volume rm $(docker volume ls)`
   - Eliminar todos los directorios de volumenes `*_data`: `sudo rm -r /var/lib/postgres_*`
-`
   - Construir las imagenes definidas en la orquestación: `docker-compose -f stack-billing.yml build`
   - Inicializar los contenedores de los servicios de la orquestación: `docker-compose -f stack-billing.yml up -d`
   - Detener todos los servicios de la orquestación: `docker-compose -f stack-billing.yml stop`
@@ -71,6 +71,7 @@ Interfaz de Adminer: `http://localhost:9090/`
   - Listar detalle de una orquestacion docker swarm`docker stack ps billing`
   - Eliminar la orquestacion o stack de docker swarm: `docker stack rm billing`
   - Desactivar docker swarm: `docker swarm leave --force`
+  - Eliminar **TODO** inlcuido swarm: `docker stack rm billing ; docker swarm leave --force ; docker stop $(docker ps -a -q) ; docker system prune ; docker rmi -f $(docker images -aq) ; docker volume prune ; docker volume rm $(docker volume ls) ;docker network prune ; sudo rm -r /var/lib/postgres_*`
 
 # RECURSOS
 

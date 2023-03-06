@@ -206,17 +206,63 @@ Se necesitan crear las imagenes para el Front y Back para luego poder crear los 
 ![Arquiectura-BillingApp-Kubernetes](8-practica-BillingApp/media/arquitetcura.png)
 
 1. Apuntar repositorio docker engine hacia el registro minikube para que minikube use las imagenes locales:
-   - `minikube docker-env`
-   - `eval $(minikube -p minikube docker-env)`
+   - comando:
+
+```bash
+minikube docker-env
+eval $(minikube -p minikube docker-env)
+```
+
 2. Agregar permisos adicionales en *db/configmap-postgres-initbd.yaml*
 
 ```bash
 GRANT ALL ON SCHEMA public TO billingapp;
 ```
 
-```
+3. Contruir imagenes
+
+```bash
 cd billingApp_images_v4/java 
+docker build -t billingapp-back:0.0.4 --no-cache --build-arg JAR_FILE=./\*.jar .
+cd ../angular 
+docker build -t billingapp-front:0.0.4 --no-cache .
 ```
+4. Crear objetos con los deployments
+
+```bash
+cd ../../billingApp
+kubectl apply -f ./
+cd ..
+cd db
+kubectl apply -f ./
+```
+5. Probar
+   1. Datos
+      1. Minikube IP = 192.168.49.2
+      2. `kubectl get all | grep -i service`
+         1. service/billing-app-back-service - 10.98.227.71 - 7080:30780/TCP
+         2. service/billing-app-front-service -  10.110.235.245 - 80:30100/TCP
+         3. service/pgadmin-service - 10.101.193.55 - 80:30200/TCP
+         4. service/postgres-service - 10.96.1.2 - 5432:30432/TCP
+   2. Aplicación
+      1. Front: 192.168.49.2:30100
+      2. Admin web de la BD PgAdmin: 192.168.49.2:30200
+         1. admin@admin - qwerty
+         2. servers >> bd-postgres, 192.168.49.2, 30432, postgres, postgres, qwert
+            1. Ver info: billingapp_db>schemas>public>tables>invoice>>View data>>all rows
+   3. a
+
+
+
+
+# PROBLEMAS
+
+## Error al construir imagen
+
+Mensaje: *ERROR: failed to solve: lstat /var/lib/docker/tmp/buildkit-mount2267554914/target: no such file or directory* \
+
+Solución: usar el comando *docker build ...JAR_FILE=target/..* sin el *tarjet*: `docker build -t billingapp:0.0.4 --no-cache --build-arg JAR_FILE=./\*.jar .`
+
 
 
 ***

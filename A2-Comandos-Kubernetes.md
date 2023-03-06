@@ -50,4 +50,3 @@ La aplicación se abre en la url y permite ver y administrar todos los component
 - Consultar la ip de minikube: `minikube ip`
 - Cifrar palabra: `echo -n "postgres" | base64`
 - Descifrar palabra: `echo "cG9zdGdyZXM=" | base64 -d`
-- Eliminar **TODO** inlcuido swarm: `docker stack rm billing ; docker swarm leave --force ; docker stop $(docker ps -a -q) ; docker system prune ; docker rmi -f $(docker images -aq) ; docker volume prune ; docker volume rm $(docker volume ls) ;docker network prune ; sudo rm -r /var/lib/postgres_*`

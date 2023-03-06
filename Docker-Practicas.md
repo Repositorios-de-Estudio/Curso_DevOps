@@ -7,12 +7,14 @@ Se crea una imagen con el archivo *Dockerfile*: .../3-practica2-billingApp:
 Imagen en base a la imagen nginx:alpine. // Alpine es una distro de linux muy liviana.
 
 ### Imagen nginx:alpine
+
 - Instalado:
   - Ngingx
 - Por instalar: (esto se hace en DockerFile)
   - openJDK8
 
-### Buenas practicas:
+### Buenas practicas
+
 - Crear una imagen por servicio y luego hacer la orquestacion
 
 ### Crear archivo DockerFile
@@ -32,21 +34,26 @@ Imagen en base a la imagen nginx:alpine. // Alpine es una distro de linux muy li
   - `ENTRYPOINT`: Indica en que orden se ejecuta el codigo
 
 ### Crear archivo nginx.conf
+
 ### Crear archivo appshell.sh
- - Realiza tareas de verificación y sube los servicios
+
+Realiza tareas de verificación y sube los servicios
 
 ### CREAR IMAGEN
-  - comando: `docker build -t billingappmio:prod --no-cache --build-arg JAR_FILE=target/\*.jar .`
+
+comando: `docker build -t billingappmio:prod --no-cache --build-arg JAR_FILE=target/\*.jar .`
 
 ### Solución de problemas ERROR DEL COMANDO zsh
-Para zhs problema por rutas `/` es necesario usar con el caracter de espape a`/\` en la ruta del JAR cuando se ingresa por consola así: `JAR_FILE=target/\*.jar .` 
 
-### VERIFICAR IMAGEN:
-  - Deberoa estar listada: `docker image ls`
-  - Puede ser inicializado el contenedor: `docker run -p 80:80 -p  8080:8080 --name billingappmio billingappmio:prod`
+Para zhs por problemas con las rutas `/` es necesario usar con el caracter de espape a`/\` en la ruta del JAR cuando se ingresa por consola así: `JAR_FILE=target/\*.jar .`
 
+### VERIFICAR IMAGEN
+
+Deberoa estar listada: `docker image ls`
+Puede ser inicializado el contenedor: `docker run -p 80:80 -p  8080:8080 --name billingappmio billingappmio:prod`
 
 ### CARGAR IMAGEN EN DOCKERHUB
+
 - Crear repositorio en DockerHub
   - nombre: sergiopereze/3-practiva2-billingapp
 - (Opcional) Agregar TAG a la imagen para diferenciar de otras versiones de la misma imagen:
@@ -56,7 +63,6 @@ Para zhs problema por rutas `/` es necesario usar con el caracter de espape a`/\
 - Login en DockerHub desde la terminal: `docker login`
 - Subir imagen: `docker push sergiopereze/3-practiva2-billingapp:1.0.0`
   - el TAG usado es: 1.0.0
-
 
 # 4 PRACTICA ORQUESTACION (DOCKER COMPOSE)
 
@@ -70,7 +76,8 @@ Servicios:
 - Frontend: angular - nginx
 - Red virtual: Todas las imagenes estan dentro de una red virtual
 
-Notas:
+## Notas
+
 - Generalmente servicio/aplicacion tiene su propio Dockerfile
 - los servicios de la BD no tienen Dockerfile debido a que se usa el del respositorio de Dockerhub, esto se espifica en el yml de la orquestacion.
 - stack-billing.yml hace la orquestación
@@ -81,13 +88,14 @@ Notas:
   - genera los contenedores
 
 Servicios/aplicaciones orquestadas:
+
 - Java
 - Angular
 - Postgres
 - Adminer
 
-
 Luego se construllen las imagenes definidas en la orquestación:
+
 - Eliminar volumenes que coincidan con los que se van a usar
 - Se puede limpiar todo: eliminar contenedores, eliminar imagenes, eliminar volumenes
 - Construir las imagenes: `docker-compose -f stack-billing.yml build`
@@ -97,6 +105,7 @@ Luego se construllen las imagenes definidas en la orquestación:
     - billingapp_v2-billingapp-back
 
 Luego se inicializan los contenedores de los servicios de la orquestación:
+
 - Inicializar contenedores: `docker-compose -f stack-billing.yml up`
   - recomendable no usar `-d` para poder ver los errores
 - verificar contenedores: `docker ps -a`
@@ -106,11 +115,13 @@ Luego se inicializan los contenedores de los servicios de la orquestación:
   - postgres:latest **UP**
 
 ## Solucion de errores "Error executing DDL"
+
 Me di cuenta que en la bd: postgres_db-billingapp_db no hay tablas.
 Me salio el siguiente error: **Error executing DDL "create sequence hibernate_sequence start 1 increment 1** y **ERROR: permission denied for schema public**
 
 Es debido a que no se tiene permisos en la bd y no pudo ejecutar: .../db_files/init-user-db.sh
 Solución:
+
 - detener contenedores: `docker stop $(docker ps -a -q)`
 - eliminar contenedores: `docker system prune`
 - eliminar todas las imagenes: `docker rmi -f $(docker images -aq)`
@@ -122,8 +133,8 @@ Solución:
 - dar permisos de ejecución: `chmod 777 init-user-db.sh`
 - volver a inicializar los contenedores `docker-compose -f stack-billing.yml up`
 
+## Verificar y probar funcionamiento de los servicios
 
-## Verificar y probar funcionamiento de los servicios:
 - Aplicacion web: http://localhost:80
 - adminer: http://localhost:9090
   - info en: stack-billing.yml
@@ -134,6 +145,7 @@ Solución:
   - */var/lib/postgres_data*
 
 ## Detener Orquestacion
+
 `docker-compose -f stack-billing.yml stop`
 
 Activar el cluster de swarm: `docker swarm init`
@@ -146,6 +158,7 @@ Las aplicaciones son para producción y preproducción las cuales estan separada
 
 Aplicación: billingApp_v3
 Aplicaciones:
+
   - Front: Angular-Nginx 
     - producción, preproducción
   - Back: Java
@@ -158,7 +171,8 @@ Red virtual:
   - env_prod: 172.16.232.0/24
   - env_prep: 172.16.235.0/24
 
-Notas:
+## Notas
+
 - Cada ambiente tiene sus datos persistentes separados
 - La configuración de las redes estan en el *.yml* sección `networks`
 - Con un mismo adminer se puede acceder a las dos BD en la configuración se especifica a que redes tienes acceso: `adminer: networks`
@@ -172,15 +186,16 @@ Notas:
   - genera los contenedores
 
 Servicios/aplicaciones orquestadas:
+
 - Java x2
 - Angular x2
 - Postgres x2
 - Adminer x1
 
 Almacenamiento:
+
 - prod: var/lib/postgres_data_prod
 - pre: /var/lib/postgres_data_prep
-
 
 ## Solución de errores conocidos
 Aplicar configuración de **Solucion de errores "Error executing DDL"**
@@ -212,7 +227,7 @@ Usar: `--force-recreate`
 
 ### Verificar y probar funcionamiento de los servicios:
 
-```
+```text
 CONTAINER ID   IMAGE                                
 4057b64b7222   billingapp_v3-billingapp-front_prod  
 00cb830a9b74   billingapp_v3-billingapp-front-prep  
@@ -372,8 +387,3 @@ adminer: *192.168.0.13:9090*
 ### Eliminar todo, incluido las redes, docker swarm
 RESUMEN COMANDOS:
 `docker stack rm billing ; docker swarm leave --force ; docker stop $(docker ps -a -q) ; docker system prune ; docker rmi -f $(docker images -aq) ; docker volume prune ; docker volume rm $(docker volume ls) ;docker network prune ; sudo rm -r /var/lib/postgres_*`
-
-
-
-
-# Practica Kubernetes

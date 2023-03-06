@@ -205,7 +205,7 @@ Las definiciones de objetos se conocen tambien como infraestrutura como codigo.
 ## Administracion
 Clientde de Kubernetes, la cual es una herramienta de línea de comandos para interactuar con la API de Kubernetes, utilizada para gestionar la mayor parte de objetos de Kubernetes, tales como los pods, servicios, namespaces, etc. Además permite conocer el estado general del clúster.
 
-La administración con *kubctl*, se hace por medio de su interfaz como WEB API o por medio de consola.
+La administración con *kubctl*, se hace por medio de su interfaz como WEB API o por medio de consola. El rol de SysAdmin es quien administra y usa *kubctl*.
 
 ## Nodos / Tipos de nodos
 Como minimo se tiene un nodo Master y un nodo Worker.
@@ -258,13 +258,11 @@ Aumentar la potencia de un mismo nodo agregando mayor potencia de commputo: RAM,
 ## Escalabilidad Horizontal
 Agregar mas nodos para que se adapten a la carga de trabajo.
 
-* Carateristicas
+Carateristicas
   1. ofrece mayor eficiencia en costo
   2. varios nodos (cluster)
   3. aumento de nodos con las mismas caracteristicas
   4. se agrega un nodo para balancear la carga
-
-
 
 ***
 
@@ -277,6 +275,3 @@ Agregar mas nodos para que se adapten a la carga de trabajo.
 6. [DockerFile reference](https://docs.docker.com/engine/reference/builder/)
 7. [Docker swarm oficial](https://docs.docker.com/engine/swarm/)
 8. [Docker swarm explicacion](https://www.icm.es/2020/10/24/docker-swarm/)
-
-
-
