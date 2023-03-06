@@ -162,7 +162,15 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
         - billingapp_db
         - postgres
     - NOTA: Tambien se puede ingresar a billigapp_bd
-11. Eliminar todo
+13. Eliminar todo
+    - Uno por uno:
+      - `kubectl delete -f deployment-pgadmin.yaml`
+      - `kubectl delete -f deployment-postgres.yaml`
+      - `kubectl delete -f persistence-volume-claim.yaml`
+      - `kubectl delete -f persistence-volume.yaml`
+      - `kubectl delete -f configmap-postgres-initdb.yaml`
+      - `kubectl delete -f secret-pgadmin.yaml`
+      - `kubectl delete -f secret-dev.yaml`
     - Elimar todo con un solo comando: `kubectl delete -f ./`
 
 #### NOTA
