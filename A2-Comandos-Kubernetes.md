@@ -16,11 +16,17 @@ La aplicación se abre en la url y permite ver y administrar todos los component
 
 ## Comandos utiles
 
-- status de minikube: `minikube status`
-- dasboard: `minikube dashboard`
-  - se ven servicios, pods, secrets, configmaps, volumenes y persistencia, pods
-- crear un pod partiendo de una imagen en dockerhub: `kubectl run kbillingapp --image=sotobotero/udemy-devops:0.0.1 --port=80 80`
-- Crear objetos en el cluster: `kubectl apply -f definicion.yaml`
+- Ver contenedor de kubernetes en docker: `docker ps -a`
+- Ingresar a contenedor de kubernetes como admin: `docker exec -it minikube /bin/bash`
+- Status de minikube: `minikube status`
+  - El contenedor se llama similar a:
+    - Image: *gcr.io/k8s-minikube/kicbase:v0.0.37*
+    - Name: *minikube*
+- Dasboard: `minikube dashboard`
+  - Se ven servicios, pods, secrets, configmaps, volumenes y persistencia, pods
+- Crear un pod partiendo de una imagen en dockerhub: `kubectl run kbillingapp --image=sotobotero/udemy-devops:0.0.1 --port=80 80`
+- Crear objetos en el cluster con definición: `kubectl apply -f definicion.yaml`
+- Crear todos los objetos en el cluster: `kubectl apply -f ./`
 - Ver todos los objetos creados: `kubectl get all`
 - Listar todos los pod del namespace por defecto: `kubectl get pods`
 - Obtener detalles del Pod: `kubectl describe pod kbillingapp`
@@ -44,4 +50,3 @@ La aplicación se abre en la url y permite ver y administrar todos los component
 - consultar la ip de minikube: `minikube ip`
 - cifrar palabra: `echo -n "postgres" | base64`
 - descifrar palabra: `echo "cG9zdGdyZXM=" | base64 -d`
-

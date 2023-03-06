@@ -73,6 +73,7 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
         - PGADMIN_PORT: 80 -> ODA=
 3. Crear *persistence-volume.yaml* para el almacenamiento persistente
     - para definir las propiedades del amlmacenamiento que en este caso es persistente
+    - en *hostPath > path* Se define donde se va a montar la BD persistente dentro del cluster de minikube
 4. Crear *persistence-volume-claim.yaml* para definir como son las peticiones que debe hacer una aplicación para usar el almacenamiento
     - agregar en *data* todos los permisos, tambien agregar permisos del schema por probeblmas anteriores dados en las aplicaicones con Docker
 
@@ -122,9 +123,10 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
      - cración de Pods:
        - `kubectl apply -f deployment-postgres.yaml`
        - `kubectl apply -f deployment-pgadmin.yaml`
-   - Verificar: 2 servicios, +2 servicios, 2 deplyoments, 2 replicas:
-   - en consola
+   - Verificar: 2 servicios, +2 servicios, 2 deplyoments, 1 replica cada uno:
+   - en dashboard
    - en consola: `kubectl get all`
+   - **Se puede aplicar todo con:** `kubectl apply -f ./`
 10. pruebas de funcionamiento, se ingresa por los dos servicios creados de Posgres y PgAdmin, se accede a la BD mediante el servicio, se puede tambien acceder por el POD
     - Consultar IP del cluster: `minikube ip`  esto retorna ip-cluster = *192.168.49.2*
     - Consultar IP externa: `kubectl get services` ver *PORTS interno:externo* del servicio de pgadmin

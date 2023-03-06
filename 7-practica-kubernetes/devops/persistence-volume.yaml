@@ -18,5 +18,5 @@ spec:
     # muchos pods pueden leer y escribir
     - ReadWriteMany
   hostPath:
-    # path del nodo en el cluster
+    # path donde se va a montar la BD persistente dentro del cluster de minikube
     path: "/mnt/data/"
