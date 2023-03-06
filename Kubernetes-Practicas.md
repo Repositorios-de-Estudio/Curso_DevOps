@@ -32,10 +32,9 @@
 
 # 7 PRACTICA Cluester y Pods
 
-Servicio en cluster de kubernetes que tiene una BD (postgresql) y un administrador de BD web. El usuario final puede conectarse al motor de la BD con otro cliente. Se va a definir un *deployment* para la creación de los Pods de Postgres y PgAdmin.
+Servicio en cluster de kubernetes que tiene una BD (postgresql) y como aplicación un administrador de BD web. El usuario final puede conectarse al motor de la BD con otro cliente. Se va a definir un *deployment* para la creación de los Pods de Postgres y PgAdmin.
 
 Para el acceso desde internet se usaran dos servicios: PgAdmin y Posgres los cuales son accesibles desde el WEB Browser.
-
 
 ## Arquitectura
 
@@ -51,7 +50,6 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
     - Aplicación web
 
 ![Arquiectura-AppDevOps](7-practica-kubernetes/arquitectura.png)
-
 
 ## Creación ficheros de configuración
 
@@ -172,6 +170,38 @@ Cluester conformado por dos pods, cada uno para la BD y otro para la aplicación
       - `kubectl delete -f secret-pgadmin.yaml`
       - `kubectl delete -f secret-dev.yaml`
     - Elimar todo con un solo comando: `kubectl delete -f ./`
+
+# 7 PRACTICA Cluester y Pods
+
+Servicio en cluster de kubernetes con alta disponibilidad que tiene (1) una BD (postgresql), (2) con una aplicación de administrador de BD web y una app compuesta por (3) Backend y (4) Frontend.
+
+Para el acceso desde internet se usaran los servicios: PgAdmin y Posgres los cuales son accesibles desde el WEB Browser.
+
+El servicio de postgres tiene ip fija *10.96.1.2* para se pueda acceder a la BD independiente de si cambia la IP del pot de postgres. Como el pod es efimero la IP puede cambiar, así que, se usa el servicio para hacer de intermediario y mantener una IP fija para que pueda ser accedida por la aplicación.
+
+Para el acceso del usuario a la aplicación se usa el servicio Front, luego el front devuelve como se hace la petición al back, el browser la ejecuta y envia directamente la peticion al back. Se espera que la IP del cluster sea *192.168.49.2* para que funcione correctamente la petición al back.
+
+## Arquitectura
+
+1. Servicio Posgres: Servicio para administra la BD con IP Fija
+2. Servicio PgAdmin: Servicio web que permite administrar la BD
+3. Servicio Front
+4. Servio Back
+5. Pod Postgres
+    - Con persistencia
+    - Imagen de postgres
+    - Volumen para almacenar datos
+    - Segundo volumen para ejecutar scripts
+6. Pod PgAdmin
+    - Aplicación web
+7. Pod FrontEnd (x2 replicas)
+   - Angular
+   - Alta disponilidad
+8. Pod BackEnd (x3 replicas)
+   - Java - SprintBoot
+   - Alta disponibilidad
+
+![Arquiectura-BillingApp-Kubernetes](8-practica-BillingApp/media/arquitetcura.png)
 
 #### NOTA
 Se puede usar otro administrador de BD como **DBeaver**.
