@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: billing-app-back-service
+  labels:
+    app: billing-app-back
+spec:   
+  ports:
+  - name: billing-app-back
+    port: 7080
+    nodePort : 30780 
+  #type: LoadBalancer
+  type: NodePort
+  selector:
+   app: billing-app-back
