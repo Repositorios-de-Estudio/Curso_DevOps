@@ -266,6 +266,11 @@ Carateristicas
 
 ***
 
+## Git Flow y Git trunk-base
+
+Ver en [Curso: GIT+GitHub: Todo un sistema de control de versiones de cero](https://github.com/Repositorios-de-Estudio/Git-GitHub)
+
+***
 # Referencias: 
 1. Lectura recomendada clase 3 [Tutorial de DevOps: introducción](https://azure.microsoft.com/es-es/solutions/devops/tutorial/)
 2. Lectura recomendada clase 14 [volumes y mapeo de puertos en docker](https://www.youtube.com/watch?v=GwnDA-oXShI&ab_channel=Digitalthinkingwithsotobotero)
