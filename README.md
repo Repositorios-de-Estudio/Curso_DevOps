@@ -273,6 +273,7 @@ Ver en [Curso: GIT+GitHub: Todo un sistema de control de versiones de cero](http
 ## Diagrama Git Flow
 ![Gitflow](https://uploads-ssl.webflow.com/5ef1f28e08458502ba614d85/5fd1159178c73d72738fe85e_4fqMWRBm72I_faGytgHg5iluz2t26W0CKUudZ6PNt8o-tAhwaaR4tv5DjiBFJQ4_pWDq2P6JotCmh92LTCan_I5ZtXNWYawe_WPZTUQdmFYj26uoIknyMQQD4FTmPxTkZ3hK33FF.png)
 
+## Diagrama Trunk Base
 ![Trunk-Base](https://uploads-ssl.webflow.com/5ef1f28e08458502ba614d85/5fd11591502728c0ffb53da7_JUenwlB68o8F68wsQ4p6fumWupAdgkh8QSISUCLZjR_Nc4NBJgPVXv30BvQ_B_a_E7TNvonmxhwuJjgsWmK5fLGmufVaBepiPBJShFotmq1074BLcMV2pw7ZMJj4VtBMTFjp0Q1k.png)
 
 ***
