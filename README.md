@@ -215,7 +215,6 @@ Como minimo se tiene un nodo Master y un nodo Worker.
   - Docker Swarm (ambientes empresariales pequeños/clusters)
   - Docker Compose (ambientes pequeños)
 
-
 ### Nodos Master
 Nodos que realizan la propia gestion de la insfraestructura.
 
@@ -224,7 +223,6 @@ Nodos que realizan la propia gestion de la insfraestructura.
   - Scheduler: esta a tento a nuevos alos nuevos depliegues y lo aisgna al nodo que mejor se ajuste 
   - Control Manager: se encarga de monitorizar y genera alertas o reliza las tareas automaticas
   - API server: sirve de comunicador entre nosotros y los componentes del cluster (interfaz kubectl) y entre los nodos workers con los nodos master
-
 
 ### Nodos Worked
 Nodos que se encargan de ejecutar todas las tareas propias de la aplicación.
@@ -235,7 +233,6 @@ Nodos que se encargan de ejecutar todas las tareas propias de la aplicación.
   - Container Runtime (docker u otro): Es el propio contenedor
   - Operator System (SO): EL sistema operativo donde se ejecuta el nodo
   - Hardware: Hardware que soporte el nodo
-
 
 ## Escalabilidad
 
@@ -259,6 +256,7 @@ Aumentar la potencia de un mismo nodo agregando mayor potencia de commputo: RAM,
 Agregar mas nodos para que se adapten a la carga de trabajo.
 
 Carateristicas
+
   1. ofrece mayor eficiencia en costo
   2. varios nodos (cluster)
   3. aumento de nodos con las mismas caracteristicas
@@ -270,11 +268,19 @@ Carateristicas
 
 Ver en [Curso: GIT+GitHub: Todo un sistema de control de versiones de cero](https://github.com/Repositorios-de-Estudio/Git-GitHub)
 
-## Diagrama Git Flow
-![Gitflow](https://uploads-ssl.webflow.com/5ef1f28e08458502ba614d85/5fd1159178c73d72738fe85e_4fqMWRBm72I_faGytgHg5iluz2t26W0CKUudZ6PNt8o-tAhwaaR4tv5DjiBFJQ4_pWDq2P6JotCmh92LTCan_I5ZtXNWYawe_WPZTUQdmFYj26uoIknyMQQD4FTmPxTkZ3hK33FF.png)
+## Git Flow
 
-## Diagrama Trunk Base
-![Trunk-Base](https://uploads-ssl.webflow.com/5ef1f28e08458502ba614d85/5fd11591502728c0ffb53da7_JUenwlB68o8F68wsQ4p6fumWupAdgkh8QSISUCLZjR_Nc4NBJgPVXv30BvQ_B_a_E7TNvonmxhwuJjgsWmK5fLGmufVaBepiPBJShFotmq1074BLcMV2pw7ZMJj4VtBMTFjp0Q1k.png)
+Flujo de trabajo que permite estructurar de forma eficiente las ramas del repositorio de git. Esta es una metodologia muy fuertemente escructurada
+
+![Diagrama git-flow](./media/git-flow.png)
+[Fuente](https://dev.to/marianocodes/por-que-trunk-based-development-i5n)
+
+## Trunk Base
+
+Flujo de trabajo que permite realizar pequeños cambios a la rama principal de manera frecuente. El estilo de trabajo es basado en la rama principal o tronco. Esta es una metodologia flexible y la compañia decide que principios seguir.
+
+![Diagrama trunk-base](./media/trunk-base.png)
+[Fuente](https://dev.to/marianocodes/por-que-trunk-based-development-i5n)
 
 ***
 # Referencias: 
