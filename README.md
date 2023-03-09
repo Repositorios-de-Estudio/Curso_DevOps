@@ -2,6 +2,31 @@
 
 ## Curso DevOps con Docker, Jenkins, Kubernetes, git, GitFlow CI y CD
 
+### Este archivo contiene
+
+1. Introducción DevOps
+2. Definiciones basica de DevOps
+3. Docker
+   1. DockerHub
+   2. Docker Swarm
+   3. Docker Network
+4. Kubernetes
+   1. Objetos de Kubernetes
+   2. Escalabilidad
+   3. Git Flow
+   4. Git Trunk Base
+5. FLujos de Trabajado basado en git
+6. Referencias
+
+### El Proyecto contiene
+
+1. Proceso Instalación y configuración de Docker en Linux ->
+2. Comandos basicos de Docker + ejemplo ->
+3. Practicas, ejercicios y ejemplos con Docker ->
+4. Proceso Instalación y configuración de Kubernetes en Linux ->
+5. Comandos basicos de Kubernetes + ejemplo ->
+6. Practicas, ejercicios y ejemplos con Kubernetes ->
+
 ### Curso de: 
 https://www.udemy.com/course/devops-con-dockers-kubernetes-jenkins-y-gitflow-cicd/
 https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
@@ -62,7 +87,6 @@ https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
   - Se utiliza con el objetivo de establecer y aprovisionar una infraestructura completa, haciendo uso de un lenguaje declarativo sencillo de aprender, que permite almacenar una configuración de la infraestructura en formato de codigo
 - Supervision y Registro: Monitorizacion, recopilacion de metricas y vinculacion de datos de performance >> Prometheus, Granafa
 - Aprendizaje validado: Analisis de datos para mejorar los procesos en cada ciclo
-
 
 # Definiciones basicas
 - Cluster: Agrupación de un conjunto de hosts de Docker gestionados centraliazadamente, donde hay un host maestro (nodo maestro o **manager**) y otros esclavos (nodos esclavos o **worker**)
@@ -263,6 +287,8 @@ Carateristicas
   4. se agrega un nodo para balancear la carga
 
 ***
+
+# FLujos de Trabajado basado en git
 
 ## Git Flow y Git trunk-base
 
