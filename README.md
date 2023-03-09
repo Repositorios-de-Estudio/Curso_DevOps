@@ -319,10 +319,23 @@ Flujo de trabajo que permite realizar pequeños cambios a la rama principal de m
 
 1. Es una de las principales pracricas de DevOps y consiste en automatizar la gestión de los cambios del código de multiples contribuidores en un único proyecto de software.
 2. Permite a los desarrolladores realizar merge frecuentemente en un repositorio central.La compilación y pruebas automaticas sean ejecutadas.
-3. El sistema de control de versiones es el core de todo el proceso de integración y se puede complementar cpn pruebas de codigo automatico, revision de sistan
+3. El sistema de control de versiones es el core de todo el proceso de integración y se puede complementar cpn pruebas de codigo automatico, revision de sistanxis, etc.
 
+Los desarrolladores envian cambios al repositorio central (GitHub), luego el sevidor CI detecta cambios (hace pull de github) y ejecuta tareas (build, test,review) de automatización con una herramienta (Jenkins), si la validación es exitosa (pruebas) se hace un merge de los cambios a la rama principal (en github); del merge y de los resultados de la herramienta CI se crean reportes (Slack notifications) los cuañes se notifican.
+
+![Flujo CI](./media/flujo-ci.png)
+
+## Herramientas CI
+
+1. Jenkins
+2. Travis-CI
+3. CircleCI
+4. Github
+5. Azure DevOps Server
 
 ## CD Conmtinuos Devivery
+
+![Flujo CD](./media/flujo-cd.png)
 
 ***
 # Referencias: 
