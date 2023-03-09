@@ -2,7 +2,7 @@
 
 ## Curso DevOps con Docker, Jenkins, Kubernetes, git, GitFlow CI y CD
 
-### Este archivo contiene
+### Tabla de Contenido
 
 1. Introducción DevOps
 2. Definiciones basica de DevOps
@@ -18,7 +18,7 @@
 5. FLujos de Trabajado basado en git
 6. Referencias
 
-### El Proyecto contiene
+### Estructura del Repositorio
 
 1. Proceso Instalación y configuración de Docker en Linux -> **A1-fedora-docker-instalacion.md**
 2. Comandos basicos de Docker + ejemplo -> **A2-Comandos-Docker.md**
@@ -27,11 +27,11 @@
 5. Comandos basicos de Kubernetes + ejemplo -> **A2-Comandos-Kubernetes.md**
 6. Practicas, ejercicios y ejemplos con Kubernetes -> **Kubernetes-Practicas.md**
 
+***
+
 ### Curso de: 
 https://www.udemy.com/course/devops-con-dockers-kubernetes-jenkins-y-gitflow-cicd/
 https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
-
-***
 
 # SECCIÓN DE INTRODUCCIÓN Y DEFINICIONES
 
