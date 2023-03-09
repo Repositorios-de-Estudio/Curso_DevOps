@@ -1,5 +1,7 @@
 # actualizacion del sistema
 
+[Componentes e Docker](./media/DockerComponents.png)
+
 ```
 sudo dnf clean all
 sudo dnf check-update

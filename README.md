@@ -16,7 +16,8 @@
    3. Git Flow
    4. Git Trunk Base
 5. FLujos de Trabajado basado en git
-6. Referencias
+6. CI/CD (Integración Continua y Entrega Continua)
+7. Referencias
 
 ### Estructura del Repositorio
 
@@ -307,6 +308,21 @@ Flujo de trabajo que permite realizar pequeños cambios a la rama principal de m
 
 ![Diagrama trunk-base](./media/trunk-base.png)
 [Fuente](https://dev.to/marianocodes/por-que-trunk-based-development-i5n)
+
+***
+
+# CI/CD (Integración Continua y Entrega Continua)
+
+![Flujo CI/CD](./media/ci-cd.png)
+
+## CI - Continuos Integration
+
+1. Es una de las principales pracricas de DevOps y consiste en automatizar la gestión de los cambios del código de multiples contribuidores en un único proyecto de software.
+2. Permite a los desarrolladores realizar merge frecuentemente en un repositorio central.La compilación y pruebas automaticas sean ejecutadas.
+3. El sistema de control de versiones es el core de todo el proceso de integración y se puede complementar cpn pruebas de codigo automatico, revision de sistan
+
+
+## CD Conmtinuos Devivery
 
 ***
 # Referencias: 
