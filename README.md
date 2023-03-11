@@ -266,7 +266,8 @@ Capacidad de un sistema para adaptarse al crecimiento por demanda y complejidad.
 ## Escalabilidad Vertical
 Aumentar la potencia de un mismo nodo agregando mayor potencia de commputo: RAM, almacenamiento, GPU, CPU,... etc
 
-* Carateristicas
+### Carateristicas
+
   1. Unico nodo
   2. Aumento de potencia de computo
   3. Esta limitado por las prestaciones maximas del hardware
@@ -278,6 +279,7 @@ Aumentar la potencia de un mismo nodo agregando mayor potencia de commputo: RAM,
     - limitaciones del SO
 
 ## Escalabilidad Horizontal
+
 Agregar mas nodos para que se adapten a la carga de trabajo.
 
 Carateristicas
@@ -311,34 +313,65 @@ Flujo de trabajo que permite realizar pequeños cambios a la rama principal de m
 
 ***
 
-# CI/CD (Integración Continua y Entrega Continua)
+# CI/CD (Integración Continua y Distribución Continua)
 
-![Flujo CI/CD](./media/ci-cd.png)
+La CI/CD es un método para distribuir las aplicaciones a los clientes con frecuencia mediante el uso de la automatización en las etapas del desarrollo de las aplicaciones.
 
-## CI - Continuos Integration
+Esto incorpora la automatización y la supervisión permanentes en todo el ciclo de vida de las aplicaciones, desde las etapas de integración y prueba hasta las de distribución e implementación. Estas prácticas vinculadas se conocen como **canales de CI/CD** o **Pipelines**.
 
-1. Es una de las principales pracricas de DevOps y consiste en automatizar la gestión de los cambios del código de multiples contribuidores en un único proyecto de software.
-2. Permite a los desarrolladores realizar merge frecuentemente en un repositorio central.La compilación y pruebas automaticas sean ejecutadas.
-3. El sistema de control de versiones es el core de todo el proceso de integración y se puede complementar cpn pruebas de codigo automatico, revision de sistanxis, etc.
+![Flujo CI/CD](./media/ci-cd2.png)
 
 Los desarrolladores envian cambios al repositorio central (GitHub), luego el sevidor CI detecta cambios (hace pull de github) y ejecuta tareas (build, test,review) de automatización con una herramienta (Jenkins), si la validación es exitosa (pruebas) se hace un merge de los cambios a la rama principal (en github); del merge y de los resultados de la herramienta CI se crean reportes (Slack notifications) los cuañes se notifican.
 
-![Flujo CI](./media/flujo-ci.png)
-
-## Herramientas CI
+## Herramientas comunes de CI/CD
 
 1. Jenkins
-2. Travis-CI
-3. CircleCI
-4. Github
-5. Azure DevOps Server
+2. Tekton Pipelines
+3. Travis-CI
+4. CircleCI
+5. GitHub
+6. GitLab
+7. Azure DevOps Server
 
-## CD Conmtinuos Devivery
+## CI - Continuos Integration
+
+Se refiere a la integración continua, que es un proceso de automatización para los desarrolladores donde implica que se diseñen, prueben y combinen los cambios nuevos en el código de una aplicación con regularidad en un repositorio compartido.
+
+![Flujo CI](./media/flujo-ci.png)
+
+1. Integración de código de manera automatizada de varios desarrolladores.
+2. Permite a los desarrolladores realizar merge frecuentemente en un repositorio central.La compilación y pruebas automaticas sean ejecutadas.
+3. El sistema de control de versiones es el core de todo el proceso de integración y se puede complementar con pruebas de codigo automatico, revision de sistanxis, etc.
+
+## CD - Continuous Delivery y Continuous Deployment
+
+Se refiere a la (1) distribución y/o la (2) implementación continuas, y se trata de conceptos relacionados, ambos se refieren a la automatización de las etapas posteriores del proceso CI.
 
 ![Flujo CD](./media/flujo-cd.png)
 
+### Continuos Delivery
+
+El propósito de la distribución continua es garantizar que la implementación del código nuevo se lleve a cabo con el mínimo esfuerzo. Se refiere a que los cambios que implementados someten a pruebas automáticas de errores y se cargan al repositorio, para luego ser implemntado por el equipo de operaciones en un entorno de producción. 
+
+Esto solución el problema de la poca supervisión y comunicación entre los equipos comerciales y de desarrollo.
+
+1. Continua luego de CI, luego de su validación y pruebas con los cambios ya agregados
+2. Se despliega y construye automaticamente la aplicación con los cambios, generalmente a los entornos de pruebas o tambien a producción
+
+### Continuous Deployment
+
+Se refiere al lanzamiento automático de los cambios que implementa el desarrollador desde el repositorio hasta producción. Con este tipo de implementación, se aprovechan los beneficios de la distribución continua y se automatiza la siguiente etapa del proceso.
+
+Esto soluciona el problema de la sobrecarga a los equipos de operaciones con procesos manuales que retrasan la distribución de las aplicaciones.
+
+1. Cuando la aplicaición pasa las etapdas anteriores se hace release en producción.
+
+## Herramientas CD
+
 ***
-# Referencias: 
+
+# Referencias
+
 1. Lectura recomendada clase 3 [Tutorial de DevOps: introducción](https://azure.microsoft.com/es-es/solutions/devops/tutorial/)
 2. Lectura recomendada clase 14 [volumes y mapeo de puertos en docker](https://www.youtube.com/watch?v=GwnDA-oXShI&ab_channel=Digitalthinkingwithsotobotero)
 3. [Documentación Docker](https://docs.docker.com/engine/)
@@ -347,3 +380,4 @@ Los desarrolladores envian cambios al repositorio central (GitHub), luego el sev
 6. [DockerFile reference](https://docs.docker.com/engine/reference/builder/)
 7. [Docker swarm oficial](https://docs.docker.com/engine/swarm/)
 8. [Docker swarm explicacion](https://www.icm.es/2020/10/24/docker-swarm/)
+9. [CI/CD por RedHat](https://www.redhat.com/es/topics/devops/what-is-ci-cd#:~:text=La%20CI%2FCD%20es%20un,distribuci%C3%B3n%20y%20la%20implementaci%C3%B3n%20continuas.)
