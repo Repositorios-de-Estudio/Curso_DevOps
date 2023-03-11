@@ -333,6 +333,19 @@ Los desarrolladores envian cambios al repositorio central (GitHub), luego el sev
 6. GitLab
 7. Azure DevOps Server
 
+## Herramientas para la gestion CI/CD
+
+1. Pipeline: Grupo lógico de actividades que trabjan de manera conjunta para realizar una tarea
+   1. Ej: Se crea un pipleine que: contruya el codigo con cambios, ejecute pruebas y haga el merge
+2. Jenkins: ervidor de automatización OpenSource
+3. Slack: Plataforma propietaria empresarial de comunicación de equipos
+   1. Su caracteristca de Channel permite recibir las notificaciones de de los resultados de pruebas y despliegue
+4. SonarQube: Plataforma OpenSource que inspecciona el codigo asegurando la calidad del codigo
+   1. recomienda mejoras de codigo, optimizaciones
+   2. soporta  varios lenguajes
+   3. ofrece graficos, metricas e informes
+5. Selenium: Framework para prueba de aplicaciones web para hacer test funcionale
+
 ## CI - Continuos Integration
 
 Se refiere a la integración continua, que es un proceso de automatización para los desarrolladores donde implica que se diseñen, prueben y combinen los cambios nuevos en el código de una aplicación con regularidad en un repositorio compartido.
@@ -366,7 +379,7 @@ Esto soluciona el problema de la sobrecarga a los equipos de operaciones con pro
 
 1. Cuando la aplicaición pasa las etapdas anteriores se hace release en producción.
 
-## Herramientas CD
+
 
 ***
 
