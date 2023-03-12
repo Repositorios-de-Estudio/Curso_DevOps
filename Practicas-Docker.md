@@ -1,5 +1,5 @@
 
-# SECCIÓN DE PRACTICAS Y EJERCICIOS
+# SECCIÓN DE PRACTICAS Y EJERCICIOS Docker
 
 ***
 
@@ -10,6 +10,7 @@ De esta manera impacta el uso de Docker en la vida real.
 Se requiere desplegar la aplicacion de facturacion de la compañia en los entornos de integracion, preproduccion y produccion. La instalacion debe contar con alta disponibilidad (excepto en el entorno de integracion)
 
 ## Requisitos Tecnicos
+
 - Java 1.8
 - Servidor WEB Ngix
 - Base de datos Postgres

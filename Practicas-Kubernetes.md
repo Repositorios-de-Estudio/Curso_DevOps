@@ -1,4 +1,4 @@
-# SECCIÓN DE PRACTICAS Y EJERCICIOS
+# SECCIÓN DE PRACTICAS Y EJERCICIOS Kubernetes
 
 # Creacion de POD: Prueba con imagen billingapp
 

@@ -23,11 +23,12 @@
 
 1. Proceso Instalación y configuración de Docker en Linux -> **A1-fedora-docker-instalacion.md**
 2. Comandos basicos de Docker + ejemplo -> **A2-Comandos-Docker.md**
-3. Practicas, ejercicios y ejemplos con Docker -> **Docker-Practicas.md**
+3. Practicas, ejercicios y ejemplos con Docker -> **Practicas-Docker.md**
 4. Proceso Instalación y configuración de Kubernetes en Linux -> **A1-fedora-kubernetes-instalacion.md**
 5. Uso de Jenkins y Maven en una imagen Docker -> **A1-fedora-Jenkins-instalacion.md**
 6. Comandos basicos de Kubernetes + ejemplo -> **A2-Comandos-Kubernetes.md**
-7. Practicas, ejercicios y ejemplos con Kubernetes -> **Kubernetes-Practicas.md**
+7. Practicas, ejercicios y ejemplos con Kubernetes -> **Practicas-Kubernetes.md**
+8. Practicas, ejercicios y ejemplos con Jenkins -> **Practicas-Jenkins.md**
 
 ***
 

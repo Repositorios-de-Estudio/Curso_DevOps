@@ -1,0 +1,14 @@
+# SECCIÓN DE PRACTICAS Y EJERCICIOS
+
+# Ejemplo
+
+#  PRACTICA
+
+
+# PROBLEMAS
+
+## Error
+
+***
+
+# REFERENCIAS
