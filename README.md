@@ -379,6 +379,8 @@ Esto soluciona el problema de la sobrecarga a los equipos de operaciones con pro
 
 1. Cuando la aplicaición pasa las etapdas anteriores se hace release en producción.
 
+***
+
 
 
 ***

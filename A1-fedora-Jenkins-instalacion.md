@@ -31,10 +31,6 @@ Se va a usar la imagen de Jenkins en Docker y se va a extender con Maven para su
       2. el email es a donde llegan las notificaciones CI/CD
    7. listo para crear con **Pipelines**
 
-
-
-
-
 # REFERENCIAS
 
 1. [Documentación Jenkins - extend the image](https://github.com/jenkinsci/docker/blob/master/README.md)
