@@ -4,7 +4,7 @@ USER root
 ENV MAVEN_VERSION 3.9.0
 
 # INSTALA WGET
-RUN apt-get update && at-get install -y wget
+RUN apt-get update && apt-get install -y wget
 # DESCARGA (-P) EL BINARIO TAR.GZ EN /tmp/
 # ruta directa
 RUN wget https://downloads.apache.org/maven/maven-3/3.9.0/binaries/apache-maven-3.9.0-bin.tar.gz --no-verbose -P /tmp/
