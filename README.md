@@ -25,8 +25,9 @@
 2. Comandos basicos de Docker + ejemplo -> **A2-Comandos-Docker.md**
 3. Practicas, ejercicios y ejemplos con Docker -> **Docker-Practicas.md**
 4. Proceso Instalación y configuración de Kubernetes en Linux -> **A1-fedora-kubernetes-instalacion.md**
-5. Comandos basicos de Kubernetes + ejemplo -> **A2-Comandos-Kubernetes.md**
-6. Practicas, ejercicios y ejemplos con Kubernetes -> **Kubernetes-Practicas.md**
+5. Uso de Jenkins y Maven en una imagen Docker -> **A1-fedora-Jenkins-instalacion.md**
+6. Comandos basicos de Kubernetes + ejemplo -> **A2-Comandos-Kubernetes.md**
+7. Practicas, ejercicios y ejemplos con Kubernetes -> **Kubernetes-Practicas.md**
 
 ***
 
@@ -116,11 +117,13 @@ https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
   - Se recibe una peticion por el puerto 8082, el host mapea al puerto 8080 del contendor: https://minute.com:8082 -> contenedor:8080
 - DockerHub: Es un repositorio de imagenes de acceso publico: https://hub.docker.com/
 - Adminer (anteriormente phpMinAdmin) Administrador grafico de bases de datos: MySQL, SQLite, Oracle, PostgreSQL de manera efectiva.
+- Pipelines: Grupo lógico de actividades que trabajan de manera conjunta para realizar una tarea
 
 ## Docker
 Tecnologia que permite empaquetar aplicaciones con todas sus dependencias para hacerlas postables y conseguir ejecución independiente del SO.
 
-* Alternativas
+Alternativas
+
   1. Podman
   2. OpenVZ
   3. VirtualBox
@@ -335,7 +338,7 @@ Los desarrolladores envian cambios al repositorio central (GitHub), luego el sev
 
 ## Herramientas para la gestion CI/CD
 
-1. Pipeline: Grupo lógico de actividades que trabjan de manera conjunta para realizar una tarea
+1. Pipeline: Grupo lógico de actividades que trabajan de manera conjunta para realizar una tarea
    1. Ej: Se crea un pipleine que: contruya el codigo con cambios, ejecute pruebas y haga el merge
 2. Jenkins: ervidor de automatización OpenSource
 3. Slack: Plataforma propietaria empresarial de comunicación de equipos
@@ -380,6 +383,18 @@ Esto soluciona el problema de la sobrecarga a los equipos de operaciones con pro
 1. Cuando la aplicaición pasa las etapdas anteriores se hace release en producción.
 
 ***
+
+# Pipelines en Jenkins
+
+Grupo lógico de actividades que trabajan de manera conjunta para realizar una tarea.
+
+Las tareas (tasks) se agrupan en pasos (Steps), los pasos son agrupados en (Jobs) el Job es ejecutado por un Agent (Jenkins hace de agente), todo esto se organiza dentro de un Stage, pueden haber varios Stages para varios propositos, ej: calidad, producción, compilación. La agrupación de los Stages hacen una Pipeline.
+
+Los eventos dentro de la Pipeline se disparan con un evento Trigger
+
+![Pipeline esquema sencillo](./media/pipeline.png)
+
+
 
 
 
