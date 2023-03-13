@@ -1,4 +1,4 @@
-# Uso de Jenkins en una imagen Docker
+# Uso de Jenkins en una imagen Docker y uso de ngrok
 
 Se va a usar la imagen de Jenkins en Docker y se va a extender con Maven para su funcionamiento con una aplicación Java.
 
@@ -32,6 +32,29 @@ Se va a usar la imagen de Jenkins en Docker y se va a extender con Maven para su
       3. ahora la contraseña es *admin*
    7. listo para crear con **Pipelines**
 9. Se debe tener un *token de acceso* para usar en las credenciales de git en jenkins
+
+# Uso de ngrok
+
+1. Crea una cuenta
+2. Descargar el binario de: 'https://dashboard.ngrok.com/get-started/setup'
+3. Descomprimir
+4. Conectar la cuenta con el token de la pagina de gnrok
+   1. `./ngrok config add-authtoken token-de-la-pagina-de-ngrok`
+5. Configurar el servicio
+   1. El servidor CI/CD esta por el *puerto 8080*
+   2. `./ngrok http 8080`
+6. Crear Webhook
+   1. toma la url que dice *Forwarding*: 'https://bbc8-201-244-248-50.ngrok.io'
+   2. Ir al repositorio de github > configuracion
+   3. webhooks > add webhooks
+   4. Payload url: pegar la url + /github-webhook/ 'https://bbc8-201-244-248-50.ngrok.io/github-webhook/'
+   5. Content type: application/json
+   6. Eventos: usar solamente *Just the push event*
+   7. Active: enable
+7. Verificar que este funcionando
+   1. webhooks > selecionar > recent Deliveries
+   2. en evento ping debe estar en verde
+8. Terminar el proceso cuando se terminen las pruebas
 
 # REFERENCIAS
 

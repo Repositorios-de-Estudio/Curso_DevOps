@@ -5,6 +5,9 @@ Configuración para Pipeline free style con proyecto Java y Maven. Este pipeline
 1. descargar codigo de repositorio de github
 2. `clean install` de maven
 
+Basado en: *12-pipelines-jenkis*
+Repositorio: 'https://github.com/Repositorios-de-Estudio/devops-pipeline-1'
+
 ## Crear Pipeline
 
 1. Create Job
@@ -75,7 +78,7 @@ Configuración para Pipeline free style con proyecto Java y Maven. Este pipeline
    2. sobre el indicador de # dar click
    3. ver el logs para indentificar errores
 
-## Conectarse al comtenedor
+## Conectarse al contenedor
 
 Esto es una mala practica no tenia que instalarse la aplicación en el mismo contenedor de Jenkins, esto se hace asi a modo de ejemplo.
 
@@ -87,4 +90,3 @@ Esto es una mala practica no tenia que instalarse la aplicación en el mismo con
 ## Administrar credenciales de github
 
 Ir a: *Dashboard > manage jenkins > credentiales > system > global credentials*
-

@@ -84,6 +84,7 @@ https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg
   3. Virtualizacion de funciones / Contenedores
 
 ## Aspectos fundamentales de DevOps
+
 - Control de versiones: git, svn
 - CI Integracion continua: Automatizacion de compilaciones y pruebas tras commit >> Pipelines Jenkins
 - CD Entrega continua: Suministro de software rapido y confiable en cualquier momento
@@ -326,7 +327,9 @@ Esto incorpora la automatización y la supervisión permanentes en todo el ciclo
 
 ![Flujo CI/CD](./media/ci-cd2.png)
 
-Los desarrolladores envian cambios al repositorio central (GitHub), luego el sevidor CI detecta cambios (hace pull de github) y ejecuta tareas (build, test,review) de automatización con una herramienta (Jenkins), si la validación es exitosa (pruebas) se hace un merge de los cambios a la rama principal (en github); del merge y de los resultados de la herramienta CI se crean reportes (Slack notifications) los cuañes se notifican.
+Los desarrolladores envian cambios al repositorio central (GitHub), luego el sevidor CI detecta cambios (hace pull de github) y ejecuta tareas (build, test,review) de automatización con una herramienta (Jenkins), si la validación es exitosa (pruebas) se hace un merge de los cambios a la rama principal (en github); del merge y de los resultados de la herramienta CI se crean reportes (Slack notifications) los cuañes se notifican. \
+
+En este proyecto, el **Servidor de Integración Continua** (Server CI/CD) es donde esta instalado Jenkins.
 
 ## Herramientas comunes de CI/CD
 
@@ -350,6 +353,13 @@ Los desarrolladores envian cambios al repositorio central (GitHub), luego el sev
    2. soporta  varios lenguajes
    3. ofrece graficos, metricas e informes
 5. Selenium: Framework para prueba de aplicaciones web para hacer test funcionale
+
+## Herramientas adicionales
+
+1. Uso de WebHook para eventos y enviar notificaciones a Jenkins.
+2. Uso de ngrok, es un proxy inverso para exponer el puerto a internet el Servidor CI/CD local para poder enviar las notificaciones a Jenkins
+
+La instalación y uso de ngrok esta en: *A1-fedora-Jenkins-instalacion.md*
 
 ## CI - Continuos Integration
 
@@ -398,11 +408,10 @@ Los eventos dentro de la Pipeline se disparan con un evento Trigger. \
 
 ## Practica
 
-Ubicación archivo: *Practicas-Jenkins.md* \
+Ubicación archivos: *Practicas-Jenkins.md*, *12-pipelines-jenkis*  y *13-pipeline-webhook-ngrok*
 Guia de Comandos: *A2-Comandos-Jenkins.md*\
-Repositorio: 'https://github.com/Repositorios-de-Estudio/devops-pipeline-1'
+Repositorio: 'https://github.com/Repositorios-de-Estudio/devops-pipeline-1' y 'https://github.com/Repositorios-de-Estudio/pipeline-java-angular'
 
-## Buenas practicas
 
 ***
 

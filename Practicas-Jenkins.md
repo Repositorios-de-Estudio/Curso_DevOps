@@ -18,7 +18,9 @@ Es una mala practica no tenia que instalarse la aplicación en el mismo contened
 
 ## 1 Repositorio Github
 
-[pipeline-1-github](https://github.com/Repositorios-de-Estudio/devops-pipeline-1)
+Repositorio: [pipeline-1-github](https://github.com/Repositorios-de-Estudio/devops-pipeline-1) \
+Aplicación: Billing \
+Ubicación: *12-pipelines-jenkis*
 
 ## 2 Configuración en Jenkins
 
@@ -46,6 +48,13 @@ Es una mala practica no tenia que instalarse la aplicación en el mismo contened
 ### Solución
 
 Se debe indicar el POM.XML en *Build steps*. El path del pom.xml no debe incluir el root del repositorio.
+
+# 13 PRACTICA pipeline + webhook + ngrok
+
+Repositorio:
+Aplicación: java (billing) + Angular
+Ubicación: *13-pipeline-webhook-ngrok*
+Herramientas: Webhook y ngrok
 
 ***
 
