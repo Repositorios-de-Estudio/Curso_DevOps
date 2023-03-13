@@ -36,6 +36,14 @@ Los desarrolladores envian cambios al repositorio github y es disparado cuando s
 
 ## Error
 
+### Mensaje 
+
+*[ERROR] The goal you specified requires a project to execute but there is no POM in this directory (/var/jenkins_home/workspace/devops_test1). Please verify you invoked Maven from the correct directory. -> [Help 1]*
+
+### Solución
+
+Se debe indicar el POM.XML en *Build steps*.
+
 ***
 
 # REFERENCIAS

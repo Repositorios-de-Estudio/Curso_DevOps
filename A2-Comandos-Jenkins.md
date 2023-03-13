@@ -55,9 +55,22 @@ Configuración para Pipeline free style con proyecto Java y Maven. Este pipeline
          1. escribir: clean install
    2. SAVE - para guardar el pipeline
 
-## Para ejecutar
+## Workspace - Confguraciones adicionales
+
+1. Configure
+   1. Build steps
+   2. Advance
+      1. POM: indicar ruta del POMP, ej: billing/pom.xml
+      2. LA RUTA no debe incluir la carpeta raiz ya que en el workspace ya esta
+   3. Guardar
+
+## Para ejecutar y diagnosticar
 
 1. Dentro del Pipeline
    1. Build Now
 2. Desde el deasboard de jenkins
    1. (icono flecha verde) schedule a build
+3. Luego de ejecutar
+   1. ir a Console output
+   2. sobre el indicador de # dar click
+   3. ver el logs para indentificar errores
