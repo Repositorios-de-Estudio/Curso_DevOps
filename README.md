@@ -25,10 +25,11 @@
 2. Comandos basicos de Docker + ejemplo -> **A2-Comandos-Docker.md**
 3. Practicas, ejercicios y ejemplos con Docker -> **Practicas-Docker.md**
 4. Proceso Instalación y configuración de Kubernetes en Linux -> **A1-fedora-kubernetes-instalacion.md**
-5. Uso de Jenkins y Maven en una imagen Docker -> **A1-fedora-Jenkins-instalacion.md**
-6. Comandos basicos de Kubernetes + ejemplo -> **A2-Comandos-Kubernetes.md**
-7. Practicas, ejercicios y ejemplos con Kubernetes -> **Practicas-Kubernetes.md**
+5. Comandos basicos de Kubernetes + ejemplo -> **A2-Comandos-Kubernetes.md**
+6. Practicas, ejercicios y ejemplos con Kubernetes -> **Practicas-Kubernetes.md**
+7. Uso de Jenkins y Maven en una imagen Docker -> **A1-fedora-Jenkins-instalacion.md**
 8. Practicas, ejercicios y ejemplos con Jenkins -> **Practicas-Jenkins.md**
+9. Comandos basicos de Jenkins + ejemplo -> **A2-Comandos-Jenkins.md**
 
 ***
 
@@ -387,17 +388,21 @@ Esto soluciona el problema de la sobrecarga a los equipos de operaciones con pro
 
 # Pipelines en Jenkins
 
-Grupo lógico de actividades que trabajan de manera conjunta para realizar una tarea.
+Grupo lógico de actividades que trabajan de manera conjunta para realizar una tarea. Los pipelines son independientes del SO, son una herramienta para automatizar tareas en administración y desarrollo. Se recomienda realizar un diagrama para ser lo mas eficientes posible. \
 
-Las tareas (tasks) se agrupan en pasos (Steps), los pasos son agrupados en (Jobs) el Job es ejecutado por un Agent (Jenkins hace de agente), todo esto se organiza dentro de un Stage, pueden haber varios Stages para varios propositos, ej: calidad, producción, compilación. La agrupación de los Stages hacen una Pipeline.
+Las tareas (tasks) se agrupan en pasos (Steps), los pasos son agrupados en (Jobs) el Job es ejecutado por un Agent (Jenkins hace de agente), todo esto se organiza dentro de un Stage, pueden haber varios Stages para varios propositos, ej: calidad, producción, compilación. La agrupación de los Stages hacen una Pipeline. \
 
-Los eventos dentro de la Pipeline se disparan con un evento Trigger
+Los eventos dentro de la Pipeline se disparan con un evento Trigger. \
 
 ![Pipeline esquema sencillo](./media/pipeline.png)
 
+## Practica
 
+Ubicación archivo: *Practicas-Jenkins.md* \
+Guia de Comandos: *A2-Comandos-Jenkins.md*\
+Repositorio: 'https://github.com/Repositorios-de-Estudio/devops-pipeline-1'
 
-
+## Buenas practicas
 
 ***
 

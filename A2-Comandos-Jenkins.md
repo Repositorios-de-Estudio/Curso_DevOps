@@ -60,7 +60,7 @@ Configuración para Pipeline free style con proyecto Java y Maven. Este pipeline
 1. Configure
    1. Build steps
    2. Advance
-      1. POM: indicar ruta del POMP, ej: billing/pom.xml
+      1. POM: indicar ruta del POMP, ej: *billing/pom.xml*
       2. LA RUTA no debe incluir la carpeta raiz ya que en el workspace ya esta
    3. Guardar
 
@@ -74,3 +74,17 @@ Configuración para Pipeline free style con proyecto Java y Maven. Este pipeline
    1. ir a Console output
    2. sobre el indicador de # dar click
    3. ver el logs para indentificar errores
+
+## Conectarse al comtenedor
+
+Esto es una mala practica no tenia que instalarse la aplicación en el mismo contenedor de Jenkins, esto se hace asi a modo de ejemplo.
+
+1. `docker exec -it c3fba2e14ac7 /bin/bash`
+   1. Verificar contenido de la instalacion del JAR
+      1. la ruta esta en los logs de ejecución del pipeline
+      2. `ls -al /var/jenkins_home/.m2/repository/com/paymentchain/billing/0.0.1-SNAPSHOT/`
+
+## Administrar credenciales de github
+
+Ir a: *Dashboard > manage jenkins > credentiales > system > global credentials*
+

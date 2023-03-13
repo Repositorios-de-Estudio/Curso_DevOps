@@ -2,9 +2,11 @@
 
 # 12 PRACTICA Pipeline sencillo Jenkins (Freestyle Project)
 
-Es Jenkins se va a definir un pipeline conactado a un repositorio de guthub, hace pull del repositorio, luego lo compila y lo instala dentro de un servidor CI/CD.
+Es Jenkins se va a definir un pipeline conactado a un repositorio de guthub, hace pull del repositorio, luego lo compila y lo instala dentro de un servidor CI/CD. \
 
-Los desarrolladores envian cambios al repositorio github y es disparado cuando se detecta un pull request.
+Los desarrolladores envian cambios al repositorio github y es disparado cuando se detecta un pull request. \
+
+Es una mala practica no tenia que instalarse la aplicación en el mismo contenedor de Jenkins, esto se hace asi a modo de ejemplo. \
 
 ![Arquitectura](./media/pipeline1.png)
 
@@ -31,18 +33,19 @@ Los desarrolladores envian cambios al repositorio github y es disparado cuando s
    1. build steps
       1. maven de nivel superior
       2. goles: clean install
+      3. Advance >> POM billing/pom.xml
 
 # PROBLEMAS
 
 ## Error
 
-### Mensaje 
+### Mensaje
 
 *[ERROR] The goal you specified requires a project to execute but there is no POM in this directory (/var/jenkins_home/workspace/devops_test1). Please verify you invoked Maven from the correct directory. -> [Help 1]*
 
 ### Solución
 
-Se debe indicar el POM.XML en *Build steps*.
+Se debe indicar el POM.XML en *Build steps*. El path del pom.xml no debe incluir el root del repositorio.
 
 ***
 
