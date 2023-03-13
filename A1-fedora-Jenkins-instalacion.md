@@ -33,7 +33,7 @@ Se va a usar la imagen de Jenkins en Docker y se va a extender con Maven para su
    7. listo para crear con **Pipelines**
 9. Se debe tener un *token de acceso* para usar en las credenciales de git en jenkins
 
-# Uso de ngrok
+# Uso de ngrok y webooks
 
 1. Crea una cuenta
 2. Descargar el binario de: 'https://dashboard.ngrok.com/get-started/setup'
@@ -54,7 +54,8 @@ Se va a usar la imagen de Jenkins en Docker y se va a extender con Maven para su
 7. Verificar que este funcionando
    1. webhooks > selecionar > recent Deliveries
    2. en evento ping debe estar en verde
-8. Terminar el proceso cuando se terminen las pruebas
+   3. Cuando se hace un push en la consola de ngrok sale *POST /github-webhook/          200 OK*
+8. **IMPORANTE!** Terminar el proceso cuando se terminen las pruebas
 
 # REFERENCIAS
 

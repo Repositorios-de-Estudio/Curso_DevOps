@@ -56,6 +56,11 @@ Aplicación: java (billing) + Angular
 Ubicación: *13-pipeline-webhook-ngrok*
 Herramientas: Webhook y ngrok
 
+1. ejecutar ngrok
+2. crear repositorio con billing y angularWorkSpace
+3. configurar webhook en el repositorio apuntando al ngrok
+
+
 ***
 
 # REFERENCIAS

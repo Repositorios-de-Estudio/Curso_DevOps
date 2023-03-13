@@ -412,7 +412,6 @@ Ubicación archivos: *Practicas-Jenkins.md*, *12-pipelines-jenkis*  y *13-pipeli
 Guia de Comandos: *A2-Comandos-Jenkins.md*\
 Repositorio: 'https://github.com/Repositorios-de-Estudio/devops-pipeline-1' y 'https://github.com/Repositorios-de-Estudio/pipeline-java-angular'
 
-
 ***
 
 # Referencias
