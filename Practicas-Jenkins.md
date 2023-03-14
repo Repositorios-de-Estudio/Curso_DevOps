@@ -54,7 +54,7 @@ Se debe indicar el POM.XML en *Build steps*. El path del pom.xml no debe incluir
 Repositorio: 'https://github.com/Repositorios-de-Estudio/pipeline-java-angular' \
 Aplicación: java (billing) + Angular \
 Ubicación: *13-pipeline-webhook-ngrok* \
-Herramientas: Webhook y ngrok
+Herramientas: Jenkis, Webhook y ngrok
 Configuración local: Netbeans 17 + java openjdk 17
 
 1. ejecutar ngrok
@@ -100,7 +100,7 @@ Ubicación: *14-pipeline-CI-CD* \
 Herramientas: Webhook y ngrok
 Automatizado: captura de evento push, build, test, merge, eliminación de rama
 
-## 1 Github 
+## 1 Github
 
 ### Automatically delete head branches
 
@@ -159,9 +159,13 @@ Verificar que el proyecto compila sin errores y ejecuta las pruebas, luego de ha
 1. crear y usar rama: feature/addtest
 2. probar codigo que funcione bien
 3. el .gitignore debe estar configurado para no incorporara */target/
-4. realizar cualqueir cambio
+4. realizar cualquier cambio
 5. commitar y hacer push
-6. 
+6. crear pull request, importante no aprobar, solo dejarlo hecho
+7. ejecutar pipeline
+8. verificar
+   1. el pipeline debio haberse ejecutado, en la console output debe salir los comandos de git y succes
+   2. en github debio haberse borrado la rama secundaria
 
 ## Errores
 
@@ -184,6 +188,106 @@ En el pom.xml > usar
       <version>1.18.20</version>
 </path>
 ```
+
+# 15 PRACTICA pipeline CI/CD y Slack notificaciones
+
+Pipeline CI/CD completamente automatizado end to end, ejecuta pruebas automaticas, validación, hace el merge, elimina la rama y envia notificaciones al canal de Slack.
+
+El merge lo hace automaticamente cuando en github ya existe un pull request creado pero no aceptado. Luego de esto, la rama es eliminada.
+
+Repositorio: 'https://github.com/Repositorios-de-Estudio/pipeline-java-angular' \
+Aplicación: java (billing) + Angular + springtest + junit + mockvc \
+Ubicación: *15-pipeline-CI-CD-slack* \
+Herramientas: Jenkis, Webhook, ngrok y Slack
+Automatizado: captura de evento push, build, test, merge, eliminación de rama
+
+## 1 Github
+
+### Automatically delete head branches
+
+1. Repositorio > config
+   1. Pull Requests >> Automatically delete head branches
+
+### webhook
+
+1. configurar webhook en el repositorio apuntando al ngrok
+2. 'https://4405-201-244-248-50.ngrok.io/github-webhook/'
+3. configuración: eventos push
+
+## 2 Verificar proyecto
+
+Verificar que el proyecto compila sin errores y ejecuta las pruebas, luego de hacer esto localmente se deberia continuar.
+
+## 3 Pipeline
+
+1. jenkins > crear pipeline
+2. crear tarea
+3. estilo libre
+4. nombre: webhook_pipeline_1
+5. github project
+   1. url: 'https://github.com/Repositorios-de-Estudio/pipeline-java-angular'
+6. origen del proyecto > git
+   1. repository url: 'https://github.com/Repositorios-de-Estudio/pipeline-java-angular.git'
+   2. credential:  *github-token-jenkins*
+   3. Branches to build: _origin/feature/**_
+   4. Configurar datos para push automatico de github
+      1. Additional Behaviours > add
+      2. Custom user name/e-mail address
+      3. aregar datos ficticios para name y email (estos serian los datos del commit que hace push)
+7. Disparadores > GitHub hook trigger for GITScm polling (**NO**)
+8. Build Steps
+   1. ejecutar tareas maven de nivel superior
+   2. Goles >> clean install
+   3. Avanzado >> billing/pom.xml
+9. Build Steps
+   1. añadir nuevo paso
+   2. ejecutar linea de comandos (shell)
+   3. Comando  >> agregar estas lineas sin los numeros
+      1. git branch
+      2. git checkout main
+      3. git merge origin/feature/addtest
+10. Acciones para ejecutar despues
+    1. Añadir una acción > Git Publisher
+       1. Push only if build succeeds
+       2. Branches >> add branch
+          1. branch to push: main
+          2. target remote name: origin
+    2. Añadir reportes de JUnit
+11. Aplicar
+12. Guardar
+
+## 4 Slack y Jenkins
+
+1. Crear canal en Slack
+   1. Canal: slack-curso
+2. Configurar Slack Plugin en Jenkins
+3. Configurar pipeline *webhook_pipeline_1*
+   1. . workspace: *Team subdomain*
+   2. credential
+      1. Add Jenkins
+      2. Kind: secret text: *Integration token credential ID*
+      3. ID: dar un nombre, ej: slack-curso
+      4. Add
+   3. Credential > slack-curso
+4. Test connection
+   1. Debe salir: success
+5. Apply
+6. Guardar
+
+## 4 Procedimiento
+
+Aun se utitliza la rama *feature/addtest* debido a que la configuración del pipeline apunta a esta rama.
+
+1. crear y usar rama: feature/addtest
+2. probar codigo que funcione bien
+3. el .gitignore debe estar configurado para no incorporara */target/
+4. realizar cualquier cambio
+5. commitar y hacer push
+6. crear pull request, importante no aprobar, solo dejarlo hecho
+7. ejecutar pipeline
+8. verificar
+   1. el pipeline debio haberse ejecutado, en la console output debe salir los comandos de git y succes
+   2. en github debio haberse borrado la rama secundaria
 
 ***
 

@@ -17,6 +17,10 @@
    4. Git Trunk Base
 5. FLujos de Trabajado basado en git
 6. CI/CD (Integración Continua y Entrega Continua)
+   1. Webhooks
+   2. Jenkins
+   3. ngrok
+   4. Slack
 7. Referencias
 
 ### Estructura del Repositorio

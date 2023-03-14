@@ -77,6 +77,17 @@ Repositorio: 'https://github.com/Repositorios-de-Estudio/devops-pipeline-1'
       2. LA RUTA no debe incluir la carpeta raiz ya que en el workspace ya esta
    3. Guardar
 
+## Reportes de JUnit en Pipelines
+
+1. Dashboard > seleccionar pipeline > configurar > acciones para ejecutar despues 
+2. Añadir una accion > publicar los resultados de tests JUnit
+3. Se agrega en la parte media, buscar por Publicar los resultados de test JUnit
+   1. agregar tuta de los repostes xml: _billing/target/surefire-reports/*.xml_ 
+4. Apply
+5. Save
+
+Ahora dentro del pipeline se habilita la sección *Ultimos resultados de tests* donde se puede ver graficamente los resultados de JUnit.
+
 ## Para ejecutar y diagnosticar
 
 1. Dentro del Pipeline
@@ -146,3 +157,53 @@ Recomendable debe tener primero configurado *Conectar sevidor github con jenkins
     3. En github hooks debe salir el evento
     4. En el servidor CI/CD debe aparecer que se ejecutó el pipeline
        1. en los logs y console output debe haber un *Finish. Success*
+
+# Slak
+
+## Crear cuenta
+Sitio: 'https://slack.com/intl/es-co/'
+
+1. Crear cuenta
+2. Agregar nombre de la organización: CursoDevOps
+3. Agregar nombre y foto
+4. Agregar canal: prueba curso devops
+
+## Configuración para notificaciones
+
+### En Slack
+
+1. Browse slack > app > jenkins ci > add to slack
+   1. post to chanel: prueba curso devops (a este canal llegarán las notificaciones)
+   2. Add Jenkins CI integration
+
+### En Jenkins
+
+1. Dashboard > administrar jenkins > administrar plugins
+2. Available plugins > Buscar > Slack Notification
+3. Descargar e instalar > reiniciar cuando termine
+4. Copiar *Team subdomain* y *Integration token credential ID*
+5. Dashboars > administrar jenkins > configurar el sistema
+6. Buscar al final Slack
+   1. workspace: *Team subdomain*
+   2. credential
+      1. Add Jenkins
+      2. Kind: secret text: *Integration token credential ID*
+      3. ID: dar un nombre, ej: slack-curso
+      4. Add
+   3. Credential > slack-curso
+7. Test connection
+   1. Debe salir: success
+8. Apply
+9. Guardar
+
+### Habilitar notificaciones en cada Pipeline
+
+1. Seleccionar pipeline > configurar
+2. Acciones para ejecutar despues > añadir una accion > slack notification
+3. Marcar las que queremos, ej: marcar todas
+4. Apply
+5. Save
+
+### Probar notificaciones
+
+1. al ejecutarse el pipeline deben haber notificaciones en el canal de Slack
