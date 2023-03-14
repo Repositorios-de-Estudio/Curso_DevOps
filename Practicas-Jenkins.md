@@ -55,11 +55,13 @@ Repositorio: 'https://github.com/Repositorios-de-Estudio/pipeline-java-angular' 
 Aplicación: java (billing) + Angular \
 Ubicación: *13-pipeline-webhook-ngrok* \
 Herramientas: Webhook y ngrok
+Configuración local: Netbeans 17 + java openjdk 17
 
 1. ejecutar ngrok
 2. crear repositorio con billing y angularWorkSpace
 3. configurar webhook en el repositorio apuntando al ngrok
-   1. configuración: eventos push
+   1. 'https://4405-201-244-248-50.ngrok.io/github-webhook/'
+   2. configuración: eventos push
 4. jenkins > crear pipeline
    1. crear tarea
    2. estilo libre
@@ -69,7 +71,7 @@ Herramientas: Webhook y ngrok
    5. origen del proyecto > git
       1. repository url: 'https://github.com/Repositorios-de-Estudio/pipeline-java-angular.git'
       2. credential:  *github-token-jenkins*
-      3. Branches to build: *origin/feature/addtest*
+      3. Branches to build: _origin/feature/**_
    6. Disparadores > GitHub hook trigger for GITScm polling
    7. Build Steps
       1. ejecutar tareas maven de nivel superior
@@ -85,6 +87,103 @@ Como el webhook esta configurad con *solo push*, el trigger asociado a *GitHub h
 3. En github hooks debe salir el evento
 4. En el servidor CI/CD debe aparecer que se ejecutó el pipeline
 5. en los logs y console output debe haber un *Finish. Success*
+
+# 14 PRACTICA pipeline CI/CD
+
+Pipeline CI/CD completamente automatizado end to end, ejecuta pruebas automaticas, validación, hace el merge y elimina la rama.
+
+El merge lo hace automaticamente cuando en github ya existe un pull request creado pero no aceptado. Luego de esto, la rama es eliminada.
+
+Repositorio: 'https://github.com/Repositorios-de-Estudio/pipeline-java-angular' \
+Aplicación: java (billing) + Angular + springtest + junit + mockvc \
+Ubicación: *14-pipeline-CI-CD* \
+Herramientas: Webhook y ngrok
+Automatizado: captura de evento push, build, test, merge, eliminación de rama
+
+## 1 Github 
+
+### Automatically delete head branches
+
+1. Repositorio > config
+   1. Pull Requests >> Automatically delete head branches
+
+### webhook
+
+1. configurar webhook en el repositorio apuntando al ngrok
+2. 'https://4405-201-244-248-50.ngrok.io/github-webhook/'
+3. configuración: eventos push
+
+## 2 Verificar proyecto
+
+Verificar que el proyecto compila sin errores y ejecuta las pruebas, luego de hacer esto localmente se deberia continuar.
+
+## 3 Pipeline
+
+1. jenkins > crear pipeline
+2. crear tarea
+3. estilo libre
+4. nombre: webhook_pipeline_1
+5. github project
+   1. url: 'https://github.com/Repositorios-de-Estudio/pipeline-java-angular'
+6. origen del proyecto > git
+   1. repository url: 'https://github.com/Repositorios-de-Estudio/pipeline-java-angular.git'
+   2. credential:  *github-token-jenkins*
+   3. Branches to build: _origin/feature/**_
+   4. Configurar datos para push automatico de github
+      1. Additional Behaviours > add
+      2. Custom user name/e-mail address
+      3. aregar datos ficticios para name y email (estos serian los datos del commit que hace push)
+7. Disparadores > GitHub hook trigger for GITScm polling (**NO**)
+8. Build Steps
+   1. ejecutar tareas maven de nivel superior
+   2. Goles >> clean install
+   3. Avanzado >> billing/pom.xml
+9. Build Steps
+   1. añadir nuevo paso
+   2. ejecutar linea de comandos (shell)
+   3. Comando  >> agregar estas lineas sin los numeros
+      1. git branch
+      2. git checkout main
+      3. git merge origin/feature/addtest
+10. Acciones para ejecutar despues
+    1. Añadir una acción > Git Publisher
+       1. Push only if build succeeds
+       2. Branches >> add branch
+          1. branch to push: main
+          2. target remote name: origin
+11. Aplicar
+12. Guardar
+
+## 4 Procedimiento
+
+1. crear y usar rama: feature/addtest
+2. probar codigo que funcione bien
+3. el .gitignore debe estar configurado para no incorporara */target/
+4. realizar cualqueir cambio
+5. commitar y hacer push
+6. 
+
+## Errores
+
+### Mensaje
+
+Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.5.1:compile (default-compile) on project billing: Fatal error compiling: java.lang.IllegalAccessError: class lombok.javac.apt.LombokProcessor (in unnamed module @0x1132baa3) cannot access class com.sun.tools.javac.processing.JavacProcessingEnvironment (in module jdk.compiler) because module jdk.compiler does not export com.sun.tools.javac.processing to unnamed module @0x1132baa3 -> [Help 1]
+
+### Motivo
+
+Extensión *lombok* esta desactualizada para la version actual de Java.
+
+### Solución
+
+En el pom.xml > usar
+
+```xml
+<path>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.20</version>
+</path>
+```
 
 ***
 

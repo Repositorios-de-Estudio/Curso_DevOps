@@ -30,6 +30,16 @@ Repositorio: 'https://github.com/Repositorios-de-Estudio/devops-pipeline-1'
       5. audit log
       6. project (full control)
 
+## Crear WebHook Github
+
+1. repositorio > configuracion > webhooks
+2. payload url: url ngrok + /github-webhook/
+   1. ej: 'https://4405-201-244-248-50.ngrok.io/github-webhook/'
+3. content type: application/jason
+4. ssl verification: enable
+5. Just the push event
+6. Active
+
 ## Enlazar codigo fuente
 
 1. Configure > Source code management
