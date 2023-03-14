@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "ada-enterprise-core": {
+      "hosting": {
+        "billingApp": [
+          "ada-enterprise-core"
+        ]
+      }
+    }
+  }
+}
