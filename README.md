@@ -34,7 +34,7 @@
 ***
 
 ### Curso de: 
-[Udemy - DevOps con Docker, Jenkins, Kubernetes, git, GitFlow CI y CD](https://www.udemy.com/course/devops-con-dockers-kubernetes-jenkins-y-gitflow-cicd/) /
+[Udemy - DevOps con Docker, Jenkins, Kubernetes, git, GitFlow CI y CD](https://www.udemy.com/course/devops-con-dockers-kubernetes-jenkins-y-gitflow-cicd/)
 
 [Youtube - Digitalthinking with sotobotero](https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg)
 

@@ -90,3 +90,49 @@ Esto es una mala practica no tenia que instalarse la aplicación en el mismo con
 ## Administrar credenciales de github
 
 Ir a: *Dashboard > manage jenkins > credentiales > system > global credentials*
+
+## Conectar sevidor github con jenkins
+
+Ir a: *Jenkins > dashboard > configure > configuración del sistema > Github*
+
+1. Add github server
+2. Asignar nombre, ej: servidor devops curso
+3. Add credentials > Jenkins
+   1. Kind: secret text
+   2. Secret: usar el token de github
+   3. ID: dar un identificar, ej: token-github-devops
+   4. Add
+4. Add credentials > token-github-devops
+5. Test connection: debe salir *"credentiales varified for user"*
+6. Apply
+7. Save
+
+# Crear pipeline usando webhook
+
+Recomendable debe tener primero configurado *Conectar sevidor github con jenkins*.
+
+1. Jenkins > Dashboard > Nueva tarea
+2. nombre: webhook_pipeline_1
+3. estilo libre
+4. ok
+5. github project
+   1. project url: del repostorio sin el .git: 'https://github.com/Repositorios-de-Estudio/pipeline-java-angular'
+6. configurar origen del codigo
+   1. Git
+   2. repository url: del repositorio del clone https con .git: 'https://github.com/Repositorios-de-Estudio/pipeline-java-angular.git'
+   3. Credentials: usar *github-token-jenkins* (este token es el de enlazar codigo fuente)
+   4. Branches to build: usar la rama secundaria creada con *origin/*: *origin/feature/addtest*
+      1. aca se pueden usar comodines
+7. Disparadores > GitHub hook trigger for GITScm polling
+8. Build Steps
+   1. ejecutar tareas maven de nivel superior
+   2. Goles >> clean install
+   3. Avanzado >> billing/pom.xml
+9. Apply
+10. Save
+11. Para ejecutar
+    1. Hacer cualquier cambio y push en el repositorio
+    2. En la consola ngrok debe salir: *POST /github-webhook/          200 OK*
+    3. En github hooks debe salir el evento
+    4. En el servidor CI/CD debe aparecer que se ejecutó el pipeline
+       1. en los logs y console output debe haber un *Finish. Success*
