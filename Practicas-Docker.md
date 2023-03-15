@@ -265,7 +265,7 @@ billingapp_v3-billingapp-back-prod
 
 `docker-compose -f stack-billing.yml up --force-recreate`
 
-Usar: `--force-recreate`
+Usar este comando para recrear las imagenes ya creadas: `--force-recreate`
 
 ### Verificar y probar funcionamiento de los servicios
 
@@ -315,7 +315,7 @@ Basado en la practica 4. Se puede usar docker swarm como orquestador en vez de d
 
 ### Imagenes
 
-```
+```text
 REPOSITORY                             TAG       IMAGE ID       CREATED          SIZE
 billingapp_v3_swarm-billingapp-front   latest    1de8f613a988   15 minutes ago   47.7MB
 billingapp_v3_swarm-billingapp-back    latest    7a7efa671ea6   15 minutes ago   153MB
@@ -324,6 +324,7 @@ adminer                                latest    471e5d2fb746   3 days ago      
 ```
 
 ### Eliminar lo necesario, incluido las redes
+
 `docker stop $(docker ps -a -q) && docker system prune`
 
 ### Modificar *stack-billing.yml* para docker swarm
@@ -417,6 +418,7 @@ xm7mo1zeqtik   billing_postgres_db.1           postgres:latest                  
 ```
 
 ### Verificación
+
 Ver rapidamente la IP del contenedor: `docker info | grep -A 2 "Node Address"`
 
 ```yamel
@@ -430,7 +432,7 @@ adminer: *192.168.0.13:9090*
 
 ### Eliminar cluster y desactivar docker swarm
 
-`docker stack rm billing ; docker swarm leave --force` Con `docker info | grep -A 1 "Swarm"  ` se puede verificar que haya sido desactivado.
+`docker stack rm billing ; docker swarm leave --force` Con `docker info | grep -A 1 "Swarm"` se puede verificar que haya sido desactivado.
 
 ### Eliminar todo, incluido las redes, docker swarm
 
