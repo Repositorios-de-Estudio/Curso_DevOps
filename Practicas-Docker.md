@@ -194,9 +194,9 @@ Activar el cluster de swarm: `docker swarm init`
 Las aplicaciones son para producción y preproducción las cuales estan separadas cada una por una red virtual. Se usa solo una imagen para cada servicio, se replica la configuración cambiando los nombres y la red para crear contenedores diferentes, esta configuración esta en el *.yml*.
 
 Aplicación: billingApp_v3
-Aplicaciones:
+Aplicaciones: Angular, Java, Postgres
 
-  - Front: Angular-Nginx 
+  - Front: Angular-Nginx
     - producción, preproducción
   - Back: Java
     - producción, preproducción
@@ -204,7 +204,7 @@ Aplicaciones:
   - DB: Postgres
     - producción, preproducción
     - imagen de DockeHub
-Red virtual: 
+Red virtual:
   - env_prod: 172.16.232.0/24
   - env_prep: 172.16.235.0/24
 
@@ -235,21 +235,25 @@ Almacenamiento:
 - pre: /var/lib/postgres_data_prep
 
 ## Solución de errores conocidos
+
 Aplicar configuración de **Solucion de errores "Error executing DDL"**
 Editar y agregar permisos: **init-user-db.sh**
 
 ### Eliminar todo, incluido las redes
+
 RESUMEN COMANDOS:
 `docker stop $(docker ps -a -q) ; docker system prune ; docker rmi -f $(docker images -aq) ; docker volume prune ; docker network prune`
 
 ### Construir las imagenes de la Orquestación
+
 `docker-compose -f stack-billing.yml build --no-cache`
 usar: `--no-cache`
 
-### Comprobar: 
+### Comprobar
+
 `docker image ls`
 
-```
+```text
 REPOSITORY                         
 billingapp_v3-billingapp-front_prod
 billingapp_v3-billingapp-front-prep
@@ -257,12 +261,13 @@ billingapp_v3-billingapp-back-prep
 billingapp_v3-billingapp-back-prod 
 ```
 
-### Inicializar Contenedoresde de la Orquestación:
+### Inicializar Contenedoresde de la Orquestación
+
 `docker-compose -f stack-billing.yml up --force-recreate`
 
 Usar: `--force-recreate`
 
-### Verificar y probar funcionamiento de los servicios:
+### Verificar y probar funcionamiento de los servicios
 
 ```text
 CONTAINER ID   IMAGE                                
@@ -288,12 +293,12 @@ b643d16c0659   postgres:latest
   - U: postgres, P: qwerty
   - BD: billingapp_db
 
-
 # 6 Practica Docker Swarm
 
 **Ruta detrabajo:**: *".../6-practica3-docker-swarm"*
 
-Recomendación de uso para:
+Recomendación de uso para
+
 - Ambientes Profesional y Productivo: Kubernetes
 - Ambientes de Pruebas o Pequeños productivo: Docker Compose
 - Ambientes Pequeños: Docker Swarm
@@ -301,13 +306,15 @@ Recomendación de uso para:
 Se va a usar el mismo archivo *.yml* para realizar la practica con Docker Swarm, el cual tiene muchas similitudes.
 
 ### pre-requisitos
+
 Basado en la practica 4. Se puede usar docker swarm como orquestador en vez de docker compose, con esto se orquesta y se crea un cluster.
 
 1. **Antes de iniciar dejar creadas las imagenes *build* de la practica 4.**
 2. **Antes de iniciar dejar ejecutar los contenedores *up* de la practica 4.**
 3. **Antes de iniciar detener y eliminar todos practica 4.**
 
-**Imagenes**
+### Imagenes
+
 ```
 REPOSITORY                             TAG       IMAGE ID       CREATED          SIZE
 billingapp_v3_swarm-billingapp-front   latest    1de8f613a988   15 minutes ago   47.7MB
@@ -319,13 +326,11 @@ adminer                                latest    471e5d2fb746   3 days ago      
 ### Eliminar lo necesario, incluido las redes
 `docker stop $(docker ps -a -q) && docker system prune`
 
-
 ### Modificar *stack-billing.yml* para docker swarm
 
 Dentro de *deploy* agregar n replicas con *replicas: n* para el **Front**:
 
-
-```
+```yamel
 #Billin app frontend service
   billingapp-front:
     build:
@@ -335,9 +340,10 @@ Dentro de *deploy* agregar n replicas con *replicas: n* para el **Front**:
         replicas: 3
         resources:
 ```
+
 Es necesario agregar *imagen* y solocar que imagen se va a usar para el servicio de Front y Back, docker swarm no supone (docker compose cuando se hacia buiuld lo suponia) y se debe colocar explicitamente. Los nombres de las imagenes se pueden sacar con `docker image ls` Ademas se debe quitar la etiqueta *container_name* al ser incompatible con docker swarm, los nombres se crean automaticamente.
 
-```
+```yamel
 ....
 #database engine service
   postgres_db:
@@ -356,8 +362,10 @@ Es necesario agregar *imagen* y solocar que imagen se va a usar para el servicio
         - JAR_FILE=*.jar
     image: billingapp_v2_billingapp-back:latest
 ```
+
 No son necesarios los rangos de puertos en *ports* ya que la asignación de puertos y balanceo la hace docker swarm, sin embargo esta configuración es valida.
-```
+
+```yamel
 #rango de puertos para escalar    
     ports:
       #- 80-85:80 
@@ -365,12 +373,14 @@ No son necesarios los rangos de puertos en *ports* ya que la asignación de puer
 ```
 
 ### Activar docker swarm
+
 Ver información con `docker info`
 
 Activar cluster: `docker swarm init`
 
 Luego de activar docker swarm ver *Node Address* dirección IP del nodo en el cluster:
-```
+
+```bash
   Node Address: 192.168.0.13
   Manager Addresses:
    192.168.0.13:2377
@@ -380,18 +390,19 @@ Luego de activar docker swarm ver *Node Address* dirección IP del nodo en el cl
 
 `docker stack deploy -c stack-billing.yml billing`
 
-
 Ver contenedores de todas las orquestaciones: `docker service ls` la palabra *billing* es el alias que se usa para identificar la orquestación. **TODAS LAS REPLICAS DEBEN ESTAR CON n/n, n diferente de 0**
-```
+
+```text
 ID             NAME                       MODE         REPLICAS   IMAGE                                         PORTS
 si35hfr4iqjf   billing_adminer            replicated   1/1        adminer:latest                                *:9090->8080/tcp
 nohrtzw5onsa   billing_billingapp-back    replicated   1/1        billingapp_v3_swarm-billingapp-back:latest    *:8080->8080/tcp
 42rpv6bu7qdq   billing_billingapp-front   replicated   3/3        billingapp_v3_swarm-billingapp-front:latest   *:80-85->80/tcp
 arlm405q80o4   billing_postgres_db        replicated   1/1        postgres:latest                               *:5432->5432/tcp
 ```
-Ver contenedores de solo una orquestación: `docker stack ps billing` 
 
-```
+Ver contenedores de solo una orquestación: `docker stack ps billing`
+
+```text
 ID             NAME                            IMAGE                                         NODE           DESIRED STATE   CURRENT STATE                     ERROR                       PORTS
 pff84abhg2py   billing_adminer.1               adminer:latest                                192.168.0.13   Running         Running 23 minutes ago                                        
 xqocpw62t2zd   billing_billingapp-back.1       billingapp_v3_swarm-billingapp-back:latest    192.168.0.13   Running         Starting less than a second ago                               
@@ -408,7 +419,7 @@ xm7mo1zeqtik   billing_postgres_db.1           postgres:latest                  
 ### Verificación
 Ver rapidamente la IP del contenedor: `docker info | grep -A 2 "Node Address"`
 
-```
+```yamel
   Node Address: 192.168.0.13
   Manager Addresses:
    192.168.0.13:2377
@@ -418,9 +429,10 @@ App web: *192.168.0.13:80*
 adminer: *192.168.0.13:9090*
 
 ### Eliminar cluster y desactivar docker swarm
+
 `docker stack rm billing ; docker swarm leave --force` Con `docker info | grep -A 1 "Swarm"  ` se puede verificar que haya sido desactivado.
 
-
 ### Eliminar todo, incluido las redes, docker swarm
+
 RESUMEN COMANDOS:
 `docker stack rm billing ; docker swarm leave --force ; docker stop $(docker ps -a -q) ; docker system prune ; docker rmi -f $(docker images -aq) ; docker volume prune ; docker volume rm $(docker volume ls) ;docker network prune ; sudo rm -r /var/lib/postgres_*`
