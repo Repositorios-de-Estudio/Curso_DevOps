@@ -21,7 +21,7 @@
    3. Crear Toquen para conectar con Jenkins
       1. sobre la fila del usuario administrador en Tokens dar click sobre las lineas con pubntos en forma de parrador
       2. En generate Token
-         1. name: junkins
+         1. name: jenkins
          2. no expiration
          3. generate
          4. Luego copiar el token de sonar: *squ_da6911b21788e569867f634753b00f3928d97efc*
@@ -79,6 +79,12 @@ Se usa la carpeta *15-pipeline-CI-CD-slack* y se va a habilitar el escaneo de co
       1. debe quedar por encima de *clean install* y los comandos de git
 5. Apply
 6. Save
+
+## Probar
+
+1. Ejecutar el pipeline
+   1. Se crea un Project nuevo en SonarQube:9000
+   2. En el Pipeline > Console output, verificar *Finished: SUCCESS*
 
 # Errores
 
