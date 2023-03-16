@@ -59,6 +59,11 @@ Interfaz de Adminer: `http://localhost:9090/`
   - Inicializar los contenedores de los servicios de la orquestación: `docker-compose -f stack-billing.yml up -d`
   - Detener todos los servicios de la orquestación: `docker-compose -f stack-billing.yml stop`
   - Detener todos los contenedores: `docker stop $(docker ps -a -q)`
+  - Crear red virtual por consola y comunicar dos contenedores
+    - crear red: `docker network create nombre-red`
+    - conectar contenedor: `docker network connect nombre-red contenedor1`
+    - conectar contenedor: `docker network connect nombre-red contenedor2`
+    - verificar red viendo las propiedades de cada contenedor: `docker container inspect contenedor1`
   - Listar las redes virtuales: `docker network ls`
   - Eliminar las redes virtuales: `docker network prune`
   - reconstruir las imagenes: `docker-compose -f stack-billing.yml build --no-cache`

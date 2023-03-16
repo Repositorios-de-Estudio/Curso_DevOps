@@ -21,6 +21,7 @@
    2. Jenkins
    3. ngrok
    4. Slack
+   5. SonarQube
 7. Referencias
 
 ### Estructura del Repositorio
