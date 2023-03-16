@@ -31,13 +31,15 @@
 4. Proceso Instalación y configuración de Kubernetes en Linux -> **A1-fedora-kubernetes-instalacion.md**
 5. Comandos basicos de Kubernetes + ejemplo -> **A2-Comandos-Kubernetes.md**
 6. Practicas, ejercicios y ejemplos con Kubernetes -> **Practicas-Kubernetes.md**
-7. Uso de Jenkins y Maven en una imagen Docker -> **A1-fedora-Jenkins-instalacion.md**
+7. Uso de Jenkins y Maven en una imagen Docker -> **A1-Jenkins-instalacion.md**
 8. Practicas, ejercicios y ejemplos con Jenkins -> **Practicas-Jenkins.md**
 9. Comandos basicos de Jenkins + ejemplo -> **A2-Comandos-Jenkins.md**
+10. Uso de SonarQube en una imagen Docker -> **A1-Jenkins-instalacion.md**
 
 ***
 
-### Curso de: 
+### Curso de
+
 [Udemy - DevOps con Docker, Jenkins, Kubernetes, git, GitFlow CI y CD](https://www.udemy.com/course/devops-con-dockers-kubernetes-jenkins-y-gitflow-cicd/)
 
 [Youtube - Digitalthinking with sotobotero](https://www.youtube.com/channel/UCzX4ldiZpIwjqMJ9UMY2fMg)
@@ -46,25 +48,32 @@
 
 # Introduccion
 
-## Funcionalidad Tradicional:
+## Funcionalidad Tradicional
+
 ### Equipo de Desarrollo
+
 - Creacion de un producto
 - Aislamiento de equipos
 - Friccion entre los equipos
 - Uso de correo (no comunicacion agil)
 - Baja automatizacion
-### Equipo de Infraestructura (operaciones):
+
+
+### Equipo de Infraestructura (operaciones)
+
 - Velar por el funcionamiento 7/24
 - Script rudimentarios
 - Calendarios de releases fijos
 - Puesta en produccion lenta
 
 ## ¿Que es DevOPS?
+
 - Es la union de personas, procesos y tecnologia, con el fin de proporcionar valor continuamente a los clientes.
 - DevOps: Development + Operation
 - Rol de un integrante de un equipo Devops: Site Reliability Engieneer (SRE)
 
 ### Ciclo de vida DevOps - (es un ciclo continuo entre Dev y Ops)
+
 1. (Dev) Plan de proyecto
 2. (Dev) Codificacion
 3. (Dev) Construccion del entregable
@@ -75,6 +84,7 @@
 8. (Ops) Monitorizacion
 
 ### Caracterisiticas
+
 - Equilibrio entre Mayor calidad, Menor tiempo y Menor costo
 - Mejores objetivos comerciales
 - Mayor satiscaccion del cliente
@@ -99,6 +109,7 @@
 - Aprendizaje validado: Analisis de datos para mejorar los procesos en cada ciclo
 
 # Definiciones basicas
+
 - Cluster: Agrupación de un conjunto de hosts de Docker gestionados centraliazadamente, donde hay un host maestro (nodo maestro o **manager**) y otros esclavos (nodos esclavos o **worker**)
 - Servicio: (service en Docker) designa una estructura abstracta con la que se pueden definir aquellas tareas que deben ejecutarse en el clúster. Cada servicio está formado por un conjunto de tareas individuales que se procesan en contenedores independientes en uno de los nodos del clúster.  - Cuando se crea un servicio, el usuario determina la imagen de contenedor en la que se basa y los comandos que se ejecutan en el contenedor, operándose sobre la base de la imagen.
 - Contenedor: Unidad de software que empaqueta el codigo y todas las dependencias de una aplicacion
@@ -128,6 +139,7 @@
 - Pipelines: Grupo lógico de actividades que trabajan de manera conjunta para realizar una tarea
 
 ## Docker
+
 Tecnologia que permite empaquetar aplicaciones con todas sus dependencias para hacerlas postables y conseguir ejecución independiente del SO.
 
 Alternativas
@@ -144,6 +156,7 @@ Alternativas
   10. ZeroVM
 
 ### Sobre los archivos DockerFile
+
 **FROM**: Indica la imagen base la cual será la base para crear una nueva imagen. ej: imagen base y variante
 
 **RUN**: Se usa para ejecutar instrucciones propias del SO del contenedor cuando se esta contruyendo la imagen. ej: Instalación de cosas en el SO
@@ -188,6 +201,7 @@ Docker Swarm soporta dos modos de definir servicios swarm: servicios globales o 
 2- Servicios globales: si un servicio se ejecuta en modo global, cada nodo disponible en el clúster inicia una tarea para el servicio correspondiente. Si al clúster se le añade un nodo nuevo, el nodo maestro le atribuye una tarea para el servicio global de forma inmediata. Este tipo de servicios se recomiendan para las aplicaciones de monitoreo o los programas antivirus.
 
 ## Docker Network - virtual environments
+
 Cuando se requiere tener varios entornos (ej: pruebas, producción) fisicamente en una misma maquina pero funcionando aislados uno de otro, se puede optar por tenerlos en segmentos de red diferentes. De esta manera estaran en redes separadas ási cada contenedor tendrá una IP diferente a las que se puede acceder independiente.
 
 La solución no optima sería tener dos maquinas fisicas donde cada contenedor se ejecute de manera indpendiente, teniendo así una maquina para pruebas y otra para produccion.
@@ -195,6 +209,7 @@ La solución no optima sería tener dos maquinas fisicas donde cada contenedor s
 Ej campo de aplicació de Docker Swarm: Reparto de cargas, pues con el modo enjambre Docker dispone de funciones integradas de balanceo de carga. Si se ejecuta, por ejemplo, un servidor web NGINX con cuatro instancias, Docker distribuye las consultas entrantes de forma inteligente entre las instancias del servidor web disponibles.
 
 # Kubernetes
+
 Plataforma de orquestacion de contenedores de codigo abierto creado por Google para facilitar la administración de los contenedores. Su función principal permite administradar las cargas de trabajos de manera eficiente y crear automatizaciones para aumentar la productividad a la vez que se reducen costos. 
 
 * Caracterisiticas principales
@@ -224,6 +239,7 @@ Plataforma de orquestacion de contenedores de codigo abierto creado por Google p
   - Se hace uso de un servicio como AKS (Azure), EKS (Amazon Elastic), GKE (Google), IBM Clod
 
 ## Objetos de Kubernetes
+
 En Kubernetes todos se trata como objetos y estos se definen en archivos yamel (.yml). \
 
 Las definiciones se guardan y ejecutan el cluster mediante el API Server. \
@@ -239,11 +255,13 @@ Las definiciones de objetos se conocen tambien como infraestrutura como codigo.
   - Selectores: Mecanismo para hacer consultas a los Labels. kubctl get pods -l 'environment in (production), tier in (fronted)'
 
 ## Administracion
+
 Clientde de Kubernetes, la cual es una herramienta de línea de comandos para interactuar con la API de Kubernetes, utilizada para gestionar la mayor parte de objetos de Kubernetes, tales como los pods, servicios, namespaces, etc. Además permite conocer el estado general del clúster.
 
 La administración con *kubctl*, se hace por medio de su interfaz como WEB API o por medio de consola. El rol de SysAdmin es quien administra y usa *kubctl*.
 
 ## Nodos / Tipos de nodos
+
 Como minimo se tiene un nodo Master y un nodo Worker.
 
 * Alternativas (mas pontente al menos potente)
@@ -252,15 +270,17 @@ Como minimo se tiene un nodo Master y un nodo Worker.
   - Docker Compose (ambientes pequeños)
 
 ### Nodos Master
+
 Nodos que realizan la propia gestion de la insfraestructura.
 
 * Componentes
   - etcd/: lugar donde se almacena la data 
-  - Scheduler: esta a tento a nuevos alos nuevos depliegues y lo aisgna al nodo que mejor se ajuste 
+  - Scheduler: esta a tento a nuevos alos nuevos depliegues y lo aisgna al nodo que mejor se ajuste
   - Control Manager: se encarga de monitorizar y genera alertas o reliza las tareas automaticas
   - API server: sirve de comunicador entre nosotros y los componentes del cluster (interfaz kubectl) y entre los nodos workers con los nodos master
 
 ### Nodos Worked
+
 Nodos que se encargan de ejecutar todas las tareas propias de la aplicación.
 
 * Componentes
