@@ -28,14 +28,15 @@
 
 1. Proceso Instalación y configuración de Docker en Linux -> **A1-fedora-docker-instalacion.md**
 2. Comandos basicos de Docker + ejemplo -> **A2-Comandos-Docker.md**
-3. Practicas, ejercicios y ejemplos con Docker -> **Practicas-Docker.md**
+3. Practicas, ejercicios y ejemplos con Docker -> **Z-1-Practicas-Docker.md**
 4. Proceso Instalación y configuración de Kubernetes en Linux -> **A1-fedora-kubernetes-instalacion.md**
 5. Comandos basicos de Kubernetes + ejemplo -> **A2-Comandos-Kubernetes.md**
-6. Practicas, ejercicios y ejemplos con Kubernetes -> **Practicas-Kubernetes.md**
+6. Practicas, ejercicios y ejemplos con Kubernetes -> **Z-2-Practicas-Kubernetes.md**
 7. Uso de Jenkins y Maven en una imagen Docker -> **A1-Jenkins-instalacion.md**
-8. Practicas, ejercicios y ejemplos con Jenkins -> **Practicas-Jenkins.md**
+8. Practicas, ejercicios y ejemplos con Jenkins -> **Z-3-Practicas-Jenkins.md**
 9. Comandos basicos de Jenkins + ejemplo -> **A2-Comandos-Jenkins.md**
 10. Uso de SonarQube en una imagen Docker -> **A1-Jenkins-instalacion.md**
+11. Practicas, ejercicios y ejemplos con SonarQube -> **Z-3-Practicas-SonarQube.md**
 
 ***
 
@@ -432,11 +433,17 @@ Los eventos dentro de la Pipeline se disparan con un evento Trigger. \
 
 ![Pipeline esquema sencillo](./media/pipeline.png)
 
-## Practica
+## Practicas
 
 Ubicación archivos: *Practicas-Jenkins.md*, *12-pipelines-jenkis*  y *13-pipeline-webhook-ngrok*
 Guia de Comandos: *A2-Comandos-Jenkins.md*\
 Repositorio: 'https://github.com/Repositorios-de-Estudio/devops-pipeline-1' y 'https://github.com/Repositorios-de-Estudio/pipeline-java-angular'
+
+
+# SonarQube
+
+<ques es>
+<ubicacion de archivos y repo>
 
 ***
 
