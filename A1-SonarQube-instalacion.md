@@ -103,3 +103,4 @@ El error estaba en la configuración de la url de la dirección de sonarqube, el
 # REFERENCIAS
 
 1. [Documentación SonarQube - extend the image](https://docs.sonarqube.org/latest/analyzing-source-code/ci-integration/jenkins-integration/)
+2. [Guia de usuario SonarQube](https://docs.sonarqube.org/latest/user-guide/metric-definitions/)

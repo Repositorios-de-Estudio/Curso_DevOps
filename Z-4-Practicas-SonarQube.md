@@ -18,6 +18,7 @@ Automatizado: pruebas de calidad de codigo con SonarQube
 
 1. Haber descargado y construido el contenedor de sonarqube: 'sonarqube:9000'
 2. Tener ejecutando los contenedores de sonarqube y jenkins. jenkins = 'jenkinsCont:8080'
+   1. docker start ....
 
 ## 2 COLOCAR EN UNA MISMA RED LOS CONTENEDORES
 
@@ -84,6 +85,4 @@ Se usa la carpeta *15-pipeline-CI-CD-slack* y se va a habilitar el escaneo de co
 
 ## 5 PROBAR
 
-No es necesario usar webhooks ni ngrok. Solo se debe ejecutar el Pipeline, los resustados en Console output deben ser *Finished: SUCCESS*.
-
-
+No es necesario usar webhooks ni ngrok. Solo se debe ejecutar el Pipeline, los resultados en Console output deben ser *Finished: SUCCESS*.

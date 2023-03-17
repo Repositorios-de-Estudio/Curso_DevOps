@@ -439,11 +439,53 @@ Ubicación archivos: *Practicas-Jenkins.md*, *12-pipelines-jenkis*  y *13-pipeli
 Guia de Comandos: *A2-Comandos-Jenkins.md*\
 Repositorio: 'https://github.com/Repositorios-de-Estudio/devops-pipeline-1' y 'https://github.com/Repositorios-de-Estudio/pipeline-java-angular'
 
-
 # SonarQube
 
-<ques es>
-<ubicacion de archivos y repo>
+Plataforma opensource para la inspección continua de la calidad de codigo, a travez de analisis estatico de codigo fuente, proporciona metricas sobre para ayudar a mejorar la calidad de codigo. Principalmente es una herramienta usada para testing y la auditoria de codigo.
+
+Caracterisiticas
+
+- Opensource
+- Se puede instalar localmente o como servidor
+- Se pueden ampliar las capacidades mendiante plugins
+- caracteristicas internars
+  - Soporta administración de usuarios, grupos, permisos y roles
+  - funciona por medio de proyectos
+    - creados de manera manual
+    - creados automaticamente como se hace con Jenkins
+- Soporte multitud de lenguajes
+- testing y auditoria de codigo
+- metricas sobre el codigo
+  - complejidad de codigo
+  - codigo duplicado
+  - errores potenciales
+  - mantenibilidad
+  - calidad
+  - tamaño
+  - pruebas
+- (Rules) El analisis se hace en funciones de reglas
+  - creadas para cada lenguaje
+  - reglas predefinidas
+  - crear reglas personalizadas (requiere integrarlos en un quality profile)
+- (Quality profiles) se aplican reglas en el anilisis segun el lenguaje
+  - Conjunto se reglas que se aplican en el analisis (usar esto cuando se crea una regla)
+- (quality gates) puerta de calidad
+  - Umbral de metricas para determinar la calidad
+
+Ventajas
+
+1. detecta y notifica problemas
+2. ayuda a reducir complejidad, capacidad de mantenimiento -> aumentar su vida util
+3. eficiencia -> reduce duplicidad del codigo
+4. calidad alta del codigo -> informa sobre calidad y violacion de estandares
+5. es facilmente escalable
+6. ideal para gestion continua
+
+Ubicación archivos: *Z-4-Practicas-SonarQube.md* y *A1-SonarQube-instalacion.md*  
+Guia de Comandos: Se puede encontrar sobre su uso en la instalación
+Repositorio: Basado en el ejercicio 15
+
+
 
 ***
 
