@@ -4,9 +4,11 @@
 
 *Pruebas para el escaneo de calidad de codigo con SonarQube en la practica anterior.* \
 
-Pipeline CI/CD completamente automatizado end to end, ejecuta pruebas automaticas, validación, hace el merge, elimina la rama y envia notificaciones al canal de Slack.
+Pipeline CI/CD completamente automatizado end to end, ejecuta pruebas automaticas, validación, hace el merge, elimina la rama y envia notificaciones al canal de Slack. \
 
 Luego de configurar SonarQube se va a integrar en el pipeline y se probará. \
+
+Se usa Pipeline: *webhook_pipeline_1*. \
 
 Repositorio: 'https://github.com/Repositorios-de-Estudio/pipeline-java-angular' \
 Aplicación: java (billing) + Angular + springtest + junit + mockvc \
@@ -67,7 +69,9 @@ Automatizado: pruebas de calidad de codigo con SonarQube
 
 ## 4 AGREGAR ESCANEO DE CODIGO A PIPELINE
 
-Se usa la carpeta *15-pipeline-CI-CD-slack* y se va a habilitar el escaneo de codigo automatico solamente a *billing*.
+Se usa la carpeta *15-pipeline-CI-CD-slack* y se va a habilitar el escaneo de codigo automatico solamente a *billing*. \
+
+Se usa Pipeline: *webhook_pipeline_1*.
 
 1. Jenkins > pipeline configurar > buscar Build Steps (donde estan los comandos git)
 2. Ejecutar > añadir un nuevo paso > execute SonarQube Scanner

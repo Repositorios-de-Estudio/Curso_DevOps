@@ -57,6 +57,39 @@ Se va a usar la imagen de Jenkins en Docker y se va a extender con Maven para su
    3. Cuando se hace un push en la consola de ngrok sale *POST /github-webhook/          200 OK*
 8. **IMPORANTE!** Terminar el proceso cuando se terminen las pruebas
 
+***
+
+# CONSTRUCCION AUTOMATICA DE IMAGENES DOCKER Y CARGAR EN DOCKER HUB
+
+1. instalacion plugin
+   1. jenkins > administrar > jenkins > plugins >> CloudBees Docker Build and Publish
+   2. instalar sin reiniciar
+   3. luego reiniciar manualmente
+2. Configuracion de la pipeline
+   1. jenkins > pipeline > configurar > build steps
+      1. añadir nuevo paso > Docker Build and Publish
+         1. Repository Name: Nombre de la imagen que se va a publicar
+         2. tag: numero tag de la imagen que se va a publicar
+         3. Docker Host URI: ubicación de instalación de docker (debe ser accesible desde jenkins)
+            1. Si jenkins y docker estan instalados en la misma red no se debe hacer nada mas
+            2. Si jenkins y docker estan en redes diferentes se debe crear una red compartida **Ver creación de red puente Jenkins y Docker**
+            3. Agregar URL: 'tcp://172.17.0.1:2375'
+
+## Ver creación de red puente Jenkins y Docker
+
+En esta instalación, Jenkis esta dentro de un contenedor de Docker y Docker Engine esta localmente, así que se debe crear un puente entre la red local que y la del contenedor de Jenkins.
+
+- Crear red puente entre la red local y la de un contenedor
+  - crear puente: `ip route show default | awk '/default/ {print $3}'`
+  - ver configuración IP (addr) y se saca el segmento de red (inet): `ip a` aca se busca la interfaz de interes -> '172.17.0.1'
+  - armar direccion/url: **tcp://**+{ip inet}+**:2375** ej: 'tcp://172.17.0.1:2375'
+- Exponer Docker
+  - Editar para exponer recurso Docker en: `sudo gedit /lib/systemd/system/docker.service`
+  - Exponer, en [service] reemplazar *--containerd=/run/containerd/containerd.sock* por *-H=tcp://0.0.0.0:2375*
+  - Reulstado: *ExecStart=/usr/bin/dockerd -H fd:// -H=tcp://0.0.0.0:2375*
+  - recargar docker: `sudo systemctl daemon-reload ; sudo service docker restart ; docker stop $(docker ps -a -q)`
+  - probar, la dirección debe ser accesible: `curl http://localhost:2375/images/json` // ambien se puede probar desde el navegador
+
 # REFERENCIAS
 
 1. [Documentación Jenkins - extend the image](https://github.com/jenkinsci/docker/blob/master/README.md)

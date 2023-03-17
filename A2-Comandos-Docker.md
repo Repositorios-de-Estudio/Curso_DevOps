@@ -66,6 +66,15 @@ Interfaz de Adminer: `http://localhost:9090/`
     - verificar red viendo las propiedades de cada contenedor: `docker container inspect contenedor1`
   - Listar las redes virtuales: `docker network ls`
   - Eliminar las redes virtuales: `docker network prune`
+  - Crear red puente entre la red local y la de un contenedor
+    - crear puente: `ip route show default | awk '/default/ {print $3}'`
+    - ver configuración IP (addr) y se saca el segmento de red (inet): `ip a` aca se busca la interfaz de interes
+    - armar direccion/url: tcp://{ip inet}:2375 ej: 'tcp://172.17.0.1:2375'
+    - Editar para exponer recurso Docker en: `sudo gedit /lib/systemd/system/docker.service`
+    - Exponer, en [service] reemplazar *--containerd=/run/containerd/containerd.sock* por *-H=tcp://0.0.0.0:2375*
+      - Resultado: *ExecStart=/usr/bin/dockerd -H fd:// -H=tcp://0.0.0.0:2375*
+    - recargar docker: `sudo systemctl daemon-reload ; sudo service docker restart ; docker stop $(docker ps -a -q)`
+    - probar, la dirección debe ser accesible: `curl http://localhost:2375/images/json`
   - reconstruir las imagenes: `docker-compose -f stack-billing.yml build --no-cache`
   - reconstruir los contenedores de la orquestación: `docker-compose -f stack-billing.yml up -d --force-recreate`
   - Escalar un servicio al iniciar la orquestación: `docker-compose -f stack-billing.yml up --scale billingapp-front=3 -d --force-recreate`

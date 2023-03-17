@@ -203,7 +203,7 @@ Automatizado: captura de evento push, build, test, merge, eliminación de rama
 
 ## 1 Github
 
-### Automatically delete head branches
+### Eliminación automatico de ramas Github
 
 1. Repositorio > config
    1. Pull Requests >> Automatically delete head branches
@@ -288,6 +288,28 @@ Aun se utitliza la rama *feature/addtest* debido a que la configuración del pip
 8. verificar
    1. el pipeline debio haberse ejecutado, en la console output debe salir los comandos de git y succes
    2. en github debio haberse borrado la rama secundaria
+
+# 16 PRACTICA CI/CD DESDE JENKINS
+
+Con Jenkis, construir imagenes de Docker en base a codigo en un repositorio Github de manera automatica por medio de Pipelines y luego publicar la imagene en Dockerhub. \
+
+Se usa Pipeline: *webhook_pipeline_1*.. \
+
+Repositorio: '' \
+Aplicación: Java (billing) + Angular + springtest + junit + mockvc \
+Ubicación: *16-CI-CD-automatico-con-jenkins* \
+Herramientas: Github, DockerHub, Dokcker, Jenkis, Webhook, ngrok y Slack
+Automatizado: todos los pasos para la construccion de una imagen y cargala en dockerhub
+
+1. Build Step, modificar con
+   1. clean test install
+2. Docker build and Publish
+   1. Repository Name: billingapp-backend-clase (nombre de la imagen a crear)
+   2. tag: 1.0.0
+   3. Docker Host URI: 'tcp://172.17.0.1:2375'
+      1. Se tuvo que crear puente entre el contejedor de jenkins y la maquina local, como ambas no estan en la misma red no es accesible docker engine desde jenkins. Ver todos los pasos *Ver creación de red puente Jenkins y Docker* en *A1-Jenkins-instalacion.md*.
+   4. 
+
 
 ***
 
