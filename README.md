@@ -463,6 +463,11 @@ Caracterisiticas
   - calidad
   - tamaño
   - pruebas
+- Evaluación de codigo por
+  - Bugs: problemas menores de codigo
+  - vulnerabilidades y Hostpost: Sobre vulnerabiliades en seguridad
+  - code smells: aspectos a mejorar sobre el codigo
+  - duplicaciones: lineas de codigo duplicadas
 - (Rules) El analisis se hace en funciones de reglas
   - creadas para cada lenguaje
   - reglas predefinidas
@@ -471,6 +476,7 @@ Caracterisiticas
   - Conjunto se reglas que se aplican en el analisis (usar esto cuando se crea una regla)
 - (quality gates) puerta de calidad
   - Umbral de metricas para determinar la calidad
+- En (issues) todos los issues de todos los proyectos, pemite filtrar y ver mas detalles y recoemndaciones segun la evaluación de codigo
 
 Ventajas
 
