@@ -296,12 +296,15 @@ Con Jenkis, construir imagenes de Docker en base a codigo en un repositorio Gith
 Se usa Pipeline: *webhook_pipeline_1*.. \
 
 Repositorio: '' \
-Aplicación: Java (billing) + Angular + springtest + junit + mockvc \
-Ubicación: *16-CI-CD-automatico-con-jenkins* \
+Aplicación: Java (billing) + Angular \
+Ubicación: *16-CI-CD-automatico-con-jenkins*, *basado en 15 PRACTICA pipeline CI/CD y Slack notificaciones* \
+
 Herramientas: Github, DockerHub, Dokcker, Jenkis, Webhook, ngrok y Slack \
 Automatizado: todos los pasos para la construccion de una imagen y cargala en dockerhub \
 
 Instrucciones de configuración detalladas en: *CONSTRUCCION AUTOMATICA DE IMAGENES DOCKER Y CARGAR EN DOCKER HUB*
+
+## 1 Configuración de Jenkins
 
 1. Build Step, modificar con
    1. clean test install
@@ -314,6 +317,10 @@ Instrucciones de configuración detalladas en: *CONSTRUCCION AUTOMATICA DE IMAGE
    5. Docker registry URL: ninguna,dockerhub por defecto
    6. Registry credentials
 
+## 2 configuración de codigo Billing
+
+1. Modificar: *application.properties*
+   1. Asignar puerto: *erver.port=7280*
 
 ***
 
