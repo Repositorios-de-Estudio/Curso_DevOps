@@ -37,7 +37,7 @@
       2. Marcar: *Environment variables Enable injection of SonarQube server configuration as build environment variables*
       3. Add SonarQube
       4. nombre: dar nombre > sonarqubetest
-      5. Url: http://+nombre-de-contenedor-sonarqube+:9000 > 'http://sonarqube:9000'
+      5. Url: http://localhost+:9000 > 'http://sonarqube:9000'
       6. Add credentials > jenkis
          1. Kind: secret text
          2. secret: token-de-sonarqube > squ_da6911b21788e569867f634753b00f3928d97efc
@@ -74,8 +74,8 @@ Se usa la carpeta *15-pipeline-CI-CD-slack* y se va a habilitar el escaneo de co
       1. projectKey: se va a crear un proyecto con este parametro como nombre
       2. source: ruta clases a analizar
       3. java.binaries: ruta de binarios
-4. Ahora es recomendable que el analisis de codigo sea lo primero que se jecute
-   1. Arrastrar y colocar de primero del todo en *Ejecutar*
+4. Ahora es recomendable que el analisis de codigo sea lo segundo que se ejecute
+   1. Arrastrar y colocar de segundo del todo en *Ejecutar*
       1. debe quedar por encima de *clean install* y los comandos de git
 5. Apply
 6. Save

@@ -280,7 +280,7 @@ Aun se utitliza la rama *feature/addtest* debido a que la configuración del pip
 
 1. crear y usar rama: feature/addtest
 2. probar codigo que funcione bien
-3. el .gitignore debe estar configurado para no incorporara */target/
+3. el .gitignore debe estar configurado para no incorporar */target/
 4. realizar cualquier cambio
 5. commitar y hacer push
 6. crear pull request, importante no aprobar, solo dejarlo hecho
@@ -336,14 +336,14 @@ Instrucciones de configuración detalladas en: *CONSTRUCCION AUTOMATICA DE IMAGE
    1. environment.prod.ts -> *basePath: 'http://localhost:7280'*
    2. environment.ts -> *basePath: 'http://localhost:7280'*
 
-## Configuración Git
+## 4 Configuración Git
 
 1. Crear repo github: 'https://github.com/Repositorios-de-Estudio/jenkins-auto-pull-dockerhub'
 2. Cargar codigo
 3. Agregar y subir rama *feature/addtest*
 4. Habilitar autoeliminación de ramas en github: *Automatically delete head branches*
 
-## Configuración Jenkins
+## 5 Configuración Jenkins
 
 1. Crear y configurar pipeline con configuraciones de git, docker, sonarqube, igual que *webhook_pipeline_1*
    1. nombre: pipeline_ejercicio_16
@@ -357,15 +357,17 @@ Instrucciones de configuración detalladas en: *CONSTRUCCION AUTOMATICA DE IMAGE
          2. user.email: admin@admin.com
    4. Build Steps
       1. Execute SonarQube Scanner
+         1. goles: clean test install
+         2. Advance:
+            1. POM: billing/pom.xml
+   5. Build Steps
+      1. Execute SonarQube Scanner
          1. task to tun: scan
          2. Analysis properties
             1. sonar.projectKey=sonarqube
             2. sonar.sources=billing/src/main/java
             3. sonar.java.binaries=billing/target/classes
          3. Additional arguments: -X
-   5. Build Steps
-      1. Execute SonarQube Scanner
-         1. goles: clean test install
    6. Build Steps
       1. Ejecutar linea de comandos (shell)
          1. comando
@@ -379,6 +381,9 @@ Instrucciones de configuración detalladas en: *CONSTRUCCION AUTOMATICA DE IMAGE
          2. tag: 1.0.0
          3. docker host uri: tcp://172.17.0.1:2375
          4. registry crentials: docker-hub
+         5. Advance
+            1. Build context: billing/
+            2. Addition Build Arguments: --build-arg  JAR_FILE=target/*.jar
    8. Acciones para ejecutar después
       1. Publicar los resultados de tests JUnit
          1. Ficheros XML con los informes de tests: billing/target/surefire-reports/*.xml
@@ -392,6 +397,18 @@ Instrucciones de configuración detalladas en: *CONSTRUCCION AUTOMATICA DE IMAGE
        1. Slack Notifications
            1. marcar todas
 
+## 6 Configuración webhook, ngrok y Slack
+
+1. ngrok running
+   1. url: 'https://ea94-201-244-248-50.ngrok.io'
+2. webhook en github
+   1. url: 'https://ea94-201-244-248-50.ngrok.io/github-webhook/'
+   2. Content type: json
+   3. which events: Just the push event.
+3. Slack
+   1. la configuracion que ya se tenia funciona
+
+## 
 
 ***
 

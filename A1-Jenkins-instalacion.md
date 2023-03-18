@@ -80,7 +80,7 @@ Se va a usar la imagen de Jenkins en Docker y se va a extender con Maven para su
             1. Crear Credenciales de dockerhub
                1. add > jenkis
                2. Kind: username with password
-               3. U: correo en dockerhub
+               3. U: usuario en dockerhub
                4. P: contraseña de dockerhub
                5. Marcar treat username as secret
                6. ID: docker-hub
@@ -89,7 +89,7 @@ Se va a usar la imagen de Jenkins en Docker y se va a extender con Maven para su
             1. Build Context: billing/
             2. Additional Build Arguments: --build-arg  JAR_FILE=target/*.jar
          8. Apply
-         9.  Save
+         9. Save
 
 ## Ver creación de red puente Jenkins y Docker
 
@@ -105,6 +105,47 @@ En esta instalación, Jenkis esta dentro de un contenedor de Docker y Docker Eng
   - Reulstado: *ExecStart=/usr/bin/dockerd -H fd:// -H=tcp://0.0.0.0:2375*
   - recargar docker: `sudo systemctl daemon-reload ; sudo service docker restart ; docker stop $(docker ps -a -q)`
   - probar, la dirección debe ser accesible: `curl http://localhost:2375/images/json` // ambien se puede probar desde el navegador
+
+# ERRORES
+
+## Mensaje
+
+Error cuando se ejecuta la pipeline:
+
+```text
+ERROR: Cannot run program "docker" (in directory "/var/jenkins_home/workspace/pipeline_ejercicio_16"): error=2, No such file or directory
+```
+
+## Causa
+
+No se puede conectar el contenedor al daemon de Docker de la maquina local, configuración realizada en *Ver creación de red puente Jenkins y Docker*.
+
+## Solución
+
+**No existe solución** facil de implementar, puede ser un bug de la version de docker actual = Docker version 23.0.1, build a5ee5b1.
+
+## Alternativa
+
+Instalar en el contenedor Docker. En el curso alguien escribio el procedimiento realizando nuevamente la creación de la imagen y usa la version = Docker version 18.03.1-ce, build 9ee9f40 / fedora 37.
+
+## Procedimiento
+
+```bash
+# conectarse como root
+docker exec -it -u root id-contenedor /bin/bash
+
+# realizar instalacion y configuracion
+DOCKERVERSION=18.03.1-ce
+mkdir tmp2 && cd tmp2
+curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz
+tar xzvf docker-${DOCKERVERSION}.tgz
+rm tar xzvf docker-${DOCKERVERSION}.tgz
+cp docker/docker /usr/local/bin
+cd .. && rm -r tmp2
+
+# verficar
+docker --version
+```
 
 # REFERENCIAS
 
