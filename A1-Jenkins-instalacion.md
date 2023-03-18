@@ -85,8 +85,11 @@ Se va a usar la imagen de Jenkins en Docker y se va a extender con Maven para su
                5. Marcar treat username as secret
                6. ID: docker-hub
             2. Registry credentials > docker-hub
-         7. Apply
-         8. Save
+         7. Advance
+            1. Build Context: billing/
+            2. Additional Build Arguments: --build-arg  JAR_FILE=target/*.jar
+         8. Apply
+         9.  Save
 
 ## Ver creación de red puente Jenkins y Docker
 

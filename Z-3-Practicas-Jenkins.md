@@ -295,7 +295,7 @@ Con Jenkis, construir imagenes de Docker en base a codigo en un repositorio Gith
 
 Se usa Pipeline: *webhook_pipeline_1*.. \
 
-Repositorio: 'https://github.com/Repositorios-de-Estudio/jenkins-audo-pull-dockerhub' \
+Repositorio: 'https://github.com/Repositorios-de-Estudio/jenkins-auto-pull-dockerhub' \
 Aplicación: Java (billing) + Angular \
 Ubicación: *16-CI-CD-automatico-con-jenkins*, *basado en 15 PRACTICA pipeline CI/CD y Slack notificaciones* \
 
@@ -303,6 +303,11 @@ Herramientas: Github, DockerHub, Dokcker, Jenkis, Webhook, ngrok y Slack \
 Automatizado: todos los pasos para la construccion de una imagen y cargala en dockerhub \
 
 Instrucciones de configuración detalladas en: *CONSTRUCCION AUTOMATICA DE IMAGENES DOCKER Y CARGAR EN DOCKER HUB*
+
+## Preparación
+
+1. Tener contenedor de Jenkins running
+2. Tener contenedor de Jenkins SonarQube running
 
 ## 1 Configuración de Jenkins
 
@@ -333,11 +338,60 @@ Instrucciones de configuración detalladas en: *CONSTRUCCION AUTOMATICA DE IMAGE
 
 ## Configuración Git
 
-1. Crear repo github: 'https://github.com/Repositorios-de-Estudio/jenkins-audo-pull-dockerhub'
+1. Crear repo github: 'https://github.com/Repositorios-de-Estudio/jenkins-auto-pull-dockerhub'
 2. Cargar codigo
 3. Agregar y subir rama *feature/addtest*
-4. Crear y configurar pipeline con configuraciones de git, docker, sonarqube
-   1. 
+4. Habilitar autoeliminación de ramas en github: *Automatically delete head branches*
+
+## Configuración Jenkins
+
+1. Crear y configurar pipeline con configuraciones de git, docker, sonarqube, igual que *webhook_pipeline_1*
+   1. nombre: pipeline_ejercicio_16
+   2. git:
+      1. url: 'https://github.com/Repositorios-de-Estudio/jenkins-auto-pull-dockerhub.git'
+      2. credentials: github-token-jenkins
+      3. branches to build: origin/feature/**
+   3. Additional behaviors
+      1. Custom user name/e-mail address
+         1. user.name: jenkins
+         2. user.email: admin@admin.com
+   4. Build Steps
+      1. Execute SonarQube Scanner
+         1. task to tun: scan
+         2. Analysis properties
+            1. sonar.projectKey=sonarqube
+            2. sonar.sources=billing/src/main/java
+            3. sonar.java.binaries=billing/target/classes
+         3. Additional arguments: -X
+   5. Build Steps
+      1. Execute SonarQube Scanner
+         1. goles: clean test install
+   6. Build Steps
+      1. Ejecutar linea de comandos (shell)
+         1. comando
+            1. pwd
+            2. git branch
+            3. git checkout main
+            4. git merge origin/feature/addtest
+   7. Build Steps
+      1. Docker Build and Publish
+         1. repository name: sergiopereze/billingapp-backend-clase
+         2. tag: 1.0.0
+         3. docker host uri: tcp://172.17.0.1:2375
+         4. registry crentials: docker-hub
+   8. Acciones para ejecutar después
+      1. Publicar los resultados de tests JUnit
+         1. Ficheros XML con los informes de tests: billing/target/surefire-reports/*.xml
+   9. Acciones para ejecutar después
+      1. Git Publisher
+         1. Push Only If Build Succeeds
+         2. Branches
+            1. Branch to push: main
+            2. Target remote name: origin
+   10. Acciones para ejecutar después
+       1. Slack Notifications
+           1. marcar todas
+
 
 ***
 
