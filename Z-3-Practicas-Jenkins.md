@@ -298,8 +298,10 @@ Se usa Pipeline: *webhook_pipeline_1*.. \
 Repositorio: '' \
 Aplicación: Java (billing) + Angular + springtest + junit + mockvc \
 Ubicación: *16-CI-CD-automatico-con-jenkins* \
-Herramientas: Github, DockerHub, Dokcker, Jenkis, Webhook, ngrok y Slack
-Automatizado: todos los pasos para la construccion de una imagen y cargala en dockerhub
+Herramientas: Github, DockerHub, Dokcker, Jenkis, Webhook, ngrok y Slack \
+Automatizado: todos los pasos para la construccion de una imagen y cargala en dockerhub \
+
+Instrucciones de configuración detalladas en: *CONSTRUCCION AUTOMATICA DE IMAGENES DOCKER Y CARGAR EN DOCKER HUB*
 
 1. Build Step, modificar con
    1. clean test install
