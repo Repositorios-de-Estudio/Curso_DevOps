@@ -74,6 +74,19 @@ Se va a usar la imagen de Jenkins en Docker y se va a extender con Maven para su
             1. Si jenkins y docker estan instalados en la misma red no se debe hacer nada mas
             2. Si jenkins y docker estan en redes diferentes se debe crear una red compartida **Ver creación de red puente Jenkins y Docker**
             3. Agregar URL: 'tcp://172.17.0.1:2375'
+         4. Server credential: ninguna, no tenemos docker con seguridad
+         5. Docker registry url: aca va la url de dockerhub por defecto, si se usa otro repositorio de imagenes se debe colocar la url aca
+         6. Registry credentials
+            1. Crear Credenciales de dockerhub
+               1. add > jenkis
+               2. Kind: username with password
+               3. U: correo en dockerhub
+               4. P: contraseña de dockerhub
+               5. Marcar treat username as secret
+               6. ID: docker-hub
+            2. Registry credentials > docker-hub
+         7. Apply
+         8. Save
 
 ## Ver creación de red puente Jenkins y Docker
 

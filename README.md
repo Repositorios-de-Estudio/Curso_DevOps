@@ -491,8 +491,6 @@ Ubicación archivos: *Z-4-Practicas-SonarQube.md* y *A1-SonarQube-instalacion.md
 Guia de Comandos: Se puede encontrar sobre su uso en la instalación
 Repositorio: Basado en el ejercicio 15
 
-
-
 ***
 
 # Referencias
