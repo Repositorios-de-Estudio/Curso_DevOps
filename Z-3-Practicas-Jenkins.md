@@ -295,7 +295,7 @@ Con Jenkis, construir imagenes de Docker en base a codigo en un repositorio Gith
 
 Se usa Pipeline: *webhook_pipeline_1*.. \
 
-Repositorio: '' \
+Repositorio: 'https://github.com/Repositorios-de-Estudio/jenkins-audo-pull-dockerhub' \
 Aplicación: Java (billing) + Angular \
 Ubicación: *16-CI-CD-automatico-con-jenkins*, *basado en 15 PRACTICA pipeline CI/CD y Slack notificaciones* \
 
@@ -309,7 +309,7 @@ Instrucciones de configuración detalladas en: *CONSTRUCCION AUTOMATICA DE IMAGE
 1. Build Step, modificar con
    1. clean test install
 2. Docker build and Publish
-   1. Repository Name: billingapp-backend-clase (nombre de la imagen a crear)
+   1. Repository Name: sergiopereze/billingapp-backend-clase (repositorio de dockerhib + nombre de la imagen a crear)
    2. tag: 1.0.0
    3. Docker Host URI: 'tcp://172.17.0.1:2375'
       1. Se tuvo que crear puente entre el contejedor de jenkins y la maquina local, como ambas no estan en la misma red no es accesible docker engine desde jenkins. Ver todos los pasos *Ver creación de red puente Jenkins y Docker* en *A1-Jenkins-instalacion.md*.
@@ -317,10 +317,27 @@ Instrucciones de configuración detalladas en: *CONSTRUCCION AUTOMATICA DE IMAGE
    5. Docker registry URL: ninguna,dockerhub por defecto
    6. Registry credentials
 
-## 2 configuración de codigo Billing
+## 2 configuración Back (Billing)
 
 1. Modificar: *application.properties*
    1. Asignar puerto: *erver.port=7280*
+2. Copiar *original-images/backend/Dockerfile* al mismo nivel que *pom.xml*
+
+## 3 Configuracion Front (Angular)
+
+1. Copiar *original-images/frontend/Dockerfile* en *angularWorkSpace/projects/billingApp*
+2. Copiar *original-images/frontend/nginx.conf* en *angularWorkSpace/projects/billingApp*
+3. Editar puerto a 7280 en: *angularWorkSpace/projects/billingApp/src/environments*
+   1. environment.prod.ts -> *basePath: 'http://localhost:7280'*
+   2. environment.ts -> *basePath: 'http://localhost:7280'*
+
+## Configuración Git
+
+1. Crear repo github: 'https://github.com/Repositorios-de-Estudio/jenkins-audo-pull-dockerhub'
+2. Cargar codigo
+3. Agregar y subir rama *feature/addtest*
+4. Crear y configurar pipeline con configuraciones de git, docker, sonarqube
+   1. 
 
 ***
 

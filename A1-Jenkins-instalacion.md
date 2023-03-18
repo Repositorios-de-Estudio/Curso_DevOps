@@ -68,7 +68,7 @@ Se va a usar la imagen de Jenkins en Docker y se va a extender con Maven para su
 2. Configuracion de la pipeline
    1. jenkins > pipeline > configurar > build steps
       1. añadir nuevo paso > Docker Build and Publish
-         1. Repository Name: Nombre de la imagen que se va a publicar
+         1. Repository Name: reposiotrio dockerhub + / + Nombre de la imagen que se va a publicar
          2. tag: numero tag de la imagen que se va a publicar
          3. Docker Host URI: ubicación de instalación de docker (debe ser accesible desde jenkins)
             1. Si jenkins y docker estan instalados en la misma red no se debe hacer nada mas
