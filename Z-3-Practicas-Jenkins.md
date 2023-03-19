@@ -408,7 +408,21 @@ Instrucciones de configuración detalladas en: *CONSTRUCCION AUTOMATICA DE IMAGE
 3. Slack
    1. la configuracion que ya se tenia funciona
 
-## 
+## 7 PROCEDIMIENTO
+
+1. Hacer algun cambio en *feature/addtest*
+2. Hacer Push
+3. Crear Pull request >NO HACER MERGE<
+4. Ejecutar Pipeline *pipeline_ejercicio_16*
+
+## 8 Verificar
+
+1. Console output: *Finished: SUCCESS*
+2. En github
+   1. se tuvo que haber eliminado la rama *feature/addtest*
+   2. se tuvo que haber hecho el merge
+3. En slack: debe haber notificación
+4. En DockerHub se tuvo que haber publicado la imagen *billingapp-backend-clase*
 
 ***
 
