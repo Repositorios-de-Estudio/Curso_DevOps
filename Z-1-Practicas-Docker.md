@@ -61,10 +61,10 @@ Imagen en base a la imagen nginx:alpine. // Alpine es una distro de linux muy li
   - `RUN`: Para instalar:  
     - '\ &&' para continuar en la siguiente linea, termina instruccion con ;
   - `ENV`: Variables
-  - `ARG`: Referencias 
+  - `ARG`: Referencias
     - Recibe el valor de ruutas o archivos como parametro en la construcción de la imagen, aca va vacio por eso
   - `ADD <source> <destination>`: Copiar archivos/directorios a la imagen
-  - `VOLUME`: Volumenes 
+  - `VOLUME`: Volumenes
     - Almacenamiento persistente que se comparte con el host
   - `COPY`: Copiar
   - `EXPOSE`: Definir puertos
