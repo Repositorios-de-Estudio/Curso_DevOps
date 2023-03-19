@@ -227,6 +227,7 @@ docker build -t billingapp-back:0.0.4 --no-cache --build-arg JAR_FILE=./\*.jar .
 cd ../angular 
 docker build -t billingapp-front:0.0.4 --no-cache .
 ```
+
 4. Crear objetos con los deployments
 
 ```bash
@@ -252,9 +253,6 @@ kubectl apply -f ./
             1. Ver info: billingapp_db>schemas>public>tables>invoice>>View data>>all rows
    3. a
 
-
-
-
 # PROBLEMAS
 
 ## Error al construir imagen
@@ -263,7 +261,15 @@ Mensaje: *ERROR: failed to solve: lstat /var/lib/docker/tmp/buildkit-mount226755
 
 Solución: usar el comando *docker build ...JAR_FILE=target/..* sin el *tarjet*: `docker build -t billingapp:0.0.4 --no-cache --build-arg JAR_FILE=./\*.jar .`
 
+# 18 PRACTICA - Despligue automatizado con Jenkins y Kuberneste
 
+Ejercicio de despliegue automatizado con plugnin de Kubernetes en Jenkins.
+
+## 1 Previo
+
+1. Se debe configurar Jenkins, ver en la sección *Configuración Kubernetes en Jenkins* en *A1-Jenkis-instalacion.md*
+2. Debe estar minikube running: `minikube start`
+3. Abri el dashboard: `minikube dashboard`
 
 ***
 
