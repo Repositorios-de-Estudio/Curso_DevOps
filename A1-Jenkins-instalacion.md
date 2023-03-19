@@ -149,6 +149,14 @@ cd .. && rm -r tmp2
 docker --version
 ```
 
+***
+
+# RECOMENDACIONES
+
+1. En Jenkins limpiar el espacio de trabajo para evitar errrores con git cuando se cambia de proyecto, otra alternativa es conectarse con docker exce y eliminar los espacios de trabajo manualmente
+
+***
+
 # REFERENCIAS
 
 1. [Documentación Jenkins - extend the image](https://github.com/jenkinsci/docker/blob/master/README.md)
