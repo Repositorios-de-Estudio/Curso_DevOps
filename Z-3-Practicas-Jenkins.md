@@ -317,7 +317,8 @@ Instrucciones de configuración detalladas en: *CONSTRUCCION AUTOMATICA DE IMAGE
    1. Repository Name: sergiopereze/billingapp-backend-clase (repositorio de dockerhib + nombre de la imagen a crear)
    2. tag: 1.0.0
    3. Docker Host URI: 'tcp://172.17.0.1:2375'
-      1. Se tuvo que crear puente entre el contejedor de jenkins y la maquina local, como ambas no estan en la misma red no es accesible docker engine desde jenkins. Ver todos los pasos *Ver creación de red puente Jenkins y Docker* en *A1-Jenkins-instalacion.md*.
+      1. **[NO FUNCIONA]** Se tuvo que crear puente entre el contejedor de jenkins y la maquina local, como ambas no estan en la misma red no es accesible docker engine desde jenkins. Ver todos los pasos *Ver creación de red puente Jenkins y Docker* en *A1-Jenkins-instalacion.md*.
+      2. **[FUNCIONA]** Se tuvo que instalar Docker Engine por problemas de comunicación entre Docker local y el contenedor. Hacer lo descrito en *Problemas > Mensaje 1 > Alternativa > Procedimiento* en *A1-Jenkins-instalacion.md*.
    4. Server credentials: ninguna
    5. Docker registry URL: ninguna,dockerhub por defecto
    6. Registry credentials

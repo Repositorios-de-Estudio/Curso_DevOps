@@ -22,7 +22,7 @@ Se va a usar la imagen de Jenkins en Docker, se va a extender con Maven para su 
 7. Verificar contenedor *jenkinsCont*: `docker ps -a`
 8. Entrar a jenkins
    1. Saber contraseña del portal Jenkins en los logs de instalación: `docker logs id-de-imagen`
-   2. Buscar mensaje: *enkins initial setup is required. An admin user has been created and a password generated...*
+   2. Buscar mensaje: *Jenkins initial setup is required. An admin user has been created and a password generated...*
    3. Copiar contraseña: en este caso es *5c557d5481294776aa408ddc72b2b7bf*
    4. Entrar a web jenkins: 'http://localhost:8080/' y usar contraseña
    5. Usar *Install sugged plugins* esperar algunos minutos
