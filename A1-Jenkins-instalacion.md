@@ -1,6 +1,6 @@
 # Uso de Jenkins en una imagen Docker y uso de ngrok
 
-Se va a usar la imagen de Jenkins en Docker y se va a extender con Maven para su funcionamiento con una aplicación Java.
+Se va a usar la imagen de Jenkins en Docker, se va a extender con Maven para su funcionamiento con una aplicación Java y se va a extenedor con Docker Engine para construir imagenes. El Docker file fue actualizado para poder realizar esto. Otra alternativa es instalar manualmente Docker Engine como lo muestra *Problemas > Mensaje 1 > Alternativa > Procedimiento*.
 
 ### Tambien se puede instalar directamente sobre el SO
 
@@ -72,7 +72,9 @@ Se va a usar la imagen de Jenkins en Docker y se va a extender con Maven para su
          2. tag: numero tag de la imagen que se va a publicar
          3. Docker Host URI: ubicación de instalación de docker (debe ser accesible desde jenkins)
             1. Si jenkins y docker estan instalados en la misma red no se debe hacer nada mas
-            2. Si jenkins y docker estan en redes diferentes se debe crear una red compartida **Ver creación de red puente Jenkins y Docker**
+            2. Si jenkins y docker estan en redes diferentes
+               1. *[ESTA NO FUNCIONA]* se debe crear una red compartida **Ver creación de red puente Jenkins y Docker**
+               2. *[ESTA FUNCIONA]* se debe instalar docker en el contenedjor de jenkins, ir a *Problemas > Mensaje 1 > Alternativa > Procedimiento*
             3. Agregar URL: 'tcp://172.17.0.1:2375'
          4. Server credential: ninguna, no tenemos docker con seguridad
          5. Docker registry url: aca va la url de dockerhub por defecto, si se usa otro repositorio de imagenes se debe colocar la url aca
@@ -108,7 +110,7 @@ En esta instalación, Jenkis esta dentro de un contenedor de Docker y Docker Eng
 
 # ERRORES
 
-## Mensaje
+## Mensaje 1
 
 Error cuando se ejecuta la pipeline:
 
@@ -116,19 +118,19 @@ Error cuando se ejecuta la pipeline:
 ERROR: Cannot run program "docker" (in directory "/var/jenkins_home/workspace/pipeline_ejercicio_16"): error=2, No such file or directory
 ```
 
-## Causa
+### Causa
 
 No se puede conectar el contenedor al daemon de Docker de la maquina local, configuración realizada en *Ver creación de red puente Jenkins y Docker*.
 
-## Solución
+### Solución
 
 **No existe solución** facil de implementar, puede ser un bug de la version de docker actual = Docker version 23.0.1, build a5ee5b1.
 
-## Alternativa
+### Alternativa
 
 Instalar en el contenedor Docker. En el curso alguien escribio el procedimiento realizando nuevamente la creación de la imagen y usa la version = Docker version 18.03.1-ce, build 9ee9f40 / fedora 37.
 
-## Procedimiento
+### Procedimiento
 
 ```bash
 # conectarse como root
