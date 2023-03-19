@@ -440,6 +440,48 @@ Configuración para Pipeline Nueva.
 3. En slack: debe haber notificación
 4. En DockerHub se tuvo que haber publicado la imagen *billingapp-backend-clase*
 
+# 17 PRACTICA CI/CD DESDE JENKINS - EJERCICIO PROPUESTO
+
+Practica 16 con la configuración para la creación de la imagen de *angularWorkSpace*. Al final se deberian haber las dos imagenes que se construyen en este ejercicio.
+
+No se esta usando la carpeta *angularWorkSpace* configurada en la practica 16.
+
+## 1 Configuración
+
+1. Mismo repositorio git
+2. Crear rama: *feature/addtest*
+3. Mismas configuraciones de practica 16
+4. Configuraciones adicionales Jenkins en Pipeline *pipeline_ejercicio_16*
+   1. Build Steps > Añadir nuevo paso > Docker Build and Publish
+      1. Repository Name: sergiopereze/billingapp-frontend-clase
+      2. Tag: 1.0.0
+      3. Docker host uri: 'tcp://172.17.0.1:2375'
+      4. Registry credentials: docker-hub
+      5. Avance
+         1. Build Context: angularWorkSpace/
+         2. Additional Build Arguments:
+   2. Apply
+   3. Save
+5. Configurar webhook y ngrok
+   1. 'https://f4fb-201-244-248-50.ngrok.io/github-webhook/'
+
+## 2 Prueba
+
+1. Limpiar zona de trabajo Pipeline
+2. Hacer algun cambio en *feature/addtest*
+3. Hacer Push
+4. Crear Pull request >NO HACER MERGE<
+5. Ejecutar Pipeline *pipeline_ejercicio_16*
+
+## 3 Verfificar 
+
+1. Console output: *Finished: SUCCESS*
+2. En github
+   1. se tuvo que haber eliminado la rama *feature/addtest*
+   2. se tuvo que haber hecho el merge
+3. En slack: debe haber notificación
+4. En DockerHub se tuvo que haber publicado la imagen *billingapp-backend-clase* y *billingapp-frontend-clase*
+
 ***
 
 # REFERENCIAS
