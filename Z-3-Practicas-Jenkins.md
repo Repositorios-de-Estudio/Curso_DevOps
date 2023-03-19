@@ -293,7 +293,7 @@ Aun se utitliza la rama *feature/addtest* debido a que la configuración del pip
 
 Con Jenkis, construir imagenes de Docker en base a codigo en un repositorio Github de manera automatica por medio de Pipelines y luego publicar la imagene en Dockerhub. \
 
-Se usa Pipeline: *webhook_pipeline_1*.. \
+Se va a usar Pipeline nueva: *Proyecto pipeline_ejercicio_16* \
 
 Repositorio: 'https://github.com/Repositorios-de-Estudio/jenkins-auto-pull-dockerhub' \
 Aplicación: Java (billing) + Angular \
@@ -302,7 +302,9 @@ Ubicación: *16-CI-CD-automatico-con-jenkins*, *basado en 15 PRACTICA pipeline C
 Herramientas: Github, DockerHub, Dokcker, Jenkis, Webhook, ngrok y Slack \
 Automatizado: todos los pasos para la construccion de una imagen y cargala en dockerhub \
 
-Instrucciones de configuración detalladas en: *CONSTRUCCION AUTOMATICA DE IMAGENES DOCKER Y CARGAR EN DOCKER HUB*
+Instrucciones de configuración detalladas en: *CONSTRUCCION AUTOMATICA DE IMAGENES DOCKER Y CARGAR EN DOCKER HUB*.
+
+Se tuvo que instalar Docker Engine dentro del contenedor de Jenkins para poder crear las imagenes, tuvo que ser así porque no se pudo crear un puente de red entre el docker local y el contenedor de Jenkins. Todo esta detallado en *Problemas > Mensaje 1 > Alternativa > Procedimiento* en *A1-Jenkins-instalacion.md*
 
 ## Preparación
 
@@ -311,17 +313,84 @@ Instrucciones de configuración detalladas en: *CONSTRUCCION AUTOMATICA DE IMAGE
 
 ## 1 Configuración de Jenkins
 
-1. Build Step, modificar con
-   1. clean test install
-2. Docker build and Publish
-   1. Repository Name: sergiopereze/billingapp-backend-clase (repositorio de dockerhib + nombre de la imagen a crear)
-   2. tag: 1.0.0
-   3. Docker Host URI: 'tcp://172.17.0.1:2375'
-      1. **[NO FUNCIONA]** Se tuvo que crear puente entre el contejedor de jenkins y la maquina local, como ambas no estan en la misma red no es accesible docker engine desde jenkins. Ver todos los pasos *Ver creación de red puente Jenkins y Docker* en *A1-Jenkins-instalacion.md*.
-      2. **[FUNCIONA]** Se tuvo que instalar Docker Engine por problemas de comunicación entre Docker local y el contenedor. Hacer lo descrito en *Problemas > Mensaje 1 > Alternativa > Procedimiento* en *A1-Jenkins-instalacion.md*.
-   4. Server credentials: ninguna
-   5. Docker registry URL: ninguna,dockerhub por defecto
-   6. Registry credentials
+### Configuración Global Jenkins
+
+Crear un nueva configuración SonarQube para crear un proyecto nuevo en SonarQube. Esto crea el proyecto *sonarqube-server-16*.
+
+1. Jenkins > Administrar Jenkins > Configurar el sistema
+2. SonarQube servers
+   1. Environment variables
+   2. Add SonarQube
+      1. Name: sonarqube-server-16
+      2. URL del servidor: http://sonarqube:9000
+      3. Server authentication token: sonarqube
+
+Crear una nueva instalación para diferenciar que es para la practica 16.
+
+1. Jenkins > Administrar Jenkins > Globarl Tool Configuration
+2. SonarQube Scanner > instalaciones de SonarQube Scanner > Añadir SonarQube Scanner
+   1. name: sonarscanner-16
+   2. Instalar automáticamente
+   3. Añadir instalador > Install from Maven Central
+
+### Configuración Pipeline
+
+Configuración para Pipeline Nueva.
+
+1. Crear y configurar pipeline con configuraciones de git, docker, sonarqube, igual que *webhook_pipeline_1*
+   1. Jenkins > Dhasboard > Crear nueva tarea
+      1. crear un proyecto de estilo libre
+      2. nombre: pipeline_ejercicio_16
+   2. Configurar el origen del código fuente
+      1. git:
+         1. url: 'https://github.com/Repositorios-de-Estudio/jenkins-auto-pull-dockerhub.git'
+         2. credentials: github-token-jenkins
+         3. branches to build: origin/feature/**
+      2. Additional behaviors
+         1. Custom user name/e-mail address
+            1. user.name: jenkins
+            2. user.email: admin@admin.com
+   3. Build Steps
+      1. Ejecutar tareas 'maven' de nivel superior
+         1. goles: clean test install
+         2. Advance: POM: billing/pom.xml
+   4. Build Steps
+      1. Execute SonarQube Scanner
+         1. SonarQube installation: sonarqube-server-16
+         2. Task to run: scan
+         3. Analysis properties
+            1. sonar.projectKey=sonarqube
+            2. sonar.sources=billing/src/main/java
+            3. sonar.java.binaries=billing/target/classes
+         4. Additional arguments: -X
+   5. Build Steps
+      1. Ejecutar linea de comandos (shell)
+         1. comando
+            1. pwd
+            2. git branch
+            3. git checkout main
+            4. git merge origin/feature/addtest
+   6. Build Steps
+      1. Docker Build and Publish
+         1. repository name: sergiopereze/billingapp-backend-clase (nombre que tendrá la imagen en DockerHub)
+         2. tag: 1.0.0
+         3. docker host uri: tcp://172.17.0.1:2375
+         4. registry crentials: docker-hub
+         5. Advance (estos argumentos son para crear la imagen: docker build)
+            1. Build context: billing/
+            2. Addition Build Arguments: --build-arg  JAR_FILE=target/*.jar
+   7. Acciones para ejecutar después
+      1. Publicar los resultados de tests JUnit
+         1. Ficheros XML con los informes de tests: billing/target/surefire-reports/*.xml
+   8. Acciones para ejecutar después
+      1. Git Publisher
+         1. Push Only If Build Succeeds
+         2. Branches
+            1. Branch to push: main
+            2. Target remote name: origin
+   9. Acciones para ejecutar después
+       1. Slack Notifications
+           1. marcar todas
 
 ## 2 configuración Back (Billing)
 
@@ -344,61 +413,7 @@ Instrucciones de configuración detalladas en: *CONSTRUCCION AUTOMATICA DE IMAGE
 3. Agregar y subir rama *feature/addtest*
 4. Habilitar autoeliminación de ramas en github: *Automatically delete head branches*
 
-## 5 Configuración Jenkins
-
-1. Crear y configurar pipeline con configuraciones de git, docker, sonarqube, igual que *webhook_pipeline_1*
-   1. nombre: pipeline_ejercicio_16
-   2. git:
-      1. url: 'https://github.com/Repositorios-de-Estudio/jenkins-auto-pull-dockerhub.git'
-      2. credentials: github-token-jenkins
-      3. branches to build: origin/feature/**
-   3. Additional behaviors
-      1. Custom user name/e-mail address
-         1. user.name: jenkins
-         2. user.email: admin@admin.com
-   4. Build Steps
-      1. Execute SonarQube Scanner
-         1. goles: clean test install
-         2. Advance:
-            1. POM: billing/pom.xml
-   5. Build Steps
-      1. Execute SonarQube Scanner
-         1. task to tun: scan
-         2. Analysis properties
-            1. sonar.projectKey=sonarqube
-            2. sonar.sources=billing/src/main/java
-            3. sonar.java.binaries=billing/target/classes
-         3. Additional arguments: -X
-   6. Build Steps
-      1. Ejecutar linea de comandos (shell)
-         1. comando
-            1. pwd
-            2. git branch
-            3. git checkout main
-            4. git merge origin/feature/addtest
-   7. Build Steps
-      1. Docker Build and Publish
-         1. repository name: sergiopereze/billingapp-backend-clase
-         2. tag: 1.0.0
-         3. docker host uri: tcp://172.17.0.1:2375
-         4. registry crentials: docker-hub
-         5. Advance
-            1. Build context: billing/
-            2. Addition Build Arguments: --build-arg  JAR_FILE=target/*.jar
-   8. Acciones para ejecutar después
-      1. Publicar los resultados de tests JUnit
-         1. Ficheros XML con los informes de tests: billing/target/surefire-reports/*.xml
-   9. Acciones para ejecutar después
-      1. Git Publisher
-         1. Push Only If Build Succeeds
-         2. Branches
-            1. Branch to push: main
-            2. Target remote name: origin
-   10. Acciones para ejecutar después
-       1. Slack Notifications
-           1. marcar todas
-
-## 6 Configuración webhook, ngrok y Slack
+## 5 Configuración webhook, ngrok y Slack
 
 1. ngrok running
    1. url: 'https://ea94-201-244-248-50.ngrok.io'
@@ -409,14 +424,14 @@ Instrucciones de configuración detalladas en: *CONSTRUCCION AUTOMATICA DE IMAGE
 3. Slack
    1. la configuracion que ya se tenia funciona
 
-## 7 PROCEDIMIENTO
+## 6 PROCEDIMIENTO
 
 1. Hacer algun cambio en *feature/addtest*
 2. Hacer Push
 3. Crear Pull request >NO HACER MERGE<
 4. Ejecutar Pipeline *pipeline_ejercicio_16*
 
-## 8 Verificar
+## 7 Verificar
 
 1. Console output: *Finished: SUCCESS*
 2. En github
