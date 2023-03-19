@@ -2,6 +2,7 @@ FROM jenkins/jenkins
 USER root
 # VARIABLES, VARIABLE DE VERSION
 ENV MAVEN_VERSION 3.9.0
+ENV DOCKERVERSION=18.03.1-ce
 
 # INSTALA WGET
 RUN apt-get update && apt-get install -y wget
@@ -18,6 +19,13 @@ RUN ln -s /opt/maven/bin/mvn /usr/local/bin
 
 # limpiar residuos
 RUN rm /tmp/apache-maven-$MAVEN_VERSION-bin.tar.gz 
+
+
+# instalacion necesaria de docker para poder construir imagenes
+# Update https://stackoverflow.com/questions/38675925/is-it-possible-to-install-only-the-docker-cli-and-not-the-daemon
+RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz \ 
+	&& tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 \ -C /usr/local/bin docker/docker \ 
+	&& rm docker-${DOCKERVERSION}.tgz
 
 # configuracion
 # cambia dueño de /opt/maven a usuario:grupo para dar permisos a usuario jenkins
