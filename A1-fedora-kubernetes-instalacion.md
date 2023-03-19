@@ -11,7 +11,6 @@ sudo dnf clean all
 - Tener actividado y habilitada la virtualización `grep -E --color 'vmx|svm' /proc/cpuinfo`
 - Tener instalado Docker
 
-
 # Instalacion de Kubectl Fedora 37 - binario
 
 ```bash

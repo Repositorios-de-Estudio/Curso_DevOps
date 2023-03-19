@@ -161,9 +161,37 @@ Es necesario tener instalado *kubectl* en el contenedor de Jenkis antes de insta
 1. conectarse como root: `docker exec -it --user=root jenkinsCont /bin/bash`
 2. Instalación
 
+```bash
+mkdir tmp2 && cd tmp2
+curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+mv ./kubectl /usr/local/bin/kubectl
+cd .. && rm -r tmp2
 ```
 
-```
+3. Verificar instalación: `kubectl version --client`
+
+## 2 Conectar a la red
+
+Conectar contenedor de Jenkins a la misma red donde esta minikube.
+
+1. Verificar redes existentes: `docker network ls`
+   1. La de interes es la red de minicube: *minikube*
+2. Conectar a la red: `docker network connect minikube jenkinsCont`
+   1. Verificar: `docker container inspect jenkinsCont`
+   2. debe estar la red minikube
+3. AL FINALIZAR SE RECOMIENDA desconectar de la red porque puede provocar que el contenedor no inicie si no esta disponible la red
+   1. desconectar de la red: `docker network disconnect minikube jenkinsCont`
+
+## 3 Instalación plugin
+
+1. Jenkins > administrar jenkins > admnistrar plugins > buscar >> Kubernetes
+   1. Install whitout restar
+   2. Luego reiniciar manualmente `docker restart jenkinsCont`
+
+## 4 Configuración jenkins
+
+
 
 ***
 
