@@ -251,7 +251,6 @@ kubectl apply -f ./
          1. admin@admin - qwerty
          2. servers >> bd-postgres, 192.168.49.2, 30432, postgres, postgres, qwert
             1. Ver info: billingapp_db>schemas>public>tables>invoice>>View data>>all rows
-   3. a
 
 # PROBLEMAS
 
@@ -263,7 +262,7 @@ Solución: usar el comando *docker build ...JAR_FILE=target/..* sin el *tarjet*:
 
 # 18 PRACTICA - Despligue automatizado con Jenkins y Kuberneste
 
-Ejercicio de despliegue automatizado con plugnin de Kubernetes en Jenkins basado en los archivos de la practica 8 con Kubernetes y la utilización de una pipeline declarativo. \
+Ejercicio de despliegue automatizado usando kubectl con plugnin de Kubernetes en Jenkins, tambien se crea la configuracón de la pipeline automaticamente. Basado en los archivos de la practica 8 con Kubernetes. En *Jenkinsfile* se indica la realización del deploy que esta en el cluster de kubernetes llamado *deployment-billing-app-back-jenkins.yaml* que contiene todas las definiciones para el frontend y backend, este archivo usa la imagen en DockerHub. \
 
 Servicio en cluster de kubernetes con alta disponibilidad que tiene (1) una BD (postgresql), (2) con una aplicación de administrador de BD web y una app compuesta por (3) Backend y (4) Frontend. \
 
@@ -277,7 +276,7 @@ Se necesitan crear las imagenes para el Front y Back para luego poder crear los 
 
 ## Cambios
 
-Solo se usarán los arhchivos de automatización, no se usarán los archivos de la aplicación, la aplicación esta incluida en la imagen de DockerHub que se va a usar. \
+Solo se usarán los archivos de automatización, no se usarán los archivos de la aplicación, la aplicación esta incluida en la imagen de DockerHub que se va a usar. \
 
 Se necesita crear una cuenta para el **pluging de kubernetes** en jenkins para generar un *token* que sirve para acceder al cluster de kubernetes local. \
 
@@ -308,23 +307,74 @@ Se va a usar la imagen *sergiopereze/billingapp-frontend-clase* en DockerHub de 
 ### Archivos
 
 Archivos: *18 despliegue kubernetes - jenkins/* \
-Repositorio: '' \
+Repositorio: 'https://github.com/Repositorios-de-Estudio/18-despliegue-kubernetes-jenkins' \
 Aplicación: billingapp angular, billingapp java + postgres \
 Herramientas: Jenkins, Kubernetes (minikube, kubectl), Github
 
 ## 1 Previo
 
-1. Se debe configurar Jenkins, ver en la sección *Configuración Kubernetes en Jenkins* en *A1-Jenkis-instalacion.md*
-2. Debe estar minikube running: `minikube start`
-3. Abri el dashboard: `minikube dashboard`
-4. Archivo de configuración cuenta kubernetes pluging: *jenkins-account.yaml*
+1. minikube y jenkins en Running
+2. Se debe configurar Jenkins, ver en la sección *Configuración Kubectl en Jenkins* en *A1-Jenkis-instalacion.md*
+3. Debe estar minikube running: `minikube start`
+4. Abri el dashboard: `minikube dashboard`
+5. Archivo de configuración cuenta kubernetes pluging: *jenkins-account.yaml*
    1. Este archivo crea una cuenta llamada (jenkins), le otorno permisos
-5. Archivo de despliegue: *deployment-billing-app-back-jenkins.yaml*
+6. Archivo de despliegue: *deployment-billing-app-back-jenkins.yaml*
    1. Este archivo reemplaza a *deployment-billing-app-back.yaml* y *deployment-billing-app-front.yaml*
    2. A los nombres de los servicios se le agrega la palabra jenkins para diferenciarlos con los otros ya creados.
-6. Creación de pipeline por archivos: *Jenkinsfile*
+7. Creación de pipeline por archivos: *Jenkinsfile*
    1. Esto es un pipeline declarativo
+8. Se debe tener creado el repositorio en github con los archivos descargados de *Jenkins-ci-cd.zip*
+   1. Se debe tener habiliadto: Automatically delete head branches 
 
+## 2 Configuración
+
+Proceso de instalación descrito en la sección *# CONFIGURACIÓN Kubectl EN JENKINS* en *A1-Jenkins-instalacion.md*
+
+1. Instalar kubectl en contenedor de jenkins
+2. Conectar contenedor de jenkins a la red de minikube
+3. AL FINALIZAR SE RECOMIENDA desconectar de la red porque puede provocar que el contenedor no inicie si no esta disponible la red
+   1. desconectar de la red: `docker network disconnect minikube jenkinsCont`
+4. Instalar Pluging de Kubernetes
+
+## 3 Generar datos de cluster de kubernetes
+
+### Obtener datos
+
+1. certificate-authority: '/home/user/.minikube/ca.crt'
+2. server: 'https://192.168.49.2:8443'
+3. Token con nombre *jenkins-token-rk2mg*
+
+### 4 Crear Pipleline
+
+1. Jenkins > Dashboard > Nueva tarea > deploy-kubernetes
+   1. Tipo: Pipeline (ya no es estilo libre)
+2. Configuraciones de la Pipeline:
+   1. GitHub project: 'https://github.com/Repositorios-de-Estudio/18-despliegue-kubernetes-jenkins'
+   2. Pipeline > Pipeline script from SCM
+      1. SCM: Git
+      2. Repository
+         1. URL: 'https://github.com/Repositorios-de-Estudio/18-despliegue-kubernetes-jenkins.git'
+      3. Credentials: github-token-jenkins
+      4. Branches to build: */main
+      5. Script Path: Jenkinsfile
+
+### 5 Ejecutar
+
+Al ejecutar la pipeline declarativo se descarga automaticamente el respositorio, se ejecuta el archivo *Jenkinsfile* y se autoconfigura la pipeline.
+
+En *Jenkinsfile* se indica la realización del deploy que esta en el cluster de kubernetes llamado *deployment-billing-app-back-jenkins.yaml* que contiene todas las definiciones para el frontend y backend, este archivo usa la imagen en DockerHub.
+
+1. Ejecutar pipeline
+
+#### 6 Comprobar
+
+1. Console output debe tener *Finished: SUCCESS*
+2. En la pipeline de tuvo que haber crado la sección: *Stage View*
+3. En el dashboard de kubernetes debe hjaber un nuevo deployment llamado *billing-app-back-deployment-jenkis*
+4. Abrir aplicación de billigapp swagger: 'http://192.168.49.2:31780/swagger-ui/index.html'
+
+# 19 PRACTICA - Despligue automatizado con Jenkins y Kuberneste
 
 ***
 

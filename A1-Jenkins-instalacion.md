@@ -150,11 +150,15 @@ cd .. && rm -r tmp2
 docker --version
 ```
 
-# CONFIGURACIÓN KUBERNETES EN JENKINS
+# CONFIGURACIÓN Kubectl EN JENKINS
 
 Instalación y configuración de plunging de Kubernetes en Jenkins para despliegues automatizados. \
 
 Es necesario tener instalado *kubectl* en el contenedor de Jenkis antes de instalar el Plugin en Jenkins. \
+
+La Pipeline se configura automaticamente con el archivo *Jenkinsfile*. \
+
+Esta configuración es usada para la practica *18 PRACTICA - Despligue automatizado con Jenkins y Kuberneste* en *Z-2-Practicas-Kubernetes.md*
 
 ## 1 Instalación Kubectl en contenedor Jenkins
 
@@ -189,9 +193,96 @@ Conectar contenedor de Jenkins a la misma red donde esta minikube.
    1. Install whitout restar
    2. Luego reiniciar manualmente `docker restart jenkinsCont`
 
-## 5 Configuración jenkins
+## 4 Configuración kubernetes
 
+### Generar datos de cluster de kubernetes
 
+Generar el token y la url del cluster de kubernetes asociados al servicio definido en jenkins-account.yaml*.
+
+```bash
+# aplicar configuracion
+kubectl apply -f jenkins-account.yaml
+
+# aplicar configuración para token
+kubectl apply -f jenkins-token.yml
+
+# ver ubicacion del certificado
+kubectl config view | grep -i certificate-authority
+
+# ver url del cluster
+kubectl config view | grep -i server
+
+# consultar token
+kubectl describe secret/jenkins-token-rk2mg
+```
+
+Datos obtenidos:
+
+1. certificate-authority: '/home/user/.minikube/ca.crt'
+2. server: 'https://192.168.49.2:8443'
+3. Token con nombre *jenkins-token-rk2mg*
+
+## 5 Configuración de Jenkins
+
+Agregar token cluster kubernetes a Jenkins y configurarlo.
+
+1. Jenkins > Administrar > Security > Manage credentials > Stores from parent >> System
+2. En *Global credentials (unrestricted)* > Add credentials
+   1. Kind: Secret text
+   2. Secret: aca va el token de kubernetes
+   3. ID: kubernete-jenkis-server-account (este nombre es el que usa el pipeline creado en Jenkinsfile.yml)
+3. Jenkins > Administrar > Manage nodes and clouds
+   1. Configure Clouds > añadir nueva nuve >> kubernetes
+      1. name: kubernetes-cloud
+      2. Kubernetes cloud details
+         1. Kubernetes URL: 'https://192.168.49.2:8443' (es la url del cluster de kubernetes)
+         2. Kubernetes server certificate key: es el contenido de '/home/user/.minikube/ca.crt' (es la ubicacion del certificado)
+            1. Copiar contenido y usar: `gedit /home/user/.minikube/ca.crt`
+            2. Copiar inlucyendo *-----BEGIN CERTIFICATE-----* y *-----END CERTIFICATE-----*
+      3. Credentials: kubernete-jenkis-server-account
+      4. Test connection: debe salir *Connected to Kubernetes v1.26.1*
+
+### 6 Crear Pipeline Nueva
+
+1. Jenkins > Dashboard > Nueva tarea
+   1. Nombre: deploy-kubernetes
+   2. Tipo: Pipeline (ya no es estilo libre)
+2. Configuraciones de la Pipeline:
+   1. GitHub project: 'https://github.com/Repositorios-de-Estudio/18-despliegue-kubernetes-jenkins'
+      1. url del repositorio, sin el .git
+   2. Pipeline > Pipeline script from SCM
+      1. SCM: Git
+      2. Repository
+         1. URL: 'https://github.com/Repositorios-de-Estudio/18-despliegue-kubernetes-jenkins.git'
+            1. url de descarga del repositorio, con el .git
+      3. Credentials: github-token-jenkins
+      4. Branches to build: */main
+      5. Script Path: Jenkinsfile
+         1. es es el nombre del archivo que crea el pipeline y debe estar subido en el repositorio
+3. Apply
+4. Save
+
+### 7 Ejecutar
+
+1. Ejecutar pipeline
+
+#### 8 Comprobar
+
+1. Consoleoutput debe tener *Finished: SUCCESS*
+2. En la pipeline de tuvo que haber crado la sección: *Stage View*
+3. En el dashboard de kubernetes debe hjaber un nuevo deploymen
+4. Se debe poder acceder a la aplicación en el anvegador
+   1. Para el ejercicio se usa swagger: 'http://192.168.49.2:31780/swagger-ui/index.html'
+
+## PROBLEMAS
+
+### Mensaje 1
+
+Al ejecutar `kubectl --namespace default get serviceaccount` no se vio un secret creado (SECRETS default 0). En los comentarios de la clase alguien indico la creación de *jenkins-token.yml* y posterior ejecución.
+
+### Solución
+
+Ejecutar lo que se indica en *4 Configuración kubernetes* > *Generar datos de cluster de kubernetes*.
 
 ***
 
