@@ -428,6 +428,22 @@ Automatizado:contrucción imagen, despliegue, carga en DockerHub, pruebas de cal
 5. En Dashboard de Kubernetes debe estar el deployment *billing-app-back-deployment-jenkis*
 6. Es accesible: 'http://192.168.49.2:31780/swagger-ui/index.html'
 
+# 20 PRACTICA EJERCICIO PROPUESTO CLASE 80
+
+Practica aplicando todo lo aprendido sobre CI y CD. Realizar construcción y despliegue automatico de un cluster con las aplicaciones Back y Front. \
+
+Contenedores: Docker \
+Cluster: minikube \
+Analisi de codigo: SonarQube \
+Pruebas: JUnit \
+Servidor CI: Jenkins \
+Notificaciones: Slack \
+Repositorio Git: GitHub \
+Repositorio de imagenes: DockerHub \
+Eventos: ngrok - webhooks - slack
+
+![Arquitectura General del Curso](./media/actividad-propuesta-clase-80.png)
+
 ***
 
 # REFERENCIAS
