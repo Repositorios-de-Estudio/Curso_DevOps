@@ -154,7 +154,7 @@ docker --version
 
 Instalación y configuración de plunging de Kubernetes en Jenkins para despliegues automatizados. \
 
-Es necesario tener instalado *kubectl* en el contenedor de Jenkis antes de instalar el Plugin en Jenkins.
+Es necesario tener instalado *kubectl* en el contenedor de Jenkis antes de instalar el Plugin en Jenkins. \
 
 ## 1 Instalación Kubectl en contenedor Jenkins
 
@@ -189,7 +189,7 @@ Conectar contenedor de Jenkins a la misma red donde esta minikube.
    1. Install whitout restar
    2. Luego reiniciar manualmente `docker restart jenkinsCont`
 
-## 4 Configuración jenkins
+## 5 Configuración jenkins
 
 
 

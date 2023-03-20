@@ -263,13 +263,68 @@ Solución: usar el comando *docker build ...JAR_FILE=target/..* sin el *tarjet*:
 
 # 18 PRACTICA - Despligue automatizado con Jenkins y Kuberneste
 
-Ejercicio de despliegue automatizado con plugnin de Kubernetes en Jenkins.
+Ejercicio de despliegue automatizado con plugnin de Kubernetes en Jenkins basado en los archivos de la practica 8 con Kubernetes y la utilización de una pipeline declarativo. \
+
+Servicio en cluster de kubernetes con alta disponibilidad que tiene (1) una BD (postgresql), (2) con una aplicación de administrador de BD web y una app compuesta por (3) Backend y (4) Frontend. \
+
+Para el acceso desde internet se usaran los servicios: PgAdmin y Posgres los cuales son accesibles desde el WEB Browser. \
+
+El servicio de postgres tiene ip fija *10.96.1.2* para se pueda acceder a la BD independiente de si cambia la IP del pot de postgres. Como el pod es efimero la IP puede cambiar, así que, se usa el servicio para hacer de intermediario y mantener una IP fija para que pueda ser accedida por la aplicación. \
+
+Para el acceso del usuario a la aplicación se usa el servicio Front, luego el front devuelve como se hace la petición al back, el browser la ejecuta y envia directamente la peticion al back. Se espera que la IP del cluster sea *192.168.49.2* para que funcione correctamente la petición al back. \
+
+Se necesitan crear las imagenes para el Front y Back para luego poder crear los contenedores. \
+
+## Cambios
+
+Solo se usarán los arhchivos de automatización, no se usarán los archivos de la aplicación, la aplicación esta incluida en la imagen de DockerHub que se va a usar. \
+
+Se necesita crear una cuenta para el **pluging de kubernetes** en jenkins para generar un *token* que sirve para acceder al cluster de kubernetes local. \
+
+Se va a usar la imagen *sergiopereze/billingapp-frontend-clase* en DockerHub de la pactica 16 y 17. Esto en vez de usar la imagen configurada por defecto del profesor: *sotobotero/billingapp-backend*.
+
+## Arquitectura
+
+1. Servicio Posgres: Servicio para administra la BD con IP Fija
+2. Servicio PgAdmin: Servicio web que permite administrar la BD
+3. Servicio Front
+4. Servio Back
+5. Pod Postgres
+    - Con persistencia
+    - Imagen de postgres
+    - Volumen para almacenar datos
+    - Segundo volumen para ejecutar scripts
+6. Pod PgAdmin
+    - Aplicación web
+7. Pod FrontEnd (x2 replicas)
+   - Angular
+   - Alta disponilidad
+8. Pod BackEnd (x3 replicas)
+   - Java - SprintBoot
+   - Alta disponibilidad
+
+![Arquiectura-BillingApp-Kubernetes](8-practica-BillingApp/media/arquitetcura.png)
+
+### Archivos
+
+Archivos: *18 despliegue kubernetes - jenkins/* \
+Repositorio: '' \
+Aplicación: billingapp angular, billingapp java + postgres \
+Herramientas: Jenkins, Kubernetes (minikube, kubectl), Github
 
 ## 1 Previo
 
 1. Se debe configurar Jenkins, ver en la sección *Configuración Kubernetes en Jenkins* en *A1-Jenkis-instalacion.md*
 2. Debe estar minikube running: `minikube start`
 3. Abri el dashboard: `minikube dashboard`
+4. Archivo de configuración cuenta kubernetes pluging: *jenkins-account.yaml*
+   1. Este archivo crea una cuenta llamada (jenkins), le otorno permisos
+5. Archivo de despliegue: *deployment-billing-app-back-jenkins.yaml*
+   1. Este archivo reemplaza a *deployment-billing-app-back.yaml* y *deployment-billing-app-front.yaml*
+   2. A los nombres de los servicios se le agrega la palabra jenkins para diferenciarlos con los otros ya creados.
+6. Creación de pipeline por archivos: *Jenkinsfile*
+   1. Esto es un pipeline declarativo
+
 
 ***
 
