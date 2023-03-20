@@ -347,8 +347,9 @@ Proceso de instalación descrito en la sección *# CONFIGURACIÓN Kubectl EN JEN
 
 ### 4 Crear Pipleline
 
-1. Jenkins > Dashboard > Nueva tarea > deploy-kubernetes
-   1. Tipo: Pipeline (ya no es estilo libre)
+1. Jenkins > Dashboard > Nueva tarea
+   1. Nombre: deploy-kubernetes
+   2. Tipo: Pipeline (ya no es estilo libre)
 2. Configuraciones de la Pipeline:
    1. GitHub project: 'https://github.com/Repositorios-de-Estudio/18-despliegue-kubernetes-jenkins'
    2. Pipeline > Pipeline script from SCM
@@ -374,7 +375,38 @@ En *Jenkinsfile* se indica la realización del deploy que esta en el cluster de 
 3. En el dashboard de kubernetes debe hjaber un nuevo deployment llamado *billing-app-back-deployment-jenkis*
 4. Abrir aplicación de billigapp swagger: 'http://192.168.49.2:31780/swagger-ui/index.html'
 
-# 19 PRACTICA - Despligue automatizado con Jenkins y Kuberneste
+# 19 PRACTICA - Construcción, despligue y carga automatizado con Jenkins y Kuberneste
+
+En base el la practica 16, 17 y 18 se va a usar el pipeline *Proyecto pipeline_ejercicio_16* para llavar a la pipeline *deploy-kubernetes*. \
+
+Con Jenkis y Kubectl se construyen y despliegan imagenes en base a codigo en un repositorio Github de manera automatica por medio de Pipelines y luego publicar la imagene en Dockerhub. Se realizan pruebas al proyecto maven con SonarQube y se notifica por Slack. \
+
+Se usa Pipeline: *Proyecto pipeline_ejercicio_16* y *deploy-kubernetes* \
+
+Repositorio: 'https://github.com/Repositorios-de-Estudio/18-despliegue-kubernetes-jenkins' \
+Aplicación: kubectl + docker + java (billing) + Angular + webhook + ngrok + sonarqube + slack \
+Ubicación: *19-Construcción- despligue-carga automatizado-Jenkins-Kuberneste* \
+Herramientas: Jenkis, SonarQube, Kubernetes y DockerHub
+Automatizado:contrucción imagen, despliegue, carga en DockerHub, pruebas de calidad de codigo con SonarQube, notificaciones a Slack
+
+## Previo
+
+1. Se tuvo que haber eliminado el deployment creado del ejercicio 17 del dashboard de Kubernetes.
+2. Tener contenedor de Jenkins running
+3. Tener contenedor de Jenkins SonarQube running
+4. Tener minikube en running
+5. Tener configurado webhook, nrgok y Slack
+
+## 1 Configuración
+
+1. Pipeline *Proyecto pipeline_ejercicio_16* > Acciones para jecutar despues > añadir una nueva opcion > ejecutar otros proyectos
+   1. Ejecutar otros proyectos
+      1. Proyectos a ejecutar: deploy-kubernetes
+      2. Trigger only if build is stable
+
+## 2 Ejecutar
+
+
 
 ***
 
