@@ -473,7 +473,7 @@ No se esta usando la carpeta *angularWorkSpace* configurada en la practica 16.
 4. Crear Pull request >NO HACER MERGE<
 5. Ejecutar Pipeline *pipeline_ejercicio_16*
 
-## 3 Verfificar 
+## 3 Verfificar
 
 1. Console output: *Finished: SUCCESS*
 2. En github

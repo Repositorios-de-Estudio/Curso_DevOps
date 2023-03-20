@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: billing-app-back-deployment-jenkis
+spec:
+  selector:
+   matchLabels:
+    app: billing-app-back-jenkis
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: billing-app-back-jenkis
+    spec:
+      containers:
+        - name: billing-app-back-jenkis
+          image: sotobotero/billingapp-backend
+          ports:
+            - containerPort: 7280
+              name: billingappbport
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: billing-app-back-service-jenkis
+  labels:
+    app: billing-app-back-jenkis
+spec:   
+  ports:
+  - name: billing-app-back-jenkis
+    port: 7280
+    nodePort : 31780 
+  #type: LoadBalancer
+  type: NodePort
+  selector:
+   app: billing-app-back-jenkis

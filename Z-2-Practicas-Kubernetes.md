@@ -377,13 +377,14 @@ En *Jenkinsfile* se indica la realización del deploy que esta en el cluster de 
 
 # 19 PRACTICA - Construcción, despligue y carga automatizado con Jenkins y Kuberneste
 
-En base el la practica 16, 17 y 18 se va a usar el pipeline *Proyecto pipeline_ejercicio_16* para llavar a la pipeline *deploy-kubernetes*. \
+En base el la practica 16, 17 y 18 se va a usar el pipeline *Proyecto pipeline_ejercicio_16* para encadenar a la pipeline *deploy-kubernetes*. \
 
 Con Jenkis y Kubectl se construyen y despliegan imagenes en base a codigo en un repositorio Github de manera automatica por medio de Pipelines y luego publicar la imagene en Dockerhub. Se realizan pruebas al proyecto maven con SonarQube y se notifica por Slack. \
 
 Se usa Pipeline: *Proyecto pipeline_ejercicio_16* y *deploy-kubernetes* \
 
-Repositorio: 'https://github.com/Repositorios-de-Estudio/18-despliegue-kubernetes-jenkins' \
+Repositorio 1: 'https://github.com/Repositorios-de-Estudio/jenkins-auto-pull-dockerhub'
+Repositorio 2: 'https://github.com/Repositorios-de-Estudio/18-despliegue-kubernetes-jenkins' \
 Aplicación: kubectl + docker + java (billing) + Angular + webhook + ngrok + sonarqube + slack \
 Ubicación: *19-Construcción- despligue-carga automatizado-Jenkins-Kuberneste* \
 Herramientas: Jenkis, SonarQube, Kubernetes y DockerHub
@@ -399,14 +400,33 @@ Automatizado:contrucción imagen, despliegue, carga en DockerHub, pruebas de cal
 
 ## 1 Configuración
 
-1. Pipeline *Proyecto pipeline_ejercicio_16* > Acciones para jecutar despues > añadir una nueva opcion > ejecutar otros proyectos
+1. Todas las confuraciones de practicas 16, 17 y 18
+2. Pipeline *Proyecto pipeline_ejercicio_16* > Acciones para ejecutar despues > añadir una nueva opcion > ejecutar otros proyectos
    1. Ejecutar otros proyectos
       1. Proyectos a ejecutar: deploy-kubernetes
       2. Trigger only if build is stable
 
-## 2 Ejecutar
+## 2 Prueba
 
+1. Eliminar deployment en dashboard Kubernetes
+2. Limpiar zona de trabajo Pipeline
+3. Para el repositorio 1
+   1. Crear rapa *feature/addtest*
+   2. Hacer algun cambio en *feature/addtest*
+   3. Hacer Push
+   4. Crear Pull request >NO HACER MERGE<
+4. Ejecutar Pipeline *pipeline_ejercicio_16*
 
+## 3 Verfificar
+
+1. Console output: *Finished: SUCCESS*
+2. En github
+   1. se tuvo que haber eliminado la rama *feature/addtest* del repo 1
+   2. se tuvo que haber hecho el merge en el repo 1
+3. En slack: debe haber notificación
+4. En DockerHub se tuvo que haber publicado la imagen *billingapp-backend-clase* y *billingapp-frontend-clase*
+5. En Dashboard de Kubernetes debe estar el deployment *billing-app-back-deployment-jenkis*
+6. Es accesible: 'http://192.168.49.2:31780/swagger-ui/index.html'
 
 ***
 
