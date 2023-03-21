@@ -22,7 +22,7 @@
    1. Webhooks
    2. Jenkins
    3. ngrok
-   4. Slack
+   4. Slack (Discord)
    5. Codigo
       1. JUnit
       2. SonarQube
@@ -384,7 +384,7 @@ En este proyecto, el **Servidor de Integración Continua** (Server CI/CD) es don
 1. Pipeline: Grupo lógico de actividades que trabajan de manera conjunta para realizar una tarea
    1. Ej: Se crea un pipleine que: contruya el codigo con cambios, ejecute pruebas y haga el merge
 2. Jenkins: ervidor de automatización OpenSource
-3. Slack: Plataforma propietaria empresarial de comunicación de equipos
+3. Slack/Discord: Plataforma propietaria empresarial de comunicación de equipos
    1. Su caracteristca de Channel permite recibir las notificaciones de de los resultados de pruebas y despliegue
 4. SonarQube: Plataforma OpenSource que inspecciona el codigo asegurando la calidad del codigo
    1. recomienda mejoras de codigo, optimizaciones
@@ -529,6 +529,8 @@ El core la aplicación se encuentra en el Server, allí tambien esta la BD, esta
 # Grafana
 
 Ofrece un dashboard o tablero de control a otras herramientas, se puede usar para diferentes fuentes de datos, usualmente se usa en conjunto con Prometheus.
+
+Se pueden usar diferentes DashBoard en: 'https://grafana.com/grafana/dashboards'. Tambien se pueden crear diseños propios.
 
 ![Grafana & Prometheus](./media/grafana-prometeus.png)
 

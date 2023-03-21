@@ -1,6 +1,16 @@
-# Practicas Kubernetes con Prometheus Grafana
+# Practicas Kubernetes con Prometheus y Grafana
 
-# Introducción Prometheus
+Todos los archivos estan en: *20-grafana-promethus*. Se va hacer deploy de
+
+1. Imagen de Prometheus (sever)
+   1. URL: 'http://192.168.49.2:30000/'
+2. kube-state-metrics (servicio definicion de una alerta)
+3. Alert Manager (manager)
+   1. URL: 'http://192.168.49.2:31000/#/alerts'
+4. Grafana (UI)
+   1. URL: 'http://192.168.49.2:32000/login'
+
+# PROMETHEUS
 
 Se creará un clusterRol (rol prometheus) para otorgar los permisos necesarios para Prometheus. Cualquier usario que pertenezca a ese rol recibirá los permisos del rol. \
 
@@ -100,7 +110,7 @@ Los archivos de configuración e instalación estan en *alert-manager/*. Se pued
 
 El despligue y el servicio se definen en *deployment-alert-manager.yaml*, en *deployment-alert-manager.yaml* se define el tipo de almacenamiento como persistente y se le asigna un tamaño de 500MB. La configuración del servicio esta en *configmap-alert-manager.yaml* en donde de crea un archivo *alertmanager.yml* y es donde va la configuración del canal de Slack, esto requiere usar un webhook de Slack. Para el ejercicio cree el canal en slack llamado *curso-prometheus*.
 
-## Confuguración de WebHook en Slack
+## Configuración de WebHook en Slack
 
 1. Crear canal en Slack: curso-prometheus
 2. Ir a More > Apps, buscar: incoming webhooks
@@ -111,9 +121,44 @@ El despligue y el servicio se definen en *deployment-alert-manager.yaml*, en *de
    5. Pegar esta URL en el campo *slack_api_url* del archivo *configmap-alert-manager.yaml*
    6. Pegar nombre del canal en el campo *slack_configs > channel*
 3. En Slack se verá la notificación: añadió una integración a este canal: incoming-webhook
-4. Agregar nombre del canal al configmap
-   1. En **
 
+## Instalación de Alert Manager
+
+1. Ejecutar: `kubectl apply -f alert-manager`
+2. Verificar: kubernetes dashboard > filtrar por namespace monitoring
+3. En Config Maps y Pods, debe estar *alertmanager-conf*
+4. Verificar interfaz del Alert Manager: 'minikube ip+31000' > 'http://192.168.49.2:31000'
+
+***
+
+# GRAFANA
+
+En *configmap-grafana.yaml* se define el configmap que crea *prometheus.yaml* donde se especifica el **datasource** (de donde recibe la información), aca se pueden definir varios para usar información de varias BD. Aca esta la *url* del servicio de prometheus que debe ser la url del endpoint de prometheus (prometheus-service) y su puerto definido en *deployment-prometheus.yaml*. \
+
+EL deploy se hace de una imagen publica de Grafana, se definen recursos y se monta el archivo de configuración del datasource definida en *ConfigMap > grafana-datasources* dentro de *configmap-grafana.yaml*. \
+
+Se pueden usar diferentes DashBoard en: 'https://grafana.com/grafana/dashboards' \
+
+## Instralación de Grafana
+
+1. Ejecutar: `kubectl apply -f grafana`
+2. Verificar: *minikube IP o Prometheus ip:+32000*
+   1. En este caso es: '192.168.49.2:32000'
+   2. U: admin
+   3. P: admin
+
+## Integración de Grafana con Prometheus
+
+1. Descargar Template del Dashboard del sitio de Grafana
+   1. En este caso usar 'https://grafana.com/grafana/dashboards'
+   2. Buscar el que nos guste y copiar su **ID** (Copy ID Dashboard)
+2. En grafana > Dashboards > Import
+3. Import via grafana.com >> 6417 >> LOAD
+4. prometheus > prometheus
+5. Import
+
+Pantallazo de Grafana
+![Pantallazo](./media/pantallazo-grafana.png)
 
 ***
 
@@ -121,3 +166,4 @@ El despligue y el servicio se definen en *deployment-alert-manager.yaml*, en *de
 
 - [Documentación namespaces](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
 - [Crear role de monitorizacion - Referencia Authoriation](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
+- [Documentación de Grafana](https://grafana.com/grafana/)
