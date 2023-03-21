@@ -390,6 +390,16 @@ Ubicación: *19-Construcción- despligue-carga automatizado-Jenkins-Kuberneste* 
 Herramientas: Jenkis, SonarQube, Kubernetes y DockerHub
 Automatizado:contrucción imagen, despliegue, carga en DockerHub, pruebas de calidad de codigo con SonarQube, notificaciones a Slack
 
+Contenedores: Docker \
+Cluster: minikube \
+Analisi de codigo: SonarQube \
+Pruebas: JUnit \
+Servidor CI: Jenkins \
+Notificaciones: Slack \
+Repositorio Git: GitHub \
+Repositorio de imagenes: DockerHub \
+Eventos: ngrok - webhooks - slack
+
 ## Previo
 
 1. Se tuvo que haber eliminado el deployment creado del ejercicio 17 del dashboard de Kubernetes.
@@ -427,22 +437,6 @@ Automatizado:contrucción imagen, despliegue, carga en DockerHub, pruebas de cal
 4. En DockerHub se tuvo que haber publicado la imagen *billingapp-backend-clase* y *billingapp-frontend-clase*
 5. En Dashboard de Kubernetes debe estar el deployment *billing-app-back-deployment-jenkis*
 6. Es accesible: 'http://192.168.49.2:31780/swagger-ui/index.html'
-
-# 20 PRACTICA EJERCICIO PROPUESTO CLASE 80
-
-Practica aplicando todo lo aprendido sobre CI y CD. Realizar construcción y despliegue automatico de un cluster con las aplicaciones Back y Front. \
-
-Contenedores: Docker \
-Cluster: minikube \
-Analisi de codigo: SonarQube \
-Pruebas: JUnit \
-Servidor CI: Jenkins \
-Notificaciones: Slack \
-Repositorio Git: GitHub \
-Repositorio de imagenes: DockerHub \
-Eventos: ngrok - webhooks - slack
-
-![Arquitectura General del Curso](./media/actividad-propuesta-clase-80.png)
 
 ***
 

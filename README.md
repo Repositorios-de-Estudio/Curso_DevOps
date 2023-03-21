@@ -11,17 +11,20 @@
    2. Docker Swarm
    3. Docker Network
 4. Kubernetes
-   1. Objetos de Kubernetes
-   2. Escalabilidad
-   3. Git Flow
-   4. Git Trunk Base
+   1. Clusters con minikube
+   2. Objetos de Kubernetes
+   3. Escalabilidad
+   4. Git Flow
+   5. Git Trunk Base
 5. FLujos de Trabajado basado en git
-6. CI/CD (Integración Continua y Entrega Continua)
+6. CI/CD (Integración Continua y Distribución/Entrega Continua)
    1. Webhooks
    2. Jenkins
    3. ngrok
    4. Slack
-   5. SonarQube
+   5. Codigo
+      1. JUnit
+      2. SonarQube
 7. Referencias
 
 ### Estructura del Repositorio
