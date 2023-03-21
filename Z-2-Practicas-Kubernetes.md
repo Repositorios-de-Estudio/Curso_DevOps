@@ -1,5 +1,9 @@
 # SECCIÓN DE PRACTICAS Y EJERCICIOS Kubernetes
 
+# Monitorización con Promtehus y Grafana en
+
+'Z-5-Practicas-Prometheus-Grafana'
+
 # Creacion de POD: Prueba con imagen billingapp
 
 1. Tener imagen dockerisada: <https://hub.docker.com/r/sotobotero/udemy-devops/tags>

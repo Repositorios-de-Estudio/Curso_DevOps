@@ -14,7 +14,9 @@ Ver el dashboar con: `minikube dashboard --url` \
 
 La aplicación se abre en la url y permite ver y administrar todos los componentes/objetos en la insfraestructura: <http://127.0.0.1:36855/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/>
 
-## Comandos utiles
+# Comandos utiles
+
+# Contenedores
 
 - Ver contenedor de kubernetes en docker: `docker ps -a`
 - Ingresar a contenedor de kubernetes como admin: `docker exec -it minikube /bin/bash`
@@ -50,3 +52,13 @@ La aplicación se abre en la url y permite ver y administrar todos los component
 - Consultar la ip de minikube: `minikube ip`
 - Cifrar palabra: `echo -n "postgres" | base64`
 - Descifrar palabra: `echo "cG9zdGdyZXM=" | base64 -d`
+
+# Namespaces
+
+- verificar namespaces: `kubectl get namespace`
+- Crear el namespace si no existe: `kubectl create namespace monitoring`
+- Aplicar role de monitorizacion: `kubectl apply -f moniring-role.yaml`
+- Crear fichero de configuracion para externalizar la configuracion de prometheus: `kubectl apply -f configmap-prometheus.yaml`
+  - (independiente del ciclo de vida del contenedor)
+- Crear el contenedor y el servicio de prometheus (el contenedor): `kubectl apply -f deployment-prometheus.yaml`
+- verificar los pods del namespace  monitoring: `kubectl get all --namespace=monitoring`

@@ -1,0 +1,27 @@
+#A service account provides an identity for processes that run in a Pod
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/name: kube-state-metrics
+    app.kubernetes.io/version: v1.8.0
+  name: kube-state-metrics
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/name: kube-state-metrics
+    app.kubernetes.io/version: v1.8.0
+  name: kube-state-metrics
+#The ClusterRole to bind Subjects to
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kube-state-metrics
+#The Users, Groups, or ServiceAccounts to grant permissions to
+subjects:
+- kind: ServiceAccount
+  name: kube-state-metrics
+  namespace: kube-system

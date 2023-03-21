@@ -16,6 +16,7 @@
    3. Escalabilidad
    4. Git Flow
    5. Git Trunk Base
+   6. Minitoreo (7)
 5. FLujos de Trabajado basado en git
 6. CI/CD (Integración Continua y Distribución/Entrega Continua)
    1. Webhooks
@@ -25,7 +26,10 @@
    5. Codigo
       1. JUnit
       2. SonarQube
-7. Referencias
+7. Minitoreo
+   1. Prometheus
+   2. Grafana
+8. Referencias
 
 ### Estructura del Repositorio
 
@@ -265,6 +269,10 @@ Clientde de Kubernetes, la cual es una herramienta de línea de comandos para in
 
 La administración con *kubctl*, se hace por medio de su interfaz como WEB API o por medio de consola. El rol de SysAdmin es quien administra y usa *kubctl*.
 
+## Namespaces
+
+Un mismo cluster fisico es usado para organizar varios clusters al interios de este, para esto se crean namespaces que son clusters virtuales en un mismoo cluster fisico. Los recursos en un namespace puede ser consultados por cualquiera de los recursos dentro de este y esto no es posible entre diferentes namespaces. Para organizar dentro de un namespace y distingir entre varios contenedores con el mismo nombre se usan los Tags.
+
 ## Nodos / Tipos de nodos
 
 Como minimo se tiene un nodo Master y un nodo Worker.
@@ -493,6 +501,36 @@ Ventajas
 Ubicación archivos: *Z-4-Practicas-SonarQube.md* y *A1-SonarQube-instalacion.md*  
 Guia de Comandos: Se puede encontrar sobre su uso en la instalación
 Repositorio: Basado en el ejercicio 15
+
+***
+
+# MONITORIZACION
+
+# Prometheus
+
+Sistema opensource para monitorizar la infraestructura, eventos y alertas que se generan. Kubernetes tiene agentes que se integran con Prometheus. Permite definir cuando se debe crear y cual medio usa para notificar. \
+
+Se puede usar el nodos y clusters, es muy usado en entornos grandes y empresariales.
+
+Caracteristicas
+
+1. Monitorización de infraestrutura fisica
+2. Monitorización de componentes funcionales (servicios)
+3. Detectar la raíz del problema
+4. Alarmas en tiempo real
+5. Notificaciones via email, webhooks, etc...
+6. Alert Manager > envia alertas según se parametrice
+7. Dashboard > ver metricas
+
+El core la aplicación se encuentra en el Server, allí tambien esta la BD, esta tambien puede ser una BD propia. El Client Library es quien realiza el seguimiento, los eventos son enviados al Server. Los PushGateways cumplen la misma función de los exportes pero para los eventos de corta vida que no son detectados por los Exportes. Los Exportes son los jobs que se programan con cierta frecuencia que recolecta los eventos y envia al Server. El Alert Manager se encarga de decidir que hacer con las notificaciones de las alertas. PromQL es el lenaguaje de Promethus para realizar consultas, estas consultas son realizadas para presentar las metricas y graficos mediante una herramienta externa, usualmente se usa Grafana.
+
+![Arquitectura Prometheus](./media/arquiectura-prometheus.png)
+
+# Grafana
+
+Ofrece un dashboard o tablero de control a otras herramientas, se puede usar para diferentes fuentes de datos, usualmente se usa en conjunto con Prometheus.
+
+![Grafana & Prometheus](./media/grafana-prometeus.png)
 
 ***
 
