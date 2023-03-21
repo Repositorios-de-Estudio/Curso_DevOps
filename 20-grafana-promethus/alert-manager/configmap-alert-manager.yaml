@@ -9,7 +9,7 @@ data:
   alertmanager.yml: |-
     global:
       resolve_timeout: 5m
-      slack_api_url: 'https://hooks.slack.com/services/cambiar esta linea por el propio webhook de su cuenta en slack'
+      slack_api_url: 'https://hooks.slack.com/services/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'
   
     route:
       group_by: ['alertname', 'priority']
@@ -30,6 +30,6 @@ data:
     - name: default-receiver
       slack_configs:
         - send_resolved: true
-          channel: '#prometheus'
+          channel: '#curso-prometheus'
           text: '{{ template "slack.default.text" . }}'
           title: "{{ range .Alerts }}{{ .Annotations.summary }}\n{{ end }}"

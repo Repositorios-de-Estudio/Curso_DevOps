@@ -512,7 +512,7 @@ Sistema opensource para monitorizar la infraestructura, eventos y alertas que se
 
 Se puede usar el nodos y clusters, es muy usado en entornos grandes y empresariales.
 
-Caracteristicas
+Caracteristicas query
 
 1. Monitorización de infraestrutura fisica
 2. Monitorización de componentes funcionales (servicios)
@@ -522,7 +522,7 @@ Caracteristicas
 6. Alert Manager > envia alertas según se parametrice
 7. Dashboard > ver metricas
 
-El core la aplicación se encuentra en el Server, allí tambien esta la BD, esta tambien puede ser una BD propia. El Client Library es quien realiza el seguimiento, los eventos son enviados al Server. Los PushGateways cumplen la misma función de los exportes pero para los eventos de corta vida que no son detectados por los Exportes. Los Exportes son los jobs que se programan con cierta frecuencia que recolecta los eventos y envia al Server. El Alert Manager se encarga de decidir que hacer con las notificaciones de las alertas. PromQL es el lenaguaje de Promethus para realizar consultas, estas consultas son realizadas para presentar las metricas y graficos mediante una herramienta externa, usualmente se usa Grafana.
+El core la aplicación se encuentra en el Server, allí tambien esta la BD, esta tambien puede ser una BD propia. El Client Library es quien realiza el seguimiento, los eventos son enviados al Server. Los PushGateways cumplen la misma función de los exportes pero para los eventos de corta vida que no son detectados por los Exportes. Los Exportes son los jobs que se programan con cierta frecuencia que recolecta los eventos y envia al Server. El Alert Manager se encarga de decidir que hacer con las notificaciones de las alertas. PromQL es el lenguaje de Promethus para realizar querys, estas consultas son realizadas para presentar las metricas y graficos mediante una herramienta externa, usualmente se usa Grafana.
 
 ![Arquitectura Prometheus](./media/arquiectura-prometheus.png)
 

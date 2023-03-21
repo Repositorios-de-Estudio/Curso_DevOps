@@ -57,7 +57,7 @@ La aplicación se abre en la url y permite ver y administrar todos los component
 
 - verificar namespaces: `kubectl get namespace`
 - Crear el namespace si no existe: `kubectl create namespace monitoring`
-- Aplicar role de monitorizacion: `kubectl apply -f moniring-role.yaml`
+- Aplicar rol de monitorizacion: `kubectl apply -f moniring-role.yaml`
 - Crear fichero de configuracion para externalizar la configuracion de prometheus: `kubectl apply -f configmap-prometheus.yaml`
   - (independiente del ciclo de vida del contenedor)
 - Crear el contenedor y el servicio de prometheus (el contenedor): `kubectl apply -f deployment-prometheus.yaml`
